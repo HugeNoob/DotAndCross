@@ -1,6 +1,6 @@
 var selected = null;
 const compoundParams = {
-  '2': {
+  'HCl': {
         'palette': [
           {
             figshape: "Circle",
@@ -65,7 +65,7 @@ const compoundParams = {
               category: 'elementName'
         }]
   },
-  '3': {
+  'CO2': {
         'palette': [
           {
             figshape: "Circle",
@@ -158,7 +158,7 @@ const compoundParams = {
             category: 'elementName'
         }]
   },
-  '4': {
+  'NH3': {
         'palette': [
           {
             figshape: "Circle",
@@ -282,7 +282,7 @@ const compoundParams = {
     }
 }
 
-var compoundType = '4'
+var compoundType = 'HCl'
 
 const init = () => {
   var $ = go.GraphObject.make;  // for more concise visual tree definitions
@@ -723,6 +723,13 @@ const setCompoundType = (x) => {
   myPalette.model.nodeDataArray = []
   myPalette.model.nodeDataArray = compoundParams[compoundType]['palette']
   myPalette.commitTransaction()
+
+  // Update covers
+  covers = document.getElementsByClassName('compoundName')
+  for(let i of covers){
+    i.innerText = x
+    console.log(i)
+  }
 }
 
 const check = () => {
