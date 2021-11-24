@@ -26,7 +26,7 @@ const compoundParams = {
         'data' :[{
             height: 120,
             width: 200,
-            figshape: "DoubleCircle",
+            figshape: "TwoElements",
             ports: [
               { id: "Aleft1", spot: "0 0.46" },
               { id: "Aleft2", spot: "0 0.54" },
@@ -42,12 +42,12 @@ const compoundParams = {
               { id: "Bbottom1", spot: "0.7 0.98" },
               { id: "Bbottom2", spot: "0.74 0.98" },
         
-              { id: "centre1", spot: "0.5 0.25" },
-              { id: "centre2", spot: "0.5 0.35" },
-              { id: "centre3", spot: "0.5 0.45" },
-              { id: "centre4", spot: "0.5 0.55" },
-              { id: "centre5", spot: "0.5 0.65" },
-              { id: "centre6", spot: "0.5 0.75" },
+              { id: "center1", spot: "0.5 0.25" },
+              { id: "center2", spot: "0.5 0.35" },
+              { id: "center3", spot: "0.5 0.45" },
+              { id: "center4", spot: "0.5 0.55" },
+              { id: "center5", spot: "0.5 0.65" },
+              { id: "center6", spot: "0.5 0.75" },
               ],
               selectable: false,
               movable: false
@@ -101,7 +101,7 @@ const compoundParams = {
         'data': [{
           height: 120,
           width: 300,
-          figshape: "TripleCircle",
+          figshape: "ThreeElements",
           ports: [
             { id: "Aleft1", spot: "0 0.48" },
             { id: "Aleft2", spot: "0 0.52" },
@@ -122,19 +122,19 @@ const compoundParams = {
             { id: "Cbottom1", spot: "0.79 1" },
             { id: "Cbottom2", spot: "0.81 1" },
       
-            { id: "1centre1", spot: "0.35 0.25" },
-            { id: "1centre2", spot: "0.35 0.35" },
-            { id: "1centre3", spot: "0.35 0.45" },
-            { id: "1centre4", spot: "0.35 0.55" },
-            { id: "1centre5", spot: "0.35 0.65" },
-            { id: "1centre6", spot: "0.35 0.75" },
+            { id: "Lcenter1", spot: "0.35 0.25" },
+            { id: "Lcenter2", spot: "0.35 0.35" },
+            { id: "Lcenter3", spot: "0.35 0.45" },
+            { id: "Lcenter4", spot: "0.35 0.55" },
+            { id: "Lcenter5", spot: "0.35 0.65" },
+            { id: "Lcenter6", spot: "0.35 0.75" },
       
-            { id: "2centre1", spot: "0.65 0.25" },
-            { id: "2centre2", spot: "0.65 0.35" },
-            { id: "2centre3", spot: "0.65 0.45" },
-            { id: "2centre4", spot: "0.65 0.55" },
-            { id: "2centre5", spot: "0.65 0.65" },
-            { id: "2centre6", spot: "0.65 0.75" },
+            { id: "Rcenter1", spot: "0.65 0.25" },
+            { id: "Rcenter2", spot: "0.65 0.35" },
+            { id: "Rcenter3", spot: "0.65 0.45" },
+            { id: "Rcenter4", spot: "0.65 0.55" },
+            { id: "Rcenter5", spot: "0.65 0.65" },
+            { id: "Rcenter6", spot: "0.65 0.75" },
           ],
           selectable: false,
           movable: false
@@ -202,68 +202,87 @@ const compoundParams = {
           },
         ],
         'data': [{
-          height: 120,
+          height: 210,
           width: 300,
-          figshape: "TripleCircle",
+          figshape: "FourElements",
           ports: [
-            { id: "Aleft1", spot: "0 0.48" },
-            { id: "Aleft2", spot: "0 0.52" },
-            { id: "Atop1", spot: "0.19 0" },
-            { id: "Atop2", spot: "0.21 0" },
+            { id: "Aleft1", spot: "0 0.7" },
+            { id: "Aleft2", spot: "0 0.72" },
+            { id: "Atop1", spot: "0.19 0.425" },
+            { id: "Atop2", spot: "0.21 0.425" },
             { id: "Abottom1", spot: "0.19 1" },
             { id: "Abottom2", spot: "0.21 1" },
       
-            { id: "Btop1", spot: "0.49 0" },
-            { id: "Btop2", spot: "0.51 0" },
             { id: "Bbottom1", spot: "0.49 1" },
             { id: "Bbottom2", spot: "0.51 1" },
       
-            { id: "Cright1", spot: "1 0.48" },
-            { id: "Cright2", spot: "1 0.52" },
-            { id: "Ctop1", spot: "0.79 0" },
-            { id: "Ctop2", spot: "0.81 0" },
+            { id: "Cright1", spot: "1 0.7" },
+            { id: "Cright2", spot: "1 0.72" },
+            { id: "Ctop1", spot: "0.79 0.425" },
+            { id: "Ctop2", spot: "0.81 0.425" },
             { id: "Cbottom1", spot: "0.79 1" },
             { id: "Cbottom2", spot: "0.81 1" },
+
+            { id: "Dtop1", spot: "0.49 0" },
+            { id: "Dtop2", spot: "0.51 0" },
+            { id: "Dleft1", spot: "0.3 0.28" },
+            { id: "Dleft2", spot: "0.3 0.3" },
+            { id: "Dright1", spot: "0.7 0.28" },
+            { id: "Dright2", spot: "0.7 0.3" },
       
-            { id: "1centre1", spot: "0.35 0.25" },
-            { id: "1centre2", spot: "0.35 0.35" },
-            { id: "1centre3", spot: "0.35 0.45" },
-            { id: "1centre4", spot: "0.35 0.55" },
-            { id: "1centre5", spot: "0.35 0.65" },
-            { id: "1centre6", spot: "0.35 0.75" },
-      
-            { id: "2centre1", spot: "0.65 0.25" },
-            { id: "2centre2", spot: "0.65 0.35" },
-            { id: "2centre3", spot: "0.65 0.45" },
-            { id: "2centre4", spot: "0.65 0.55" },
-            { id: "2centre5", spot: "0.65 0.65" },
-            { id: "2centre6", spot: "0.65 0.75" },
+            { id: "Lcenter1", spot: "0.35 0.59" },
+            { id: "Lcenter2", spot: "0.35 0.64" },
+            { id: "Lcenter3", spot: "0.35 0.69" },
+            { id: "Lcenter4", spot: "0.35 0.74" },
+            { id: "Lcenter5", spot: "0.35 0.79" },
+            { id: "Lcenter6", spot: "0.35 0.84" },
+
+            { id: "Mcenter1", spot: "0.4 0.5" },
+            { id: "Mcenter2", spot: "0.44 0.5" },
+            { id: "Mcenter3", spot: "0.48 0.5" },
+            { id: "Mcenter4", spot: "0.52 0.5" },
+            { id: "Mcenter5", spot: "0.56 0.5" },
+            { id: "Mcenter6", spot: "0.6 0.5" },
+
+            { id: "Rcenter1", spot: "0.65 0.59" },
+            { id: "Rcenter2", spot: "0.65 0.64" },
+            { id: "Rcenter3", spot: "0.65 0.69" },
+            { id: "Rcenter4", spot: "0.65 0.74" },
+            { id: "Rcenter5", spot: "0.65 0.79" },
+            { id: "Rcenter6", spot: "0.65 0.84" },
           ],
           selectable: false,
-          movable: false
+          movable: false,
           },
           {
             name: 'A',
             elementName: 'A',
-            position: new go.Point(55, 55),
+            position: new go.Point(58, 145),
             category: 'elementName'
           },
           {
             name: 'B',
             elementName: 'B',
-            position: new go.Point(148, 55),
+            position: new go.Point(148, 145),
             category: 'elementName'
           },
           {
             name: 'C',
             elementName: 'C',
-            position: new go.Point(238, 55),
+            position: new go.Point(238, 145),
             category: 'elementName'
-        }]
-  }
+          },
+          {
+            name: 'D',
+            elementName: 'D',
+            position: new go.Point(148, 55),
+            category: 'elementName'
+          }
+        ]
+    }
 }
 
-var compoundType = '2'
+var compoundType = '4'
 
 const init = () => {
   var $ = go.GraphObject.make;  // for more concise visual tree definitions
@@ -383,33 +402,41 @@ const init = () => {
       });  
 
   // Defining structure for 2 element compound
-  go.Shape.defineFigureGenerator("DoubleCircle", function(shape, w, h) {
+  go.Shape.defineFigureGenerator("TwoElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
   
     var quarterCircle = w / 7
     var rad = quarterCircle*2
     var geo = new go.Geometry();
+    // Left
     var fig = new go.PathFigure(rad*2, h/2);
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, h/2, rad, rad));
+
+    // Right
     fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
     geo.add(fig);
     return geo;
   });
 
-  // Defining structure for 2 element compound
-  go.Shape.defineFigureGenerator("TripleCircle", function(shape, w, h) {
+  // Defining structure for 3 element compound
+  go.Shape.defineFigureGenerator("ThreeElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
   
     var quarterCircle = w / 10
     var rad = quarterCircle*2
     var geo = new go.Geometry();
+    // Left
     var fig = new go.PathFigure(rad*2, h/2);
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, h/2, rad, rad));
+
+    // Center
     fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, h/2));
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, h/2, rad, rad));
+
+    // Right
     fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
     
@@ -417,6 +444,34 @@ const init = () => {
     return geo;
   });
   
+  // Defining structure for 4 element compound
+  go.Shape.defineFigureGenerator("FourElements", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 10
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(rad*2, quarterCircle*5);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, quarterCircle*5, rad, rad));
+
+    // Center
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, quarterCircle*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, quarterCircle*5, rad, rad));
+
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, quarterCircle*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, quarterCircle*5, rad, rad));
+
+    // Top
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, rad, rad, rad));
+    
+    geo.add(fig);
+    return geo;
+  });
+
   // Binds double clicked element for deletion
   myDiagram.addDiagramListener("ObjectDoubleClicked", (e) => {
     selected = e.subject.part.data
