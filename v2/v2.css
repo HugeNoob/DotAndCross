@@ -1,0 +1,27 @@
+.hidingBox1 {
+    width:200px; 
+    height:70px; 
+    background-color: #DAE4E4;
+    border-style: solid;
+    border-width: thin;
+    position: absolute; 
+    top: 8px; 
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidingBox2 {
+    width:200px; 
+    height:70px; 
+    background-color: #DAE4E4;
+    border-style: solid;
+    border-width: thin;
+    position: absolute; 
+    top: 173px; 
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
