@@ -388,6 +388,7 @@ SnappingTool.prototype.doDropOnto = function(pt, obj) {
 // When SHIFTing, must disconnect all links that connect with nodes not being dragged.
 // Without SHIFT, move all nodes that are snapped to selected nodes, even indirectly.
 SnappingTool.prototype.computeEffectiveCollection = function(parts) {
+  myDiagram.startTransaction()
   if (this.diagram.lastInput.shift) {
     var links = new go.Set(/*go.Link*/);
     var coll = go.DraggingTool.prototype.computeEffectiveCollection.call(this, parts);
@@ -405,6 +406,7 @@ SnappingTool.prototype.computeEffectiveCollection = function(parts) {
     });
     // outside of nested loops we can actually delete the links
     links.each(function(l) { l.diagram.remove(l); });
+    myDiagram.commitTransaction()
     return coll;
   } else {
     var map = new go.Map(/*go.Part, Object*/);
@@ -413,6 +415,7 @@ SnappingTool.prototype.computeEffectiveCollection = function(parts) {
     parts.iterator.each(function(n) {
       tool.gatherConnecteds(map, n);
     });
+    myDiagram.commitTransaction()
     return map;
   }
 };
@@ -431,7 +434,6 @@ SnappingTool.prototype.gatherConnecteds = function(map, node) {
     tool.gatherConnecteds(map, link.getOtherNode(node));
   });
 };
-// end SnappingTool class
 
 window.addEventListener('DOMContentLoaded', init);
 
