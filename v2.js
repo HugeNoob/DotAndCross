@@ -1,6 +1,271 @@
 var selected = null;
+const compoundParams = {
+  '2': {
+        'palette': [
+          {
+            figshape: "Circle",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+          {
+            figshape: "Xline",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+        ],
+        'data' :[{
+            height: 120,
+            width: 200,
+            figshape: "DoubleCircle",
+            ports: [
+              { id: "Aleft1", spot: "0 0.46" },
+              { id: "Aleft2", spot: "0 0.54" },
+              { id: "Atop1", spot: "0.26 0.02" },
+              { id: "Atop2", spot: "0.3 0.02" },
+              { id: "Abottom1", spot: "0.26 0.98" },
+              { id: "Abottom2", spot: "0.3 0.98" },
+        
+              { id: "Bright1", spot: "1 0.46" },
+              { id: "Bright2", spot: "1 0.54" },
+              { id: "Btop1", spot: "0.7 0.02" },
+              { id: "Btop2", spot: "0.74 0.02" },
+              { id: "Bbottom1", spot: "0.7 0.98" },
+              { id: "Bbottom2", spot: "0.74 0.98" },
+        
+              { id: "centre1", spot: "0.5 0.25" },
+              { id: "centre2", spot: "0.5 0.35" },
+              { id: "centre3", spot: "0.5 0.45" },
+              { id: "centre4", spot: "0.5 0.55" },
+              { id: "centre5", spot: "0.5 0.65" },
+              { id: "centre6", spot: "0.5 0.75" },
+              ],
+              selectable: false,
+              movable: false
+            },
+            {
+              name: 'A',
+              elementName: 'A',
+              position: new go.Point(54, 55),
+              category: 'elementName'
+            },
+            {
+              name: 'B',
+              elementName: 'B',
+              position: new go.Point(140, 55),
+              category: 'elementName'
+        }]
+  },
+  '3': {
+        'palette': [
+          {
+            figshape: "Circle",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+          {
+            figshape: "Xline",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+          {
+            figshape: "Diamond",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+        ],
+        'data': [{
+          height: 120,
+          width: 300,
+          figshape: "TripleCircle",
+          ports: [
+            { id: "Aleft1", spot: "0 0.48" },
+            { id: "Aleft2", spot: "0 0.52" },
+            { id: "Atop1", spot: "0.19 0" },
+            { id: "Atop2", spot: "0.21 0" },
+            { id: "Abottom1", spot: "0.19 1" },
+            { id: "Abottom2", spot: "0.21 1" },
+      
+            { id: "Btop1", spot: "0.49 0" },
+            { id: "Btop2", spot: "0.51 0" },
+            { id: "Bbottom1", spot: "0.49 1" },
+            { id: "Bbottom2", spot: "0.51 1" },
+      
+            { id: "Cright1", spot: "1 0.48" },
+            { id: "Cright2", spot: "1 0.52" },
+            { id: "Ctop1", spot: "0.79 0" },
+            { id: "Ctop2", spot: "0.81 0" },
+            { id: "Cbottom1", spot: "0.79 1" },
+            { id: "Cbottom2", spot: "0.81 1" },
+      
+            { id: "1centre1", spot: "0.35 0.25" },
+            { id: "1centre2", spot: "0.35 0.35" },
+            { id: "1centre3", spot: "0.35 0.45" },
+            { id: "1centre4", spot: "0.35 0.55" },
+            { id: "1centre5", spot: "0.35 0.65" },
+            { id: "1centre6", spot: "0.35 0.75" },
+      
+            { id: "2centre1", spot: "0.65 0.25" },
+            { id: "2centre2", spot: "0.65 0.35" },
+            { id: "2centre3", spot: "0.65 0.45" },
+            { id: "2centre4", spot: "0.65 0.55" },
+            { id: "2centre5", spot: "0.65 0.65" },
+            { id: "2centre6", spot: "0.65 0.75" },
+          ],
+          selectable: false,
+          movable: false
+          },
+          {
+            name: 'A',
+            elementName: 'A',
+            position: new go.Point(55, 55),
+            category: 'elementName'
+          },
+          {
+            name: 'B',
+            elementName: 'B',
+            position: new go.Point(148, 55),
+            category: 'elementName'
+          },
+          {
+            name: 'C',
+            elementName: 'C',
+            position: new go.Point(238, 55),
+            category: 'elementName'
+        }]
+  },
+  '4': {
+        'palette': [
+          {
+            figshape: "Circle",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+          {
+            figshape: "Xline",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+          {
+            figshape: "Diamond",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+          {
+            figshape: "Triangle",
+            height: 5,
+            width: 5,
+            fill: "#000",
+            ports: [
+              { id: "1", spot: "0.5 0.5", fill: null },
+            ],
+            textvisible: false
+          },
+        ],
+        'data': [{
+          height: 120,
+          width: 300,
+          figshape: "TripleCircle",
+          ports: [
+            { id: "Aleft1", spot: "0 0.48" },
+            { id: "Aleft2", spot: "0 0.52" },
+            { id: "Atop1", spot: "0.19 0" },
+            { id: "Atop2", spot: "0.21 0" },
+            { id: "Abottom1", spot: "0.19 1" },
+            { id: "Abottom2", spot: "0.21 1" },
+      
+            { id: "Btop1", spot: "0.49 0" },
+            { id: "Btop2", spot: "0.51 0" },
+            { id: "Bbottom1", spot: "0.49 1" },
+            { id: "Bbottom2", spot: "0.51 1" },
+      
+            { id: "Cright1", spot: "1 0.48" },
+            { id: "Cright2", spot: "1 0.52" },
+            { id: "Ctop1", spot: "0.79 0" },
+            { id: "Ctop2", spot: "0.81 0" },
+            { id: "Cbottom1", spot: "0.79 1" },
+            { id: "Cbottom2", spot: "0.81 1" },
+      
+            { id: "1centre1", spot: "0.35 0.25" },
+            { id: "1centre2", spot: "0.35 0.35" },
+            { id: "1centre3", spot: "0.35 0.45" },
+            { id: "1centre4", spot: "0.35 0.55" },
+            { id: "1centre5", spot: "0.35 0.65" },
+            { id: "1centre6", spot: "0.35 0.75" },
+      
+            { id: "2centre1", spot: "0.65 0.25" },
+            { id: "2centre2", spot: "0.65 0.35" },
+            { id: "2centre3", spot: "0.65 0.45" },
+            { id: "2centre4", spot: "0.65 0.55" },
+            { id: "2centre5", spot: "0.65 0.65" },
+            { id: "2centre6", spot: "0.65 0.75" },
+          ],
+          selectable: false,
+          movable: false
+          },
+          {
+            name: 'A',
+            elementName: 'A',
+            position: new go.Point(55, 55),
+            category: 'elementName'
+          },
+          {
+            name: 'B',
+            elementName: 'B',
+            position: new go.Point(148, 55),
+            category: 'elementName'
+          },
+          {
+            name: 'C',
+            elementName: 'C',
+            position: new go.Point(238, 55),
+            category: 'elementName'
+        }]
+  }
+}
 
-function init() {
+var compoundType = '2'
+
+const init = () => {
   var $ = go.GraphObject.make;  // for more concise visual tree definitions
 
   myDiagram =
@@ -17,8 +282,7 @@ function init() {
         'dragSelectingTool.isEnabled': false,
       });
 
-  // Define the generic "pipe" Node.
-  // The Shape gets it Geometry from a geometry path string in the bound data.
+  // Generic node template
   // This node also gets all of its ports from an array of port data in the bound data.
   myDiagram.nodeTemplate =
     $(go.Node, "Spot",
@@ -68,8 +332,8 @@ function init() {
           name: "SHAPE",
           // the following are default values;
           // actual values may come from the node data object via data binding
-          height: 120,
-          width: 200,
+          height: 300,
+          width: 300,
           fill: null,
         },
         new go.Binding('height', 'height'),
@@ -95,6 +359,7 @@ function init() {
         linkToPortIdProperty: "tid"
       });
 
+  // Electron palette
   myPalette =
     $(go.Palette, "myPaletteDiv",
       {
@@ -113,39 +378,8 @@ function init() {
             copiesArrayObjects: true,
             linkFromPortIdProperty: "fid",
             linkToPortIdProperty: "tid",
-            nodeDataArray: [
-              {
-                figshape: "Circle",
-                height: 5,
-                width: 5,
-                fill: "#000",
-                ports: [
-                  { id: "1", spot: "0.5 0.5", fill: null },
-                ],
-                textvisible: false
-              },
-              {
-                figshape: "Xline",
-                height: 5,
-                width: 5,
-                fill: "#000",
-                ports: [
-                  { id: "1", spot: "0.5 0.5", fill: null },
-                ],
-                textvisible: false
-              },
-              {
-                figshape: "Diamond",
-                height: 5,
-                width: 5,
-                fill: "#000",
-                ports: [
-                  { id: "1", spot: "0.5 0.5", fill: null },
-                ],
-                textvisible: false
-              },
-            ]  // end nodeDataArray
-          })  // end model
+            nodeDataArray: compoundParams[compoundType]['palette']
+          })  
       });  
 
   // Defining structure for 2 element compound
@@ -163,16 +397,38 @@ function init() {
     geo.add(fig);
     return geo;
   });
+
+  // Defining structure for 2 element compound
+  go.Shape.defineFigureGenerator("TripleCircle", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 10
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    var fig = new go.PathFigure(rad*2, h/2);
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, h/2, rad, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, h/2, rad, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
+    
+    geo.add(fig);
+    return geo;
+  });
   
   // Binds double clicked element for deletion
   myDiagram.addDiagramListener("ObjectDoubleClicked", (e) => {
     selected = e.subject.part.data
   })
 
+  // Edited string should only contain string of <=2 letters
   const validElement = (textblock, oldstr, newstr) => {
     const lettersOnly = /^[a-zA-Z]+$/.test(newstr);
     return newstr.length <= 2 && lettersOnly
   }
+
+  // Defining element name template
   var elementName = 
     $(go.Node, 'Auto',
       {movable: false},
@@ -189,47 +445,8 @@ function init() {
   myDiagram.nodeTemplateMap.add("elementName", elementName)
 
   // Compound structure given to student
-  myDiagram.model.nodeDataArray = [
-    {
-      figshape: "DoubleCircle",
-      ports: [
-        { id: "Aleft1", spot: "0 0.46" },
-        { id: "Aleft2", spot: "0 0.54" },
-        { id: "Atop1", spot: "0.26 0.02" },
-        { id: "Atop2", spot: "0.3 0.02" },
-        { id: "Abottom1", spot: "0.26 0.98" },
-        { id: "Abottom2", spot: "0.3 0.98" },
+  myDiagram.model.nodeDataArray = compoundParams[compoundType]['data']
 
-        { id: "Bright1", spot: "1 0.46" },
-        { id: "Bright2", spot: "1 0.54" },
-        { id: "Btop1", spot: "0.7 0.02" },
-        { id: "Btop2", spot: "0.74 0.02" },
-        { id: "Bbottom1", spot: "0.7 0.98" },
-        { id: "Bbottom2", spot: "0.74 0.98" },
-
-        { id: "centre1", spot: "0.5 0.25" },
-        { id: "centre2", spot: "0.5 0.35" },
-        { id: "centre3", spot: "0.5 0.45" },
-        { id: "centre4", spot: "0.5 0.55" },
-        { id: "centre5", spot: "0.5 0.65" },
-        { id: "centre6", spot: "0.5 0.75" },
-      ],
-      selectable: false,
-      movable: false
-    },
-    {
-      name: 'LeftElement',
-      elementName: 'A',
-      position: new go.Point(55, 55),
-      category: 'elementName'
-    },
-    {
-      name: 'RightElement',
-      elementName: 'B',
-      position: new go.Point(140, 55),
-      category: 'elementName'
-    }
-  ]
 }
 
 // Define a custom DraggingTool
@@ -436,6 +653,22 @@ SnappingTool.prototype.gatherConnecteds = function(map, node) {
 };
 
 window.addEventListener('DOMContentLoaded', init);
+
+const setCompoundType = (x) => {
+  compoundType = x
+  // Update diagram data
+  myDiagram.startTransaction()
+  myDiagram.model.nodeDataArray = []
+  myDiagram.model.linkDataArray = []
+  myDiagram.model.nodeDataArray = compoundParams[compoundType]['data']
+  myDiagram.commitTransaction()
+
+  // Update palette data
+  myPalette.startTransaction()
+  myPalette.model.nodeDataArray = []
+  myPalette.model.nodeDataArray = compoundParams[compoundType]['palette']
+  myPalette.commitTransaction()
+}
 
 const check = () => {
   console.log(selected)
