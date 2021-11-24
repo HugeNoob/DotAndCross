@@ -299,6 +299,7 @@ const init = () => {
         allowVerticalScroll: false, 
         "panningTool.isEnabled": false,
         'dragSelectingTool.isEnabled': false,
+        maxSelectionCount: 1
       });
 
   // Generic node template
@@ -386,6 +387,7 @@ const init = () => {
         contentAlignment: go.Spot.Bottom,
         nodeTemplate: myDiagram.nodeTemplate,  // shared with the main Diagram
         "contextMenuTool.isEnabled": false,
+        maxSelectionCount: 1,
         layout: $(go.GridLayout,
           {
             cellSize: new go.Size(1, 1), spacing: new go.Size(5, 5),
