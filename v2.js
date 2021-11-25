@@ -3,6 +3,8 @@ const compoundParams = {
   'HCl': {
         'palette': [
           {
+            type: 'electron',
+            element: 'A',
             figshape: "Circle",
             height: 5,
             width: 5,
@@ -13,6 +15,8 @@ const compoundParams = {
             textvisible: false
           },
           {
+            type: 'electron',
+            element: 'B',
             figshape: "Xline",
             height: 5,
             width: 5,
@@ -28,19 +32,19 @@ const compoundParams = {
             width: 200,
             figshape: "TwoElements",
             ports: [
-              { id: "Aleft1", spot: "0 0.46" },
-              { id: "Aleft2", spot: "0 0.54" },
-              { id: "Atop1", spot: "0.26 0.02" },
+              { id: "Aleft1", spot: "0 0.48" },
+              { id: "Aleft2", spot: "0 0.52" },
+              { id: "Atop1", spot: "0.27 0.02" },
               { id: "Atop2", spot: "0.3 0.02" },
-              { id: "Abottom1", spot: "0.26 0.98" },
+              { id: "Abottom1", spot: "0.27 0.98" },
               { id: "Abottom2", spot: "0.3 0.98" },
         
-              { id: "Bright1", spot: "1 0.46" },
-              { id: "Bright2", spot: "1 0.54" },
+              { id: "Bright1", spot: "1 0.48" },
+              { id: "Bright2", spot: "1 0.52" },
               { id: "Btop1", spot: "0.7 0.02" },
-              { id: "Btop2", spot: "0.74 0.02" },
+              { id: "Btop2", spot: "0.73 0.02" },
               { id: "Bbottom1", spot: "0.7 0.98" },
-              { id: "Bbottom2", spot: "0.74 0.98" },
+              { id: "Bbottom2", spot: "0.73 0.98" },
         
               { id: "center1", spot: "0.5 0.25" },
               { id: "center2", spot: "0.5 0.35" },
@@ -53,13 +57,15 @@ const compoundParams = {
               movable: false
             },
             {
-              name: 'A',
+              type: 'elementName',
+              element: 'A',
               elementName: 'A',
               position: new go.Point(54, 55),
               category: 'elementName'
             },
             {
-              name: 'B',
+              type: 'elementName',
+              element: 'B',
               elementName: 'B',
               position: new go.Point(140, 55),
               category: 'elementName'
@@ -68,6 +74,8 @@ const compoundParams = {
   'CO2': {
         'palette': [
           {
+            type: 'electron',
+            element: 'A',
             figshape: "Circle",
             height: 5,
             width: 5,
@@ -78,6 +86,8 @@ const compoundParams = {
             textvisible: false
           },
           {
+            type: 'electron',
+            element: 'B',
             figshape: "Xline",
             height: 5,
             width: 5,
@@ -88,6 +98,8 @@ const compoundParams = {
             textvisible: false
           },
           {
+            type: 'electron',
+            element: 'C',
             figshape: "Diamond",
             height: 5,
             width: 5,
@@ -140,19 +152,22 @@ const compoundParams = {
           movable: false
           },
           {
-            name: 'A',
+            type: 'elementName',
+            element: 'A',
             elementName: 'A',
             position: new go.Point(55, 55),
             category: 'elementName'
           },
           {
-            name: 'B',
+            type: 'elementName',
+            element: 'B',
             elementName: 'B',
             position: new go.Point(148, 55),
             category: 'elementName'
           },
           {
-            name: 'C',
+            type: 'elementName',
+            element: 'C',
             elementName: 'C',
             position: new go.Point(238, 55),
             category: 'elementName'
@@ -161,6 +176,8 @@ const compoundParams = {
   'NH3': {
         'palette': [
           {
+            type: 'electron',
+            element: 'A',
             figshape: "Circle",
             height: 5,
             width: 5,
@@ -171,6 +188,8 @@ const compoundParams = {
             textvisible: false
           },
           {
+            type: 'electron',
+            element: 'B',
             figshape: "Xline",
             height: 5,
             width: 5,
@@ -181,6 +200,8 @@ const compoundParams = {
             textvisible: false
           },
           {
+            type: 'electron',
+            element: 'C',
             figshape: "Diamond",
             height: 5,
             width: 5,
@@ -191,6 +212,8 @@ const compoundParams = {
             textvisible: false
           },
           {
+            type: 'electron',
+            element: 'D',
             figshape: "Triangle",
             height: 5,
             width: 5,
@@ -255,25 +278,29 @@ const compoundParams = {
           movable: false,
           },
           {
-            name: 'A',
+            type: 'elementName',
+            element: 'A',
             elementName: 'A',
             position: new go.Point(58, 145),
             category: 'elementName'
           },
           {
-            name: 'B',
+            type: 'elementName',
+            element: 'B',
             elementName: 'B',
             position: new go.Point(148, 145),
             category: 'elementName'
           },
           {
-            name: 'C',
+            type: 'elementName',
+            element: 'C',
             elementName: 'C',
             position: new go.Point(238, 145),
             category: 'elementName'
           },
           {
-            name: 'D',
+            type: 'elementName',
+            element: 'D',
             elementName: 'D',
             position: new go.Point(148, 55),
             category: 'elementName'
@@ -282,7 +309,7 @@ const compoundParams = {
     }
 }
 
-var compoundType = 'HCl'
+var compound = 'HCl'
 
 const init = () => {
   var $ = go.GraphObject.make;  // for more concise visual tree definitions
@@ -399,7 +426,7 @@ const init = () => {
             copiesArrayObjects: true,
             linkFromPortIdProperty: "fid",
             linkToPortIdProperty: "tid",
-            nodeDataArray: compoundParams[compoundType]['palette']
+            nodeDataArray: compoundParams[compound]['palette']
           })  
       });  
 
@@ -502,7 +529,7 @@ const init = () => {
   myDiagram.nodeTemplateMap.add("elementName", elementName)
 
   // Compound structure given to student
-  myDiagram.model.nodeDataArray = compoundParams[compoundType]['data']
+  myDiagram.model.nodeDataArray = compoundParams[compound]['data']
 
 }
 
@@ -711,31 +738,27 @@ SnappingTool.prototype.gatherConnecteds = function(map, node) {
 
 window.addEventListener('DOMContentLoaded', init);
 
-const setCompoundType = (x) => {
-  compoundType = x
+
+const setCompound = (x) => {
+  compound = x
   // Update diagram data
   myDiagram.startTransaction()
   myDiagram.model.nodeDataArray = []
   myDiagram.model.linkDataArray = []
-  myDiagram.model.nodeDataArray = compoundParams[compoundType]['data']
+  myDiagram.model.nodeDataArray = compoundParams[compound]['data']
   myDiagram.commitTransaction()
 
   // Update palette data
   myPalette.startTransaction()
   myPalette.model.nodeDataArray = []
-  myPalette.model.nodeDataArray = compoundParams[compoundType]['palette']
+  myPalette.model.nodeDataArray = compoundParams[compound]['palette']
   myPalette.commitTransaction()
 
   // Update covers
   covers = document.getElementsByClassName('compoundName')
   for(let i of covers){
     i.innerText = x
-    console.log(i)
   }
-}
-
-const check = () => {
-  console.log(selected)
 }
 
 const deleteSelected = () => {
@@ -748,7 +771,87 @@ const deleteSelected = () => {
   }
 }
 
-const data = () => {
+const logSelected = () => {
+  console.log(selected)
+}
+
+const logData = () => {
   console.log(myDiagram.model.nodeDataArray)
   console.log(myDiagram.model.linkDataArray)
 }
+
+ansArray1 = {
+  "['H','Cl']": {
+    'total': 8,
+    'individual': [1, 7, 0, 0]
+  },
+  "['Cl','H']": {
+    'total': 8,
+    'individual': [7, 1, 0, 0]
+  },
+}
+
+ansArray2 = {
+  "['O','C','O']": {
+    'total': 16,
+    'individual': [6, 4, 6, 0]
+  }
+}
+
+ansArray3 = {
+  "['H','N','H','H']": {
+    'total': 8,
+    'individual': [1, 5, 1, 1]
+  }
+}
+
+const getElementNames = (nodeData, ansArray) => {
+  var elementNames = []
+  for(let i of nodeData){
+    // If item is textblock, add into array
+    if('elementName' in i){
+      elementNames.push(i.elementName)
+    }
+  }
+  stringNames = JSON.stringify(elementNames).replaceAll('"', "'")
+  return stringNames
+}
+
+const checkNumElectrons = (nodeData, stringNames, ansArray) => {
+  var total = 0;
+  var elements = {A: 0, B: 0, C: 0, D: 0}
+  for(let i of nodeData){
+    if(i.type === 'electron'){
+      total++
+      elements[i.element]++
+    }
+  }
+  elementsElectronArray = Object.values(elements)
+
+  if(total === ansArray[stringNames]['total']){
+    return JSON.stringify(ansArray[stringNames]['individual']).indexOf(JSON.stringify(elementsElectronArray)) !== -1
+  }
+  return false
+}
+
+const ansArray = ansArray1
+
+const check = () => {
+  const nodeData = myDiagram.model.nodeDataArray
+  const linkData = myDiagram.model.linkDataArray
+  stringNames = getElementNames(nodeData, ansArray)
+  if(stringNames in ansArray){
+    console.log('names correct')
+    if(checkNumElectrons(nodeData, stringNames, ansArray)){
+      console.log('num electrons correct')
+      return
+    }
+    console.log('num electrons wrong')
+    return
+  }
+  console.log('names wrong')
+  
+}
+
+
+
