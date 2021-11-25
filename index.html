@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Dot and Cross</title>
         <script src="https://unpkg.com/gojs/release/go-debug.js"></script>
         <script src='v2.js'></script>
         <link rel='stylesheet' href='styles.css'>
@@ -22,12 +22,29 @@
             <p class='compoundName'>HCl</p> 
         </div>
 
-        <button style='height: 50px; width: 100px;' onclick='setCompoundType("HCl")'>HCl</button>
-        <button style='height: 50px; width: 100px;' onclick='setCompoundType("CO2")'>CO2</button>
-        <button style='height: 50px; width: 100px;' onclick='setCompoundType("NH3")'>NH3</button>
+        <div style='display: flex; flex-direction: row; justify-content: center;'>
+            <div class='legend'>
+                <p>A: Dot</p>
+                <p>B: Cross</p>
+                <p>C: Diamond</p>
+                <p>D: Triangle</p>
+            </div>
+        </div>
 
-        <button style='height: 50px; width: 100px;' onclick='check()'>SELECTED</button>
-        <button style='height: 50px; width: 100px;' onclick='deleteSelected()'>DELETE</button>
-        <button style='height: 50px; width: 100px;' onclick='data()'>DATA</button>
+
+        <div class='compoundRow'>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompoundType("HCl")'>HCl</button>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompoundType("CO2")'>CO2</button>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompoundType("NH3")'>NH3</button>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='deleteSelected()'>Delete Electron</button>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='check()'>Check Answer</button>
+        </div>
+
+        <div class='logging'>
+            <p>Console logging: </p>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='logSelected()'>Selected</button>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='logData()'>All data</button>
+        </div>
+        
     </body>
 </html>
