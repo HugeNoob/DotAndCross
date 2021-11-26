@@ -24,27 +24,39 @@
 
         <div style='display: flex; flex-direction: row; justify-content: center;'>
             <div class='legend'>
+                <p>Legend:</p>
                 <p>A: Dot</p>
                 <p>B: Cross</p>
                 <p>C: Diamond</p>
                 <p>D: Triangle</p>
+                <p>E: Square</p>
             </div>
         </div>
 
 
         <div class='compoundRow'>
+            <p>Choose a compound:</p>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompound("HCl")'>HCl</button>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompound("CO2")'>CO2</button>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompound("NH3")'>NH3</button>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompound("H2O2")'>H2O2</button>
+            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompound("CH4")'>CH4</button>
+        </div>
+
+        <div class='interactions'>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='deleteSelected()'>Delete Electron</button>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='check()'>Check Answer</button>
         </div>
+        
+        <div class='results'>
+            <p id='results'>Check answer to see your results.</p>
+        </div>
 
-        <div class='logging'>
+        <!-- <div class='logging'>
             <p>Console logging: </p>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='logSelected()'>Selected</button>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='logData()'>All data</button>
-        </div>
+        </div> -->
         
     </body>
 </html>

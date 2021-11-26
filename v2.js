@@ -248,7 +248,7 @@ const compoundParams = {
           width: 300,
           figshape: "FourElements",
           ports: [
-            { id: "A1", spot: "0 0.7" },    //right
+            { id: "A1", spot: "0 0.7" },    //left
             { id: "A2", spot: "0 0.72" },   
             { id: "A3", spot: "0.19 0.425" },    //top
             { id: "A4", spot: "0.21 0.425" },
@@ -260,17 +260,17 @@ const compoundParams = {
       
             { id: "C1", spot: "1 0.7" },    //right
             { id: "C2", spot: "1 0.72" },
-            { id: "C", spot: "0.79 0.425" },    //top
-            { id: "C", spot: "0.81 0.425" },
-            { id: "C", spot: "0.79 1" },    //bottom
-            { id: "C", spot: "0.81 1" },
+            { id: "C3", spot: "0.79 0.425" },    //top
+            { id: "C4", spot: "0.81 0.425" },
+            { id: "C5", spot: "0.79 1" },    //bottom
+            { id: "C6", spot: "0.81 1" },
 
             { id: "D1", spot: "0.49 0" },   //top
             { id: "D2", spot: "0.51 0" },
-            { id: "D", spot: "0.3 0.28" },    //left
-            { id: "D", spot: "0.3 0.3" },
-            { id: "D", spot: "0.7 0.28" },    //right
-            { id: "D", spot: "0.7 0.3" },
+            { id: "D3", spot: "0.3 0.28" },    //left
+            { id: "D4", spot: "0.3 0.3" },
+            { id: "D5", spot: "0.7 0.28" },    //right
+            { id: "D6", spot: "0.7 0.3" },
       
             { id: "AB1", spot: "0.35 0.59" },
             { id: "AB2", spot: "0.35 0.64" },
@@ -332,7 +332,342 @@ const compoundParams = {
             'distribution':  {'A':0, 'B':2, 'C': 0, 'D': 0, 'AB':2, 'BC': 2, 'BD': 2}
           }
         }
+  },
+  'H2O2': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'D',
+        figshape: "Triangle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "D", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+    ],
+    data: [{
+      height: 115,
+      width: 400,
+      figshape: "FourElementsLine",
+      ports: [
+        { id: "A1", spot: "0 0.48" },    //left
+        { id: "A2", spot: "0 0.52" },   
+        { id: "A3", spot: "0.135 0" },    //top
+        { id: "A4", spot: "0.15 0" },
+        { id: "A5", spot: "0.135 1" },    //bottom
+        { id: "A6", spot: "0.15 1" },
+  
+        { id: "B1", spot: "0.35 1" },    //bottom
+        { id: "B2", spot: "0.365 1" },
+        { id: "B3", spot: "0.35 0" },    //top
+        { id: "B4", spot: "0.365 0" },
+  
+        { id: "C1", spot: "0.565 0" },    //top
+        { id: "C2", spot: "0.58 0" },
+        { id: "C3", spot: "0.565 1" },    //bottom
+        { id: "C4", spot: "0.58 1" },
+
+        { id: "D1", spot: "0.78 0" },    //top
+        { id: "D2", spot: "0.795 0" },
+        { id: "D3", spot: "0.78 1" },    //bottom
+        { id: "D4", spot: "0.795 1" },
+        { id: "D5", spot: "0.93 0.48" },    //bottom
+        { id: "D6", spot: "0.93 0.52" },        
+  
+        { id: "AB1", spot: "0.25 0.25" },
+        { id: "AB2", spot: "0.25 0.35" },
+        { id: "AB3", spot: "0.25 0.45" },
+        { id: "AB4", spot: "0.25 0.55" },
+        { id: "AB5", spot: "0.25 0.65" },
+        { id: "AB6", spot: "0.25 0.75" },
+
+        { id: "BC1", spot: "0.465 0.25" },
+        { id: "BC2", spot: "0.465 0.35" },
+        { id: "BC3", spot: "0.465 0.45" },
+        { id: "BC4", spot: "0.465 0.55" },
+        { id: "BC5", spot: "0.465 0.65" },
+        { id: "BC6", spot: "0.465 0.75" },
+
+        { id: "CD1", spot: "0.68 0.25" },
+        { id: "CD2", spot: "0.68 0.35" },
+        { id: "CD3", spot: "0.68 0.45" },
+        { id: "CD4", spot: "0.68 0.55" },
+        { id: "CD5", spot: "0.68 0.65" },
+        { id: "CD6", spot: "0.68 0.75" },
+      ],
+      selectable: false,
+      movable: false,
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(55, 55),
+        category: 'elementName'
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(140, 55),
+        category: 'elementName'
+      },
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: new go.Point(226, 55),
+        category: 'elementName'
+      },
+      {
+        type: 'elementName',
+        element: 'D',
+        elementName: 'D',
+        position: new go.Point(312, 55),
+        category: 'elementName'
+      }
+    ],
+    ans: {
+      "['H','O','O','H']": {
+        'total': 14,
+        'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'CD': 0},
+        'distribution':  {'A':0, 'B':4, 'C': 4, 'D': 0, 'AB':2, 'BC': 2, 'CD': 2}
+      }
     }
+  },
+  'CH4': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'D',
+        figshape: "Triangle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "D", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'E',
+        figshape: "Square",
+        height: 4,
+        width: 4,
+        fill: "#000",
+        ports: [
+          { id: "E", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+    ],
+    data: [{
+      height: 300,
+      width: 300,
+      figshape: "FiveElements",
+      ports: [
+        { id: "A1", spot: "0 0.49" },    //left
+        { id: "A2", spot: "0 0.51" },   
+        { id: "A3", spot: "0.14 0.35" },    //top
+        { id: "A4", spot: "0.16 0.35" },
+        { id: "A5", spot: "0.14 0.65" },    //bottom
+        { id: "A6", spot: "0.16 0.65" },
+
+        { id: "B1", spot: "0.3 0.27" },    //top left
+        { id: "B2", spot: "0.28 0.29" },   
+        { id: "B3", spot: "0.7 0.27" },    // top right
+        { id: "B4", spot: "0.72 0.29" },
+        { id: "B5", spot: "0.7 0.73" },    //bottom right
+        { id: "B6", spot: "0.72 0.71" },
+        { id: "B7", spot: "0.3 0.73" },    //bottom left
+        { id: "B8", spot: "0.28 0.71" },
+  
+        { id: "C1", spot: "1 0.49" },    //right
+        { id: "C2", spot: "1 0.51" },   
+        { id: "C3", spot: "0.84 0.35" },    //top
+        { id: "C4", spot: "0.86 0.35" },
+        { id: "C5", spot: "0.84 0.65" },    //bottom
+        { id: "C6", spot: "0.86 0.65" },
+        
+        { id: "D1", spot: "0.35 0.14" },    //left
+        { id: "D2", spot: "0.35 0.16" },   
+        { id: "D3", spot: "0.65 0.14" },    //right
+        { id: "D4", spot: "0.65 0.16" },
+        { id: "D5", spot: "0.49 0" },    //top
+        { id: "D6", spot: "0.51 0" },
+
+        { id: "E1", spot: "0.35 0.84" },    //left
+        { id: "E2", spot: "0.35 0.86" },   
+        { id: "E3", spot: "0.65 0.84" },    //right
+        { id: "E4", spot: "0.65 0.86" },
+        { id: "E5", spot: "0.49 1" },    //top
+        { id: "E6", spot: "0.51 1" },
+  
+        { id: "AB1", spot: "0.24 0.4" },
+        { id: "AB2", spot: "0.24 0.44" },
+        { id: "AB3", spot: "0.24 0.48" },
+        { id: "AB4", spot: "0.24 0.52" },
+        { id: "AB5", spot: "0.24 0.56" },
+        { id: "AB6", spot: "0.24 0.6" },
+
+        { id: "BC1", spot: "0.76 0.4" },
+        { id: "BC2", spot: "0.76 0.44" },
+        { id: "BC3", spot: "0.76 0.48" },
+        { id: "BC4", spot: "0.76 0.52" },
+        { id: "BC5", spot: "0.76 0.56" },
+        { id: "BC6", spot: "0.76 0.6" },
+
+        { id: "BD1", spot: "0.4 0.24" },
+        { id: "BD2", spot: "0.44 0.24" },
+        { id: "BD3", spot: "0.48 0.24" },
+        { id: "BD4", spot: "0.52 0.24" },
+        { id: "BD5", spot: "0.56 0.24" },
+        { id: "BD6", spot: "0.6 0.24" },
+
+        { id: "BE1", spot: "0.4 0.76" },
+        { id: "BE2", spot: "0.44 0.76" },
+        { id: "BE3", spot: "0.48 0.76" },
+        { id: "BE4", spot: "0.52 0.76" },
+        { id: "BE5", spot: "0.56 0.76" },
+        { id: "BE6", spot: "0.6 0.76" },
+
+        // { id: "BC1", spot: "0.465 0.25" },
+        // { id: "BC2", spot: "0.465 0.35" },
+        // { id: "BC3", spot: "0.465 0.45" },
+        // { id: "BC4", spot: "0.465 0.55" },
+        // { id: "BC5", spot: "0.465 0.65" },
+        // { id: "BC6", spot: "0.465 0.75" },
+
+        // { id: "CD1", spot: "0.68 0.25" },
+        // { id: "CD2", spot: "0.68 0.35" },
+        // { id: "CD3", spot: "0.68 0.45" },
+        // { id: "CD4", spot: "0.68 0.55" },
+        // { id: "CD5", spot: "0.68 0.65" },
+        // { id: "CD6", spot: "0.68 0.75" },
+      ],
+      selectable: false,
+      movable: false,
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(40, 145),
+        category: 'elementName'
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(148, 145),
+        category: 'elementName'
+      },
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: new go.Point(255, 145),
+        category: 'elementName'
+      },
+      {
+        type: 'elementName',
+        element: 'D',
+        elementName: 'D',
+        position: new go.Point(148, 40),
+        category: 'elementName'
+      },
+      {
+        type: 'elementName',
+        element: 'E',
+        elementName: 'E',
+        position: new go.Point(148, 255),
+        category: 'elementName'
+      }
+    ],
+    ans: {
+      "['H','C','H','H','H']": {
+        'total': 8,
+        'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'E': 0, 'AB':0, 'BC': 0, 'BD': 0, 'BE': 0},
+        'distribution':  {'A':0, 'B':0, 'C': 0, 'D': 0, 'E': 0, 'AB':2, 'BC': 2, 'BD': 2, 'BE': 2}
+      }
+    }
+  },
 }
 
 var compound = 'HCl'
@@ -349,8 +684,8 @@ const init = () => {
         // use a custom DraggingTool instead of the standard one, defined below
         draggingTool: new SnappingTool(),
         "undoManager.isEnabled": true,
-        allowVerticalScroll: false, 
-        "panningTool.isEnabled": false,
+        // allowVerticalScroll: false, 
+        // "panningTool.isEnabled": false,
         'dragSelectingTool.isEnabled': false,
         maxSelectionCount: 1
       });
@@ -456,7 +791,7 @@ const init = () => {
           })  
       });  
 
-  // Defining structure for 2 element compound
+  // Defining structure for 2 element compound eg. HCl
   go.Shape.defineFigureGenerator("TwoElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
@@ -475,7 +810,7 @@ const init = () => {
     return geo;
   });
 
-  // Defining structure for 3 element compound
+  // Defining structure for 3 element compound eg. CO2
   go.Shape.defineFigureGenerator("ThreeElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
@@ -499,7 +834,7 @@ const init = () => {
     return geo;
   });
   
-  // Defining structure for 4 element compound
+  // Defining structure for 4 element compound eg. NH3
   go.Shape.defineFigureGenerator("FourElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
@@ -527,6 +862,67 @@ const init = () => {
     return geo;
   });
 
+  // Defining structure for 4 element line compound eg. H2O2
+  go.Shape.defineFigureGenerator("FourElementsLine", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 14
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(rad*2, rad); 
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, rad, rad, rad));
+
+    // CenterLeft
+    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*7, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*5, rad, rad, rad));
+
+    // CenterRight
+    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*10, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*8, rad, rad, rad));
+
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*13, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*11, rad, rad, rad));
+    
+    geo.add(fig);
+    return geo;
+  });
+
+  // Defining structure for 4 element compound eg. NH3
+  go.Shape.defineFigureGenerator("FiveElements", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var smallQuarter = w/10
+    var smallRad = smallQuarter*1.5
+    var bigRad = smallQuarter*3
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(smallRad*2, smallQuarter*5);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, smallRad, smallQuarter*5, smallRad, smallRad));
+
+    // Center
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+bigRad, smallQuarter*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallQuarter*5, bigRad, bigRad));
+    
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, smallQuarter*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-smallRad, smallQuarter*5, smallRad, smallRad));
+    
+    // Top
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, smallRad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallRad, smallRad, smallRad));
+
+    // Bottom
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, w-smallRad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, w-smallRad, smallRad, smallRad));
+    
+    geo.add(fig);
+    return geo;
+  });
+  
   // Binds double clicked element for deletion
   myDiagram.addDiagramListener("ObjectDoubleClicked", (e) => {
     selected = e.subject.part.data
@@ -784,6 +1180,9 @@ const setCompound = (x) => {
   for(let i of covers){
     i.innerText = x
   }
+
+  // Update result string
+  updateResult('Check answer to see your results.')
 }
 
 const deleteSelected = () => {
@@ -825,8 +1224,7 @@ const checkElectrons = (linkData, stringNames, ans) => {
   for(let i of linkData){
     // Check for validity of placement; whether the electron and element name are compatible
     if(i['tid'].indexOf(i['fid']) === -1){
-      console.log('invalid electron placement')
-      return false
+      return 'invalid electron placement.'
     }
 
     // Adds to template for accounting number of electrons later
@@ -841,14 +1239,12 @@ const checkElectrons = (linkData, stringNames, ans) => {
   }
 
   if(JSON.stringify(template) === JSON.stringify(ans[stringNames]['distribution'])){
-    return true
+    return 'correct'
   } else if(total === ans[stringNames]['total']){
-    console.log('electron placement wrong')
-    return
+    return 'electron placement wrong'
   }
 
-  console.log('num electrons wrong')
-  return
+  return 'number of electrons wrong'
 }
 
 const check = () => {
@@ -861,17 +1257,20 @@ const check = () => {
   if(stringNames in ans){
     console.log('names correct')
 
+    resultString = checkElectrons(linkData, stringNames, ans)
     // Check electrons
-    if(checkElectrons(linkData, stringNames, ans)){
-      console.log('we gucci')
+    if(resultString === 'correct'){
+      updateResult('Your answer is correct.')
       return
     }
 
+    updateResult('Element names correct but ' + resultString)
     return
   }
-  console.log('names wrong')
-  
+  updateResult('Element names wrong.')
 }
 
-
+const updateResult = (result) => {
+  document.getElementById('results').innerText = result
+}
 
