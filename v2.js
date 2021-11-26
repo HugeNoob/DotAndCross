@@ -1,7 +1,7 @@
 var selected = null;
 const compoundParams = {
   'HCl': {
-        'palette': [
+        palette: [
           {
             type: 'electron',
             element: 'A',
@@ -10,7 +10,7 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "A", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
@@ -22,36 +22,36 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "B", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
         ],
-        'data' :[{
+        data :[{
             height: 120,
             width: 200,
             figshape: "TwoElements",
             ports: [
-              { id: "Aleft1", spot: "0 0.48" },
-              { id: "Aleft2", spot: "0 0.52" },
-              { id: "Atop1", spot: "0.27 0.02" },
-              { id: "Atop2", spot: "0.3 0.02" },
-              { id: "Abottom1", spot: "0.27 0.98" },
-              { id: "Abottom2", spot: "0.3 0.98" },
+              { id: "A1", spot: "0 0.48" },    //left
+              { id: "A2", spot: "0 0.52" },
+              { id: "A3", spot: "0.27 0.02" }, //top
+              { id: "A4", spot: "0.3 0.02" },
+              { id: "A5", spot: "0.27 0.98" }, //bottom
+              { id: "A6", spot: "0.3 0.98" },
         
-              { id: "Bright1", spot: "1 0.48" },
-              { id: "Bright2", spot: "1 0.52" },
-              { id: "Btop1", spot: "0.7 0.02" },
-              { id: "Btop2", spot: "0.73 0.02" },
-              { id: "Bbottom1", spot: "0.7 0.98" },
-              { id: "Bbottom2", spot: "0.73 0.98" },
+              { id: "B1", spot: "1 0.48" },    //right
+              { id: "B2", spot: "1 0.52" },
+              { id: "B3", spot: "0.7 0.02" },  //top
+              { id: "B4", spot: "0.73 0.02" },
+              { id: "B5", spot: "0.7 0.98" },  //bottom
+              { id: "B6", spot: "0.73 0.98" },
         
-              { id: "center1", spot: "0.5 0.25" },
-              { id: "center2", spot: "0.5 0.35" },
-              { id: "center3", spot: "0.5 0.45" },
-              { id: "center4", spot: "0.5 0.55" },
-              { id: "center5", spot: "0.5 0.65" },
-              { id: "center6", spot: "0.5 0.75" },
+              { id: "AB1", spot: "0.5 0.25" },
+              { id: "AB2", spot: "0.5 0.35" },
+              { id: "AB3", spot: "0.5 0.45" },
+              { id: "AB4", spot: "0.5 0.55" },
+              { id: "AB5", spot: "0.5 0.65" },
+              { id: "AB6", spot: "0.5 0.75" },
               ],
               selectable: false,
               movable: false
@@ -69,10 +69,22 @@ const compoundParams = {
               elementName: 'B',
               position: new go.Point(140, 55),
               category: 'elementName'
-        }]
+        }],
+        ans : {
+          "['H','Cl']": {
+            'total': 8,
+            'template': {'A':0, 'B':0, 'AB':0},
+            'distribution':  {'A':0, 'B':6, 'AB':2}
+          },
+          "['Cl','H']": {
+            'total': 8,
+            'template': {'A':0, 'B':0, 'AB':0},
+            'distribution':  {'A':6, 'B':0, 'AB':2}
+          },
+        }
   },
   'CO2': {
-        'palette': [
+        palette: [
           {
             type: 'electron',
             element: 'A',
@@ -81,7 +93,7 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "A", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
@@ -93,7 +105,7 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "B", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
@@ -105,48 +117,48 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "C", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
         ],
-        'data': [{
+        data: [{
           height: 120,
           width: 300,
           figshape: "ThreeElements",
           ports: [
-            { id: "Aleft1", spot: "0 0.48" },
-            { id: "Aleft2", spot: "0 0.52" },
-            { id: "Atop1", spot: "0.19 0" },
-            { id: "Atop2", spot: "0.21 0" },
-            { id: "Abottom1", spot: "0.19 1" },
-            { id: "Abottom2", spot: "0.21 1" },
+            { id: "A1", spot: "0 0.48" },   //left
+            { id: "A2", spot: "0 0.52" },
+            { id: "A3", spot: "0.19 0" },   //top   
+            { id: "A4", spot: "0.21 0" },
+            { id: "A5", spot: "0.19 1" },   //bottom
+            { id: "A6", spot: "0.21 1" },
       
-            { id: "Btop1", spot: "0.49 0" },
-            { id: "Btop2", spot: "0.51 0" },
-            { id: "Bbottom1", spot: "0.49 1" },
-            { id: "Bbottom2", spot: "0.51 1" },
+            { id: "B1", spot: "0.49 0" },   //top
+            { id: "B2", spot: "0.51 0" },
+            { id: "B3", spot: "0.49 1" },   //bottom
+            { id: "B4", spot: "0.51 1" },
       
-            { id: "Cright1", spot: "1 0.48" },
-            { id: "Cright2", spot: "1 0.52" },
-            { id: "Ctop1", spot: "0.79 0" },
-            { id: "Ctop2", spot: "0.81 0" },
-            { id: "Cbottom1", spot: "0.79 1" },
-            { id: "Cbottom2", spot: "0.81 1" },
+            { id: "C1", spot: "1 0.48" },   //right
+            { id: "C2", spot: "1 0.52" },
+            { id: "C3", spot: "0.79 0" },   //top
+            { id: "C4", spot: "0.81 0" },
+            { id: "C5", spot: "0.79 1" },   //bottom
+            { id: "C6", spot: "0.81 1" },
       
-            { id: "Lcenter1", spot: "0.35 0.25" },
-            { id: "Lcenter2", spot: "0.35 0.35" },
-            { id: "Lcenter3", spot: "0.35 0.45" },
-            { id: "Lcenter4", spot: "0.35 0.55" },
-            { id: "Lcenter5", spot: "0.35 0.65" },
-            { id: "Lcenter6", spot: "0.35 0.75" },
+            { id: "AB1", spot: "0.35 0.25" },
+            { id: "AB2", spot: "0.35 0.35" },
+            { id: "AB3", spot: "0.35 0.45" },
+            { id: "AB4", spot: "0.35 0.55" },
+            { id: "AB5", spot: "0.35 0.65" },
+            { id: "AB6", spot: "0.35 0.75" },
       
-            { id: "Rcenter1", spot: "0.65 0.25" },
-            { id: "Rcenter2", spot: "0.65 0.35" },
-            { id: "Rcenter3", spot: "0.65 0.45" },
-            { id: "Rcenter4", spot: "0.65 0.55" },
-            { id: "Rcenter5", spot: "0.65 0.65" },
-            { id: "Rcenter6", spot: "0.65 0.75" },
+            { id: "BC1", spot: "0.65 0.25" },
+            { id: "BC2", spot: "0.65 0.35" },
+            { id: "BC3", spot: "0.65 0.45" },
+            { id: "BC4", spot: "0.65 0.55" },
+            { id: "BC5", spot: "0.65 0.65" },
+            { id: "BC6", spot: "0.65 0.75" },
           ],
           selectable: false,
           movable: false
@@ -171,10 +183,17 @@ const compoundParams = {
             elementName: 'C',
             position: new go.Point(238, 55),
             category: 'elementName'
-        }]
+        }],
+        ans: {
+          "['O','C','O']": {
+            'total': 16,
+            'template': {'A':0, 'B':0, 'C':0, 'AB':0, 'BC':0},
+            'distribution':  {'A':4, 'B':0, 'C':4,'AB':4, 'BC':4}
+          }
+        }
   },
   'NH3': {
-        'palette': [
+        palette: [
           {
             type: 'electron',
             element: 'A',
@@ -183,7 +202,7 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "A", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
@@ -195,7 +214,7 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "B", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
@@ -207,7 +226,7 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "C", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
@@ -219,60 +238,60 @@ const compoundParams = {
             width: 5,
             fill: "#000",
             ports: [
-              { id: "1", spot: "0.5 0.5", fill: null },
+              { id: "D", spot: "0.5 0.5", fill: null },
             ],
             textvisible: false
           },
         ],
-        'data': [{
+        data: [{
           height: 210,
           width: 300,
           figshape: "FourElements",
           ports: [
-            { id: "Aleft1", spot: "0 0.7" },
-            { id: "Aleft2", spot: "0 0.72" },
-            { id: "Atop1", spot: "0.19 0.425" },
-            { id: "Atop2", spot: "0.21 0.425" },
-            { id: "Abottom1", spot: "0.19 1" },
-            { id: "Abottom2", spot: "0.21 1" },
+            { id: "A1", spot: "0 0.7" },    //right
+            { id: "A2", spot: "0 0.72" },   
+            { id: "A3", spot: "0.19 0.425" },    //top
+            { id: "A4", spot: "0.21 0.425" },
+            { id: "A5", spot: "0.19 1" },    //bottom
+            { id: "A6", spot: "0.21 1" },
       
-            { id: "Bbottom1", spot: "0.49 1" },
-            { id: "Bbottom2", spot: "0.51 1" },
+            { id: "B1", spot: "0.49 1" },    //bottom
+            { id: "B2", spot: "0.51 1" },
       
-            { id: "Cright1", spot: "1 0.7" },
-            { id: "Cright2", spot: "1 0.72" },
-            { id: "Ctop1", spot: "0.79 0.425" },
-            { id: "Ctop2", spot: "0.81 0.425" },
-            { id: "Cbottom1", spot: "0.79 1" },
-            { id: "Cbottom2", spot: "0.81 1" },
+            { id: "C1", spot: "1 0.7" },    //right
+            { id: "C2", spot: "1 0.72" },
+            { id: "C", spot: "0.79 0.425" },    //top
+            { id: "C", spot: "0.81 0.425" },
+            { id: "C", spot: "0.79 1" },    //bottom
+            { id: "C", spot: "0.81 1" },
 
-            { id: "Dtop1", spot: "0.49 0" },
-            { id: "Dtop2", spot: "0.51 0" },
-            { id: "Dleft1", spot: "0.3 0.28" },
-            { id: "Dleft2", spot: "0.3 0.3" },
-            { id: "Dright1", spot: "0.7 0.28" },
-            { id: "Dright2", spot: "0.7 0.3" },
+            { id: "D1", spot: "0.49 0" },   //top
+            { id: "D2", spot: "0.51 0" },
+            { id: "D", spot: "0.3 0.28" },    //left
+            { id: "D", spot: "0.3 0.3" },
+            { id: "D", spot: "0.7 0.28" },    //right
+            { id: "D", spot: "0.7 0.3" },
       
-            { id: "Lcenter1", spot: "0.35 0.59" },
-            { id: "Lcenter2", spot: "0.35 0.64" },
-            { id: "Lcenter3", spot: "0.35 0.69" },
-            { id: "Lcenter4", spot: "0.35 0.74" },
-            { id: "Lcenter5", spot: "0.35 0.79" },
-            { id: "Lcenter6", spot: "0.35 0.84" },
+            { id: "AB1", spot: "0.35 0.59" },
+            { id: "AB2", spot: "0.35 0.64" },
+            { id: "AB3", spot: "0.35 0.69" },
+            { id: "AB4", spot: "0.35 0.74" },
+            { id: "AB5", spot: "0.35 0.79" },
+            { id: "AB6", spot: "0.35 0.84" },
 
-            { id: "Mcenter1", spot: "0.4 0.5" },
-            { id: "Mcenter2", spot: "0.44 0.5" },
-            { id: "Mcenter3", spot: "0.48 0.5" },
-            { id: "Mcenter4", spot: "0.52 0.5" },
-            { id: "Mcenter5", spot: "0.56 0.5" },
-            { id: "Mcenter6", spot: "0.6 0.5" },
+            { id: "BD1", spot: "0.4 0.5" },
+            { id: "BD2", spot: "0.44 0.5" },
+            { id: "BD3", spot: "0.48 0.5" },
+            { id: "BD4", spot: "0.52 0.5" },
+            { id: "BD5", spot: "0.56 0.5" },
+            { id: "BD6", spot: "0.6 0.5" },
 
-            { id: "Rcenter1", spot: "0.65 0.59" },
-            { id: "Rcenter2", spot: "0.65 0.64" },
-            { id: "Rcenter3", spot: "0.65 0.69" },
-            { id: "Rcenter4", spot: "0.65 0.74" },
-            { id: "Rcenter5", spot: "0.65 0.79" },
-            { id: "Rcenter6", spot: "0.65 0.84" },
+            { id: "BC1", spot: "0.65 0.59" },
+            { id: "BC2", spot: "0.65 0.64" },
+            { id: "BC3", spot: "0.65 0.69" },
+            { id: "BC4", spot: "0.65 0.74" },
+            { id: "BC5", spot: "0.65 0.79" },
+            { id: "BC6", spot: "0.65 0.84" },
           ],
           selectable: false,
           movable: false,
@@ -305,7 +324,14 @@ const compoundParams = {
             position: new go.Point(148, 55),
             category: 'elementName'
           }
-        ]
+        ],
+        ans: {
+          "['H','N','H','H']": {
+            'total': 8,
+            'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'BD': 0},
+            'distribution':  {'A':0, 'B':2, 'C': 0, 'D': 0, 'AB':2, 'BC': 2, 'BD': 2}
+          }
+        }
     }
 }
 
@@ -738,7 +764,6 @@ SnappingTool.prototype.gatherConnecteds = function(map, node) {
 
 window.addEventListener('DOMContentLoaded', init);
 
-
 const setCompound = (x) => {
   compound = x
   // Update diagram data
@@ -780,32 +805,8 @@ const logData = () => {
   console.log(myDiagram.model.linkDataArray)
 }
 
-ansArray1 = {
-  "['H','Cl']": {
-    'total': 8,
-    'individual': [1, 7, 0, 0]
-  },
-  "['Cl','H']": {
-    'total': 8,
-    'individual': [7, 1, 0, 0]
-  },
-}
-
-ansArray2 = {
-  "['O','C','O']": {
-    'total': 16,
-    'individual': [6, 4, 6, 0]
-  }
-}
-
-ansArray3 = {
-  "['H','N','H','H']": {
-    'total': 8,
-    'individual': [1, 5, 1, 1]
-  }
-}
-
-const getElementNames = (nodeData, ansArray) => {
+// Marking functions
+const getElementNames = (nodeData) => {
   var elementNames = []
   for(let i of nodeData){
     // If item is textblock, add into array
@@ -817,36 +818,55 @@ const getElementNames = (nodeData, ansArray) => {
   return stringNames
 }
 
-const checkNumElectrons = (nodeData, stringNames, ansArray) => {
+const checkElectrons = (linkData, stringNames, ans) => {
+  var template = { ...ans[stringNames]['template']}    // A copy of the object
+  var element;
   var total = 0;
-  var elements = {A: 0, B: 0, C: 0, D: 0}
-  for(let i of nodeData){
-    if(i.type === 'electron'){
-      total++
-      elements[i.element]++
+  for(let i of linkData){
+    // Check for validity of placement; whether the electron and element name are compatible
+    if(i['tid'].indexOf(i['fid']) === -1){
+      console.log('invalid electron placement')
+      return false
     }
-  }
-  elementsElectronArray = Object.values(elements)
 
-  if(total === ansArray[stringNames]['total']){
-    return JSON.stringify(ansArray[stringNames]['individual']).indexOf(JSON.stringify(elementsElectronArray)) !== -1
+    // Adds to template for accounting number of electrons later
+    if(i['tid'].length === 2){
+      element = i['tid'][0]
+      template[element]++
+    } else {
+      element = i['tid'].substring(0, 2)
+      template[element]++
+    }
+    total++
   }
-  return false
+
+  if(JSON.stringify(template) === JSON.stringify(ans[stringNames]['distribution'])){
+    return true
+  } else if(total === ans[stringNames]['total']){
+    console.log('electron placement wrong')
+    return
+  }
+
+  console.log('num electrons wrong')
+  return
 }
-
-const ansArray = ansArray1
 
 const check = () => {
   const nodeData = myDiagram.model.nodeDataArray
   const linkData = myDiagram.model.linkDataArray
-  stringNames = getElementNames(nodeData, ansArray)
-  if(stringNames in ansArray){
+  const ans = compoundParams[compound]['ans']
+  stringNames = getElementNames(nodeData, )
+
+  // Check element names
+  if(stringNames in ans){
     console.log('names correct')
-    if(checkNumElectrons(nodeData, stringNames, ansArray)){
-      console.log('num electrons correct')
+
+    // Check electrons
+    if(checkElectrons(linkData, stringNames, ans)){
+      console.log('we gucci')
       return
     }
-    console.log('num electrons wrong')
+
     return
   }
   console.log('names wrong')
