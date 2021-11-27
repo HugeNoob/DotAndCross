@@ -60,15 +60,17 @@ const compoundParams = {
               type: 'elementName',
               element: 'A',
               elementName: 'A',
-              position: new go.Point(54, 55),
-              category: 'elementName'
+              position: new go.Point(55, 50),
+              category: 'elementName',
+              shape: 'Circle',
             },
             {
               type: 'elementName',
               element: 'B',
               elementName: 'B',
-              position: new go.Point(140, 55),
-              category: 'elementName'
+              position: new go.Point(142, 50),
+              category: 'elementName',
+              shape: 'Xline',
         }],
         ans : {
           "['H','Cl']": {
@@ -167,22 +169,25 @@ const compoundParams = {
             type: 'elementName',
             element: 'A',
             elementName: 'A',
-            position: new go.Point(55, 55),
-            category: 'elementName'
+            position: new go.Point(57, 50),
+            category: 'elementName',
+            shape: 'Circle',
           },
           {
             type: 'elementName',
             element: 'B',
             elementName: 'B',
-            position: new go.Point(148, 55),
-            category: 'elementName'
+            position: new go.Point(148, 50),
+            category: 'elementName',
+            shape: 'Xline',
           },
           {
             type: 'elementName',
             element: 'C',
             elementName: 'C',
-            position: new go.Point(238, 55),
-            category: 'elementName'
+            position: new go.Point(238, 50),
+            category: 'elementName',
+            shape: 'Diamond',
         }],
         ans: {
           "['O','C','O']": {
@@ -300,29 +305,33 @@ const compoundParams = {
             type: 'elementName',
             element: 'A',
             elementName: 'A',
-            position: new go.Point(58, 145),
-            category: 'elementName'
+            position: new go.Point(58, 140),
+            category: 'elementName',
+            shape: 'Circle',
           },
           {
             type: 'elementName',
             element: 'B',
             elementName: 'B',
-            position: new go.Point(148, 145),
-            category: 'elementName'
+            position: new go.Point(148, 140),
+            category: 'elementName',
+            shape: 'Xline',
           },
           {
             type: 'elementName',
             element: 'C',
             elementName: 'C',
-            position: new go.Point(238, 145),
-            category: 'elementName'
+            position: new go.Point(238, 140),
+            category: 'elementName',
+            shape: 'Diamond',
           },
           {
             type: 'elementName',
             element: 'D',
             elementName: 'D',
-            position: new go.Point(148, 55),
-            category: 'elementName'
+            position: new go.Point(148, 50),
+            category: 'elementName',
+            shape: 'Triangle',
           }
         ],
         ans: {
@@ -441,29 +450,33 @@ const compoundParams = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(55, 55),
-        category: 'elementName'
+        position: new go.Point(55, 50),
+        category: 'elementName',
+        shape: 'Circle',
       },
       {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(140, 55),
-        category: 'elementName'
+        position: new go.Point(141, 50),
+        category: 'elementName',
+        shape: 'Xline',
       },
       {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(226, 55),
-        category: 'elementName'
+        position: new go.Point(226, 50),
+        category: 'elementName',
+        shape: 'Diamond',
       },
       {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(312, 55),
-        category: 'elementName'
+        position: new go.Point(312, 50),
+        category: 'elementName',
+        shape: 'Triangle',
       }
     ],
     ans: {
@@ -614,36 +627,41 @@ const compoundParams = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(40, 145),
-        category: 'elementName'
+        position: new go.Point(40, 140),
+        category: 'elementName',
+        shape: 'Circle',
       },
       {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(148, 145),
-        category: 'elementName'
+        position: new go.Point(148, 140),
+        category: 'elementName',
+        shape: 'Xline',
       },
       {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(255, 145),
-        category: 'elementName'
+        position: new go.Point(255, 140),
+        category: 'elementName',
+        shape: 'Diamond',
       },
       {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(148, 40),
-        category: 'elementName'
+        position: new go.Point(148, 35),
+        category: 'elementName',
+        shape: 'Triangle',
       },
       {
         type: 'elementName',
         element: 'E',
         elementName: 'E',
-        position: new go.Point(148, 255),
-        category: 'elementName'
+        position: new go.Point(148, 250),
+        category: 'elementName',
+        shape: 'Square',
       }
     ],
     ans: {
@@ -921,9 +939,13 @@ const init = () => {
 
   // Defining element name template
   var elementName = 
-    $(go.Node, 'Auto',
+    $(go.Node, 'Vertical',
       {movable: false, deletable: false},
       new go.Binding('position', 'position'),
+      $(go.Shape,
+        {width: 3, height: 3, margin: new go.Margin(0, 0, 3, 0)},
+        new go.Binding('figure', 'shape')
+      ),
       $(go.TextBlock,
         {
           editable: true,
