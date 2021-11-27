@@ -549,14 +549,14 @@ const compoundParams = {
         { id: "A5", spot: "0.14 0.65" },    //bottom
         { id: "A6", spot: "0.16 0.65" },
 
-        { id: "B1", spot: "0.3 0.27" },    //top left
-        { id: "B2", spot: "0.28 0.29" },   
-        { id: "B3", spot: "0.7 0.27" },    // top right
-        { id: "B4", spot: "0.72 0.29" },
-        { id: "B5", spot: "0.7 0.73" },    //bottom right
-        { id: "B6", spot: "0.72 0.71" },
-        { id: "B7", spot: "0.3 0.73" },    //bottom left
-        { id: "B8", spot: "0.28 0.71" },
+        { id: "B1", spot: "0.31 0.27" },    //top left
+        { id: "B2", spot: "0.29 0.29" },   
+        { id: "B3", spot: "0.69 0.27" },    // top right
+        { id: "B4", spot: "0.71 0.29" },
+        { id: "B5", spot: "0.69 0.73" },    //bottom right
+        { id: "B6", spot: "0.71 0.71" },
+        { id: "B7", spot: "0.31 0.73" },    //bottom left
+        { id: "B8", spot: "0.29 0.71" },
   
         { id: "C1", spot: "1 0.49" },    //right
         { id: "C2", spot: "1 0.51" },   
@@ -606,20 +606,6 @@ const compoundParams = {
         { id: "BE4", spot: "0.52 0.76" },
         { id: "BE5", spot: "0.56 0.76" },
         { id: "BE6", spot: "0.6 0.76" },
-
-        // { id: "BC1", spot: "0.465 0.25" },
-        // { id: "BC2", spot: "0.465 0.35" },
-        // { id: "BC3", spot: "0.465 0.45" },
-        // { id: "BC4", spot: "0.465 0.55" },
-        // { id: "BC5", spot: "0.465 0.65" },
-        // { id: "BC6", spot: "0.465 0.75" },
-
-        // { id: "CD1", spot: "0.68 0.25" },
-        // { id: "CD2", spot: "0.68 0.35" },
-        // { id: "CD3", spot: "0.68 0.45" },
-        // { id: "CD4", spot: "0.68 0.55" },
-        // { id: "CD5", spot: "0.68 0.65" },
-        // { id: "CD6", spot: "0.68 0.75" },
       ],
       selectable: false,
       movable: false,
@@ -669,8 +655,7 @@ const compoundParams = {
     }
   },
 }
-
-var compound = 'HCl'
+var compound = 'CH4'
 
 const init = () => {
   var $ = go.GraphObject.make;  // for more concise visual tree definitions
@@ -937,22 +922,20 @@ const init = () => {
   // Defining element name template
   var elementName = 
     $(go.Node, 'Auto',
-      {movable: false},
+      {movable: false, deletable: false},
       new go.Binding('position', 'position'),
       $(go.TextBlock,
         {
           editable: true,
           isMultiline: false,
-          textValidation: validElement
+          textValidation: validElement,
         },
         new go.Binding('text', 'elementName').makeTwoWay()
       )
     )
   myDiagram.nodeTemplateMap.add("elementName", elementName)
 
-  // Compound structure given to student
-  myDiagram.model.nodeDataArray = compoundParams[compound]['data']
-
+  setCompound(compound)
 }
 
 // Define a custom DraggingTool
@@ -962,9 +945,6 @@ function SnappingTool() {
 go.Diagram.inherit(SnappingTool, go.DraggingTool);
 
 // This predicate checks to see if the ports can snap together.
-// The first letter of the port id should be "U", "F", or "M" to indicate which kinds of port may connect.
-// The second letter of the port id should be a digit to indicate which direction it may connect.
-// The ports also need to not already have any link connections and need to face opposite directions.
 SnappingTool.prototype.compatiblePorts = function(p1, p2) {
   // already connected?
   var part1 = p1.part;
@@ -1166,19 +1146,26 @@ const setCompound = (x) => {
   myDiagram.startTransaction()
   myDiagram.model.nodeDataArray = []
   myDiagram.model.linkDataArray = []
-  myDiagram.model.nodeDataArray = compoundParams[compound]['data']
+  myDiagram.model.nodeDataArray = [...compoundParams[compound]['data']]
   myDiagram.commitTransaction()
 
   // Update palette data
   myPalette.startTransaction()
   myPalette.model.nodeDataArray = []
-  myPalette.model.nodeDataArray = compoundParams[compound]['palette']
+  myPalette.model.nodeDataArray = [...compoundParams[compound]['palette']]
   myPalette.commitTransaction()
 
   // Update covers
   covers = document.getElementsByClassName('compoundName')
   for(let i of covers){
     i.innerText = x
+  }
+
+  // Update legend
+  const electrons = ['A', 'B', 'C', 'D', 'E']
+  const curr_num = myPalette.model.nodeDataArray.length
+  for(let i = 0; i < electrons.length; i++){
+    document.getElementById(electrons[i]).style.display = i < curr_num ? 'block' : 'none'
   }
 
   // Update result string
@@ -1255,7 +1242,6 @@ const check = () => {
 
   // Check element names
   if(stringNames in ans){
-    console.log('names correct')
 
     resultString = checkElectrons(linkData, stringNames, ans)
     // Check electrons
@@ -1272,5 +1258,11 @@ const check = () => {
 
 const updateResult = (result) => {
   document.getElementById('results').innerText = result
+  if(result === 'Your answer is correct.'){
+    document.getElementById('results').style.color = 'green'
+  } else if(result === 'Check answer to see your results.') {
+    document.getElementById('results').style.color = 'black'
+  } else {
+    document.getElementById('results').style.color = 'red'
+  }
 }
-
