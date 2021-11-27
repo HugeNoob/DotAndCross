@@ -5,8 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dot and Cross</title>
-        <script src="https://unpkg.com/gojs/release/go-debug.js"></script>
-        <script src='v2.js'></script>
         <link rel='stylesheet' href='styles.css'>
     </head>
     
@@ -24,15 +22,14 @@
 
         <div style='display: flex; flex-direction: row; justify-content: center;'>
             <div class='legend'>
-                <p>Legend:</p>
-                <p>A: Dot</p>
-                <p>B: Cross</p>
-                <p>C: Diamond</p>
-                <p>D: Triangle</p>
-                <p>E: Square</p>
+                <p class='legendText'>Legend:</p>
+                <p class='legendText' id='A'>A: Dot</p>
+                <p class='legendText' id='B'>B: Cross</p>
+                <p class='legendText' id='C'>C: Diamond</p>
+                <p class='legendText' id='D'>D: Triangle</p>
+                <p class='legendText' id='E'>E: Square</p>
             </div>
         </div>
-
 
         <div class='compoundRow'>
             <p>Choose a compound:</p>
@@ -42,6 +39,19 @@
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompound("H2O2")'>H2O2</button>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='setCompound("CH4")'>CH4</button>
         </div>
+
+        <div style='display: flex; justify-content: center;'>
+            <div class='instructionsBox'>
+                <p class='instructionsText' style="line-height: 0px;">Instructions:</p>
+                <p class='instructionsText'>1. Double click on element names to edit them, then press ENTER or click away to confirm your changes.</p>
+                <p class='instructionsText'>2. Drag and drop electrons onto the correct elements. Follow the electron legend below the diagram.</p>
+                <p class='instructionsText'>3. After an electron is locked in place, double click the electron and then press BACKSPACE or the 'Delete Electron' button below to remove it.</p>
+                <p class='instructionsText'>4. You may also hold SHIFT, then click and drag to remove an electron that is locked in place.</p>
+                <p class='instructionsText'>5. Click on the 'Check Answer' button below and your result will be shown at the bottom of the page. </p>
+                <p class='instructionsText'>Tip 1: If you are getting 'invalid electron placement' in your result, make sure you are following the electron legend.</p>
+                <p class='instructionsText'>Tip 2: You may fill in the electrons before the element names if you find yourself forgetting the elements' initial labels.</p>
+            </div>
+        </div>  
 
         <div class='interactions'>
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='deleteSelected()'>Delete Electron</button>
@@ -58,5 +68,7 @@
             <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='logData()'>All data</button>
         </div> -->
         
+        <script src="https://unpkg.com/gojs/release/go-debug.js"></script>
+        <script src='v2.js'></script>
     </body>
 </html>

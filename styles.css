@@ -26,33 +26,57 @@
     align-items: center;
 }
 
+.compoundName {
+    font-size: 20px;
+}
+
 .legend {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 50%;
+    width: 40%;
     text-align: center;
+}
+
+.legendText{
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .compoundRow {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 10px;
+    margin-top: 10px;
+}
+
+.instructionsBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-color: black;
+    line-height: 25px;
+}
+
+.instructionsText {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .interactions {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 20px;
 }
 
 .results {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    margin: 20px;
+    justify-content: center;;
 }
 
 .logging {
