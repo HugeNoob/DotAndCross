@@ -655,7 +655,7 @@ const compoundParams = {
     }
   },
 }
-var compound = 'CH4'
+var compound = 'HCl'
 
 const init = () => {
   var $ = go.GraphObject.make;  // for more concise visual tree definitions
