@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dot and Cross</title>
+        <script src="https://kit.fontawesome.com/804487f5d5.js" crossorigin="anonymous"></script>
         <link rel='stylesheet' href='styles.css'>
     </head>
     
@@ -20,16 +21,18 @@
             <p class='compoundName'>HCl</p> 
         </div>
 
-        <div style='display: flex; flex-direction: row; justify-content: center;'>
-            <div class='legend'>
-                <p class='legendText'>Legend:</p>
-                <p class='legendText' id='A'>A: Dot</p>
-                <p class='legendText' id='B'>B: Cross</p>
-                <p class='legendText' id='C'>C: Diamond</p>
-                <p class='legendText' id='D'>D: Triangle</p>
-                <p class='legendText' id='E'>E: Square</p>
+        <div style='display: flex; justify-content: center;'>
+            <div class='instructionsBox'>
+                <p class='instructionsText' style="line-height: 0px;">Instructions:</p>
+                <p class='instructionsText'>1. Double click on element names to edit them, then press ENTER or click away to confirm your changes.</p>
+                <p class='instructionsText'>2. Drag and drop electrons onto the correct elements. Follow the electron legend below strictly.</p>
+                <p class='instructionsText'>3. After an electron is locked in place, double click the electron and then press BACKSPACE or the 'Delete Electron' button below to remove it.</p>
+                <p class='instructionsText'>4. You may also hold SHIFT, then click and drag to remove an electron that is locked in place.</p>
+                <p class='instructionsText'>5. Click on the 'Check Answer' button below and your result will be shown at the bottom of the page. </p>
+                <p class='instructionsText'>Tip 1: If you are getting 'invalid electron placement' in your result, make sure you are following the electron legend.</p>
+                <p class='instructionsText'>Tip 2: You may fill in the electrons before the element names if you find yourself forgetting the elements' initial labels.</p>
             </div>
-        </div>
+        </div>  
 
         <div class='compoundRow'>
             <p>Choose a compound:</p>
@@ -41,25 +44,48 @@
         </div>
 
         <div style='display: flex; justify-content: center;'>
-            <div class='instructionsBox'>
-                <p class='instructionsText' style="line-height: 0px;">Instructions:</p>
-                <p class='instructionsText'>1. Double click on element names to edit them, then press ENTER or click away to confirm your changes.</p>
-                <p class='instructionsText'>2. Drag and drop electrons onto the correct elements. Follow the electron legend below the diagram.</p>
-                <p class='instructionsText'>3. After an electron is locked in place, double click the electron and then press BACKSPACE or the 'Delete Electron' button below to remove it.</p>
-                <p class='instructionsText'>4. You may also hold SHIFT, then click and drag to remove an electron that is locked in place.</p>
-                <p class='instructionsText'>5. Click on the 'Check Answer' button below and your result will be shown at the bottom of the page. </p>
-                <p class='instructionsText'>Tip 1: If you are getting 'invalid electron placement' in your result, make sure you are following the electron legend.</p>
-                <p class='instructionsText'>Tip 2: You may fill in the electrons before the element names if you find yourself forgetting the elements' initial labels.</p>
-            </div>
-        </div>  
+            <div class='interfaceBox'>
+                <div class='legend'>
+                    <p class='legendText'>Legend:</p>
+                    <p class='legendText' id='A'>
+                        A: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16" style="position:relative; top: 2px">
+                            <circle cx="8" cy="8" r="8"/>
+                          </svg>
+                    </p>
 
-        <div class='interactions'>
-            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='deleteSelected()'>Delete Electron</button>
-            <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='check()'>Check Answer</button>
+                    <p class='legendText' id='B'>B: <i class="fas fa-times"></i></p>
+
+                    <p class='legendText' id='C'>
+                        C: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-diamond-fill" viewBox="0 0 16 16" style="position:relative; top: 2px">
+                            <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435z"/>
+                          </svg>
+                    </p>
+
+                    <p class='legendText' id='D'>
+                        D: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-triangle-fill" viewBox="0 0 16 16" style="position:relative; top: 2px">
+                            <path fill-rule="evenodd" d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/>
+                          </svg>
+                    </p>
+
+                    <p class='legendText' id='E'>
+                        E: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-square-fill" viewBox="0 0 16 16" style="position:relative; top: 2px">
+                            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
+                          </svg>
+                    </p>
+
+                </div>
+        
+                <div class='interactions'>
+                    <button style='height: 50px; width: 100px; margin-left: 5px; margin-right: 5px;' onclick='deleteSelected()'>Delete Electron</button>
+                </div>
+            </div>
         </div>
         
-        <div class='results'>
-            <p id='results'>Check answer to see your results.</p>
+        <div style='display: flex; justify-content: center;'>
+            <div class='resultsBox'>
+                <button style='height: 50px; width: 100px; margin-top: 10px;' onclick='check()'>Check Answer</button>
+                <p id='results'>Check answer to see your results.</p>
+            </div>
         </div>
 
         <!-- <div class='logging'>

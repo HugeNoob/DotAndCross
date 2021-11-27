@@ -30,26 +30,6 @@
     font-size: 20px;
 }
 
-.legend {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 40%;
-    text-align: center;
-}
-
-.legendText{
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.compoundRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 10px;
-}
-
 .instructionsBox {
     display: flex;
     flex-direction: column;
@@ -58,7 +38,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     border-style: solid;
-    border-color: black;
+    border-width: thin;
     line-height: 25px;
 }
 
@@ -67,16 +47,52 @@
     margin-right: 10px;
 }
 
+.compoundRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+}
+
+.interfaceBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: thin;
+    line-height: 25px;
+}
+
+.legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.legendText{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .interactions {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin: 10px;
 }
 
-.results {
+.resultsBox {
     display: flex;
-    flex-direction: row;
-    justify-content: center;;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-width: thin;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 30%;
 }
 
 .logging {
