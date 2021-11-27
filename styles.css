@@ -4,9 +4,9 @@
     background-color: #DAE4E4;
     border-style: solid;
     border-width: thin;
-    position: absolute; 
-    top: 629px; 
-    z-index: 2;
+    position: relative; 
+    top: 72px; 
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,9 +18,9 @@
     background-color: #DAE4E4;
     border-style: solid;
     border-width: thin;
-    position: absolute; 
-    top: 794px; 
-    z-index: 2;
+    position: relative; 
+    top: 75px; 
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,12 +55,20 @@
     margin-bottom: 20px;
 }
 
+.compoundButton {
+    height: 50px;
+    width: 100px; 
+    margin-left: 5px; 
+    margin-right: 5px;
+    z-index: 20;
+}
+
 .interfaceBox {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 50%;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 10px;
     border-style: solid;
     border-width: thin;
