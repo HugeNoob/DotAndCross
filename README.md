@@ -4,4 +4,7 @@
 Interactive dot and cross diagrams made with the GoJS library.  
 
 
-https://gojs.net/latest/index.html
+https://hugenoob.github.io/DotAndCross/  
+
+
+GoJS: https://gojs.net/latest/index.html
