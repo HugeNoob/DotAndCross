@@ -1195,7 +1195,7 @@ const setCompound = (x) => {
 }
 
 const deleteSelected = () => {
-  if(selected === null){return}
+  if(selected === null || selected.type !== 'electron'){return}
   var node = myDiagram.findNodeForKey(selected.key);
   if (node !== null) {
     myDiagram.startTransaction();
