@@ -13,6 +13,7 @@ const init = () => {
         // "panningTool.isEnabled": false,
         'dragSelectingTool.isEnabled': false,
         maxSelectionCount: 1,
+        allowClipboard: false,
         "textEditingTool.starting": go.TextEditingTool.SingleClick,
         "textEditingTool.doMouseDown": function() { if (this.isActive) {
           // Validates current text
