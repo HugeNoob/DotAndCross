@@ -684,13 +684,28 @@ const init = () => {
         initialScale: 2.5,
         "commandHandler.defaultScale": 1.5,
         allowLink: false,  // no user-drawn links
-        // use a custom DraggingTool instead of the standard one, defined below
         draggingTool: new SnappingTool(),
         "undoManager.isEnabled": true,
         // allowVerticalScroll: false, 
         // "panningTool.isEnabled": false,
         'dragSelectingTool.isEnabled': false,
-        maxSelectionCount: 1
+        maxSelectionCount: 1,
+        "textEditingTool.starting": go.TextEditingTool.SingleClick,
+        "textEditingTool.doMouseDown": function() { if (this.isActive) {
+          // Validates current text
+          this.acceptText(go.TextEditingTool.MouseDown);
+
+          // If current text is accepted
+          if(this.state.va !== 'StateInvalid'){
+            // Switches to other textblock
+            var tb = this.diagram.findObjectAt(this.diagram.lastInput.documentPoint);
+            if (tb instanceof go.TextBlock && tb.editable) { 
+              var tool = this; 
+              tool.textBlock = tb; 
+              tool.diagram.currentTool = tool; 
+            }
+          }          
+        }}
       });
 
   // Generic node template
@@ -794,6 +809,32 @@ const init = () => {
           })  
       });  
 
+  // Edited string should only contain string of <=2 letters
+  const validElement = (textblock, oldstr, newstr) => {
+    const lettersOnly = /^[a-zA-Z]+$/.test(newstr);
+    return newstr.length <= 2 && lettersOnly
+  }
+
+  // Defining element name textblock template
+  var elementName = 
+    $(go.Node, 'Vertical',
+      {movable: false, deletable: false},
+      new go.Binding('position', 'position'),
+      $(go.Shape,
+        {width: 3, height: 3, margin: new go.Margin(0, 0, 3, 0)},
+        new go.Binding('figure', 'shape')
+      ),
+      $(go.TextBlock,
+        {
+          editable: true,
+          isMultiline: false,
+          textValidation: validElement,
+        },
+        new go.Binding('text', 'elementName').makeTwoWay()
+      )
+    )
+  myDiagram.nodeTemplateMap.add("elementName", elementName)
+
   // Defining structure for 2 element compound eg. HCl
   go.Shape.defineFigureGenerator("TwoElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
@@ -893,7 +934,7 @@ const init = () => {
     return geo;
   });
 
-  // Defining structure for 4 element compound eg. NH3
+  // Defining structure for 4 element compound eg. CH4
   go.Shape.defineFigureGenerator("FiveElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
@@ -925,40 +966,19 @@ const init = () => {
     geo.add(fig);
     return geo;
   });
-  
-  // Binds double clicked element for deletion
-  myDiagram.addDiagramListener("ObjectDoubleClicked", (e) => {
-    selected = e.subject.part.data
-  })
-
-  // Edited string should only contain string of <=2 letters
-  const validElement = (textblock, oldstr, newstr) => {
-    const lettersOnly = /^[a-zA-Z]+$/.test(newstr);
-    return newstr.length <= 2 && lettersOnly
-  }
-
-  // Defining element name template
-  var elementName = 
-    $(go.Node, 'Vertical',
-      {movable: false, deletable: false},
-      new go.Binding('position', 'position'),
-      $(go.Shape,
-        {width: 3, height: 3, margin: new go.Margin(0, 0, 3, 0)},
-        new go.Binding('figure', 'shape')
-      ),
-      $(go.TextBlock,
-        {
-          editable: true,
-          isMultiline: false,
-          textValidation: validElement,
-        },
-        new go.Binding('text', 'elementName').makeTwoWay()
-      )
-    )
-  myDiagram.nodeTemplateMap.add("elementName", elementName)
 
   setCompound(compound)
 }
+
+// Ends TextEditingTool when clicking out of myDiagram
+document.addEventListener("mousedown", function() {
+  if(myDiagram.currentTool instanceof go.TextEditingTool){
+    myDiagram.currentTool.acceptText(go.TextEditingTool.LostFocus);
+
+    // Checking whether text is accepted
+    // console.log(myDiagram.currentTool.state.va)
+  }
+});
 
 // Define a custom DraggingTool
 function SnappingTool() {
@@ -1195,6 +1215,7 @@ const setCompound = (x) => {
 }
 
 const deleteSelected = () => {
+  selected = myDiagram.selection.first() !== null ? myDiagram.selection.first().tb : null
   if(selected === null || selected.type !== 'electron'){return}
   var node = myDiagram.findNodeForKey(selected.key);
   if (node !== null) {
@@ -1205,7 +1226,10 @@ const deleteSelected = () => {
 }
 
 const logSelected = () => {
-  console.log(selected)
+  // console.log(selected)
+  console.log(myDiagram.selection.first())
+  console.log(myDiagram.selection.first().tb.__gohashid)
+  // console.log(myDiagram.model.nodeDataArray)
 }
 
 const logData = () => {
