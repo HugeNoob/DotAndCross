@@ -1,4 +1,308 @@
-var selected = null;
+const init = () => {
+  var $ = go.GraphObject.make;  // for more concise visual tree definitions
+
+  myDiagram =
+    $(go.Diagram, "myDiagramDiv",
+      {
+        initialScale: 2.5,
+        "commandHandler.defaultScale": 1.5,
+        allowLink: false,  // no user-drawn links
+        draggingTool: new SnappingTool(),
+        "undoManager.isEnabled": true,
+        // allowVerticalScroll: false, 
+        // "panningTool.isEnabled": false,
+        'dragSelectingTool.isEnabled': false,
+        maxSelectionCount: 1,
+        "textEditingTool.starting": go.TextEditingTool.SingleClick,
+        "textEditingTool.doMouseDown": function() { if (this.isActive) {
+          // Validates current text
+          this.acceptText(go.TextEditingTool.MouseDown);
+
+          // If current text is accepted
+          if(this.state.va !== 'StateInvalid'){
+            // Switches to other textblock
+            var tb = this.diagram.findObjectAt(this.diagram.lastInput.documentPoint);
+            if (tb instanceof go.TextBlock && tb.editable) { 
+              var tool = this; 
+              tool.textBlock = tb; 
+              tool.diagram.currentTool = tool; 
+            }
+          }          
+        }}
+      });
+
+  // Generic node template
+  // This node also gets all of its ports from an array of port data in the bound data.
+  myDiagram.nodeTemplate =
+    $(go.Node, "Spot",
+      {
+        locationObjectName: "SHAPE",
+        locationSpot: go.Spot.Center,
+        selectionAdorned: false,  // use a Binding on the Shape.stroke to show selection
+        itemTemplate:
+          // each port is a Circle whose alignment spot and port ID are given by the item data
+          $(go.Panel,
+            new go.Binding("portId", "id"),
+            new go.Binding("alignment", "spot", go.Spot.parse),
+            $(go.Shape, "Circle",
+              { width: 2, height: 2, background: "transparent", fill: 'red', stroke: null },
+              new go.Binding('fill', 'fill')
+              ),
+          ),
+        // hide a port when it is connected
+        linkConnected: function(node, link, port) {
+          if (link.category === ""){
+            myDiagram.startTransaction();
+            port.visible = false;
+            node.movable = false
+            myDiagram.commitTransaction()
+          }
+        },
+        linkDisconnected: function(node, link, port) {
+          if (link.category === ""){
+            myDiagram.startTransaction();
+            port.visible = true;
+            node.movable = true
+            myDiagram.commitTransaction()
+          }
+        },
+        selectable: true,
+      },
+      // new go.Binding('movable', 'movable'),
+      new go.Binding('selectable', 'selectable'),
+      // this creates the variable number of ports for this Spot Panel, based on the data
+      new go.Binding("itemArray", "ports"),
+      // remember the location of this Node
+      new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+      // move a selected part into the Foreground layer, so it isn't obscured by any non-selected parts
+      new go.Binding("layerName", "isSelected", function(s) { return s ? "Foreground" : ""; }).ofObject(),      
+      $(go.Shape,
+        {
+          name: "SHAPE",
+          // the following are default values;
+          // actual values may come from the node data object via data binding
+          height: 300,
+          width: 300,
+          fill: null,
+        },
+        new go.Binding('height', 'height'),
+        new go.Binding('width', 'width'),
+        new go.Binding('fill', 'fill'),
+        // this determines the actual shape of the Shape
+        new go.Binding("figure", "figshape"),
+        // selection causes the stroke to be blue instead of black
+        new go.Binding("stroke", "isSelected", function(s) { return s ? "dodgerblue" : "black"; }).ofObject()),
+
+    );
+
+  // no visual representation of any link data
+  myDiagram.linkTemplate = $(go.Link, { visible: false });
+
+  // this model needs to know about particular ports
+  myDiagram.model =
+    $(go.GraphLinksModel,
+      {
+        copiesArrays: true,
+        copiesArrayObjects: true,
+        linkFromPortIdProperty: "fid",
+        linkToPortIdProperty: "tid"
+      });
+
+  // Electron palette
+  myPalette =
+    $(go.Palette, "myPaletteDiv",
+      {
+        initialScale: 5,
+        contentAlignment: go.Spot.Bottom,
+        nodeTemplate: myDiagram.nodeTemplate,  // shared with the main Diagram
+        "contextMenuTool.isEnabled": false,
+        maxSelectionCount: 1,
+        layout: $(go.GridLayout,
+          {
+            cellSize: new go.Size(1, 1), spacing: new go.Size(5, 5),
+          }),
+        // initialize the Palette with a few "pipe" nodes
+        model: $(go.GraphLinksModel,
+          {
+            copiesArrays: true,
+            copiesArrayObjects: true,
+            linkFromPortIdProperty: "fid",
+            linkToPortIdProperty: "tid",
+            nodeDataArray: compoundParams[compound]['palette']
+          })  
+      });  
+
+  // Edited string should only contain string of <=2 letters
+  const validElement = (textblock, oldstr, newstr) => {
+    const lettersOnly = /^[a-zA-Z]+$/.test(newstr);
+    return newstr.length <= 2 && lettersOnly
+  }
+
+  // Defining element name textblock template
+  var elementName = 
+    $(go.Node, 'Vertical',
+      {movable: false, deletable: false},
+      new go.Binding('position', 'position'),
+      $(go.Shape,
+        {width: 3, height: 3, margin: new go.Margin(0, 0, 3, 0)},
+        new go.Binding('figure', 'shape')
+      ),
+      $(go.TextBlock,
+        {
+          editable: true,
+          isMultiline: false,
+          textValidation: validElement,
+        },
+        new go.Binding('text', 'elementName').makeTwoWay()
+      )
+    )
+  myDiagram.nodeTemplateMap.add("elementName", elementName)
+
+  // Defining structure for 2 element compound eg. HCl
+  go.Shape.defineFigureGenerator("TwoElements", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 7
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(rad*2, h/2);
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, h/2, rad, rad));
+
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
+    geo.add(fig);
+    return geo;
+  });
+
+  // Defining structure for 3 element compound eg. CO2
+  go.Shape.defineFigureGenerator("ThreeElements", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 10
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(rad*2, h/2);
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, h/2, rad, rad));
+
+    // Center
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, h/2, rad, rad));
+
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
+    
+    geo.add(fig);
+    return geo;
+  });
+  
+  // Defining structure for 4 element compound eg. NH3
+  go.Shape.defineFigureGenerator("FourElements", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 10
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(rad*2, quarterCircle*5);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, quarterCircle*5, rad, rad));
+
+    // Center
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, quarterCircle*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, quarterCircle*5, rad, rad));
+
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, quarterCircle*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, quarterCircle*5, rad, rad));
+
+    // Top
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, rad, rad, rad));
+    
+    geo.add(fig);
+    return geo;
+  });
+
+  // Defining structure for 4 element line compound eg. H2O2
+  go.Shape.defineFigureGenerator("FourElementsLine", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 14
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(rad*2, rad); 
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, rad, rad, rad));
+
+    // CenterLeft
+    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*7, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*5, rad, rad, rad));
+
+    // CenterRight
+    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*10, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*8, rad, rad, rad));
+
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*13, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*11, rad, rad, rad));
+    
+    geo.add(fig);
+    return geo;
+  });
+
+  // Defining structure for 4 element compound eg. CH4
+  go.Shape.defineFigureGenerator("FiveElements", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var smallQuarter = w/10
+    var smallRad = smallQuarter*1.5
+    var bigRad = smallQuarter*3
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(smallRad*2, smallQuarter*5);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, smallRad, smallQuarter*5, smallRad, smallRad));
+
+    // Center
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+bigRad, smallQuarter*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallQuarter*5, bigRad, bigRad));
+    
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, smallQuarter*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-smallRad, smallQuarter*5, smallRad, smallRad));
+    
+    // Top
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, smallRad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallRad, smallRad, smallRad));
+
+    // Bottom
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, w-smallRad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, w-smallRad, smallRad, smallRad));
+    
+    geo.add(fig);
+    return geo;
+  });
+
+  setCompound(compound)
+}
+
+// Ends TextEditingTool when clicking out of myDiagram
+document.addEventListener("mousedown", function() {
+  if(myDiagram.currentTool instanceof go.TextEditingTool){
+    myDiagram.currentTool.acceptText(go.TextEditingTool.LostFocus);
+
+    // Checking whether text is accepted
+    // console.log(myDiagram.currentTool.state.va)
+  }
+});
+
 const compoundParams = {
   'HCl': {
         palette: [
@@ -674,311 +978,139 @@ const compoundParams = {
   },
 }
 var compound = 'HCl'
+var selected = null;
 
-const init = () => {
-  var $ = go.GraphObject.make;  // for more concise visual tree definitions
+// Helper functions
+const setCompound = (x) => {
+  compound = x
+  // Update diagram data
+  myDiagram.startTransaction()
+  myDiagram.model.nodeDataArray = []
+  myDiagram.model.linkDataArray = []
+  myDiagram.model.nodeDataArray = [...compoundParams[compound]['data']]
+  myDiagram.commitTransaction()
 
-  myDiagram =
-    $(go.Diagram, "myDiagramDiv",
-      {
-        initialScale: 2.5,
-        "commandHandler.defaultScale": 1.5,
-        allowLink: false,  // no user-drawn links
-        draggingTool: new SnappingTool(),
-        "undoManager.isEnabled": true,
-        // allowVerticalScroll: false, 
-        // "panningTool.isEnabled": false,
-        'dragSelectingTool.isEnabled': false,
-        maxSelectionCount: 1,
-        "textEditingTool.starting": go.TextEditingTool.SingleClick,
-        "textEditingTool.doMouseDown": function() { if (this.isActive) {
-          // Validates current text
-          this.acceptText(go.TextEditingTool.MouseDown);
+  // Update palette data
+  myPalette.startTransaction()
+  myPalette.model.nodeDataArray = []
+  myPalette.model.nodeDataArray = [...compoundParams[compound]['palette']]
+  myPalette.commitTransaction()
 
-          // If current text is accepted
-          if(this.state.va !== 'StateInvalid'){
-            // Switches to other textblock
-            var tb = this.diagram.findObjectAt(this.diagram.lastInput.documentPoint);
-            if (tb instanceof go.TextBlock && tb.editable) { 
-              var tool = this; 
-              tool.textBlock = tb; 
-              tool.diagram.currentTool = tool; 
-            }
-          }          
-        }}
-      });
-
-  // Generic node template
-  // This node also gets all of its ports from an array of port data in the bound data.
-  myDiagram.nodeTemplate =
-    $(go.Node, "Spot",
-      {
-        locationObjectName: "SHAPE",
-        locationSpot: go.Spot.Center,
-        selectionAdorned: false,  // use a Binding on the Shape.stroke to show selection
-        itemTemplate:
-          // each port is a Circle whose alignment spot and port ID are given by the item data
-          $(go.Panel,
-            new go.Binding("portId", "id"),
-            new go.Binding("alignment", "spot", go.Spot.parse),
-            $(go.Shape, "Circle",
-              { width: 2, height: 2, background: "transparent", fill: 'red', stroke: null },
-              new go.Binding('fill', 'fill')
-              ),
-          ),
-        // hide a port when it is connected
-        linkConnected: function(node, link, port) {
-          if (link.category === ""){
-            myDiagram.startTransaction();
-            port.visible = false;
-            node.movable = false
-            myDiagram.commitTransaction()
-          }
-        },
-        linkDisconnected: function(node, link, port) {
-          if (link.category === ""){
-            myDiagram.startTransaction();
-            port.visible = true;
-            node.movable = true
-            myDiagram.commitTransaction()
-          }
-        },
-        selectable: true,
-      },
-      // new go.Binding('movable', 'movable'),
-      new go.Binding('selectable', 'selectable'),
-      // this creates the variable number of ports for this Spot Panel, based on the data
-      new go.Binding("itemArray", "ports"),
-      // remember the location of this Node
-      new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-      // move a selected part into the Foreground layer, so it isn't obscured by any non-selected parts
-      new go.Binding("layerName", "isSelected", function(s) { return s ? "Foreground" : ""; }).ofObject(),      
-      $(go.Shape,
-        {
-          name: "SHAPE",
-          // the following are default values;
-          // actual values may come from the node data object via data binding
-          height: 300,
-          width: 300,
-          fill: null,
-        },
-        new go.Binding('height', 'height'),
-        new go.Binding('width', 'width'),
-        new go.Binding('fill', 'fill'),
-        // this determines the actual shape of the Shape
-        new go.Binding("figure", "figshape"),
-        // selection causes the stroke to be blue instead of black
-        new go.Binding("stroke", "isSelected", function(s) { return s ? "dodgerblue" : "black"; }).ofObject()),
-
-    );
-
-  // no visual representation of any link data
-  myDiagram.linkTemplate = $(go.Link, { visible: false });
-
-  // this model needs to know about particular ports
-  myDiagram.model =
-    $(go.GraphLinksModel,
-      {
-        copiesArrays: true,
-        copiesArrayObjects: true,
-        linkFromPortIdProperty: "fid",
-        linkToPortIdProperty: "tid"
-      });
-
-  // Electron palette
-  myPalette =
-    $(go.Palette, "myPaletteDiv",
-      {
-        initialScale: 5,
-        contentAlignment: go.Spot.Bottom,
-        nodeTemplate: myDiagram.nodeTemplate,  // shared with the main Diagram
-        "contextMenuTool.isEnabled": false,
-        maxSelectionCount: 1,
-        layout: $(go.GridLayout,
-          {
-            cellSize: new go.Size(1, 1), spacing: new go.Size(5, 5),
-          }),
-        // initialize the Palette with a few "pipe" nodes
-        model: $(go.GraphLinksModel,
-          {
-            copiesArrays: true,
-            copiesArrayObjects: true,
-            linkFromPortIdProperty: "fid",
-            linkToPortIdProperty: "tid",
-            nodeDataArray: compoundParams[compound]['palette']
-          })  
-      });  
-
-  // Edited string should only contain string of <=2 letters
-  const validElement = (textblock, oldstr, newstr) => {
-    const lettersOnly = /^[a-zA-Z]+$/.test(newstr);
-    return newstr.length <= 2 && lettersOnly
+  // Update covers
+  covers = document.getElementsByClassName('compoundName')
+  for(let i of covers){
+    i.innerText = x
   }
 
-  // Defining element name textblock template
-  var elementName = 
-    $(go.Node, 'Vertical',
-      {movable: false, deletable: false},
-      new go.Binding('position', 'position'),
-      $(go.Shape,
-        {width: 3, height: 3, margin: new go.Margin(0, 0, 3, 0)},
-        new go.Binding('figure', 'shape')
-      ),
-      $(go.TextBlock,
-        {
-          editable: true,
-          isMultiline: false,
-          textValidation: validElement,
-        },
-        new go.Binding('text', 'elementName').makeTwoWay()
-      )
-    )
-  myDiagram.nodeTemplateMap.add("elementName", elementName)
+  // Update legend
+  const electrons = ['A', 'B', 'C', 'D', 'E']
+  const curr_num = myPalette.model.nodeDataArray.length
+  for(let i = 0; i < electrons.length; i++){
+    document.getElementById(electrons[i]).style.display = i < curr_num ? 'block' : 'none'
+  }
 
-  // Defining structure for 2 element compound eg. HCl
-  go.Shape.defineFigureGenerator("TwoElements", function(shape, w, h) {
-    var param1 = shape ? shape.parameter1 : NaN;
-    if (isNaN(param1) || param1 < 0) param1 = 8;
-  
-    var quarterCircle = w / 7
-    var rad = quarterCircle*2
-    var geo = new go.Geometry();
-    // Left
-    var fig = new go.PathFigure(rad*2, h/2);
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, h/2, rad, rad));
-
-    // Right
-    fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
-    geo.add(fig);
-    return geo;
-  });
-
-  // Defining structure for 3 element compound eg. CO2
-  go.Shape.defineFigureGenerator("ThreeElements", function(shape, w, h) {
-    var param1 = shape ? shape.parameter1 : NaN;
-    if (isNaN(param1) || param1 < 0) param1 = 8;
-  
-    var quarterCircle = w / 10
-    var rad = quarterCircle*2
-    var geo = new go.Geometry();
-    // Left
-    var fig = new go.PathFigure(rad*2, h/2);
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, h/2, rad, rad));
-
-    // Center
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, h/2));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, h/2, rad, rad));
-
-    // Right
-    fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
-    
-    geo.add(fig);
-    return geo;
-  });
-  
-  // Defining structure for 4 element compound eg. NH3
-  go.Shape.defineFigureGenerator("FourElements", function(shape, w, h) {
-    var param1 = shape ? shape.parameter1 : NaN;
-    if (isNaN(param1) || param1 < 0) param1 = 8;
-  
-    var quarterCircle = w / 10
-    var rad = quarterCircle*2
-    var geo = new go.Geometry();
-    // Left
-    var fig = new go.PathFigure(rad*2, quarterCircle*5);  
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, quarterCircle*5, rad, rad));
-
-    // Center
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, quarterCircle*5));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, quarterCircle*5, rad, rad));
-
-    // Right
-    fig.add(new go.PathSegment(go.PathSegment.Move, w, quarterCircle*5));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, quarterCircle*5, rad, rad));
-
-    // Top
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, rad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, rad, rad, rad));
-    
-    geo.add(fig);
-    return geo;
-  });
-
-  // Defining structure for 4 element line compound eg. H2O2
-  go.Shape.defineFigureGenerator("FourElementsLine", function(shape, w, h) {
-    var param1 = shape ? shape.parameter1 : NaN;
-    if (isNaN(param1) || param1 < 0) param1 = 8;
-  
-    var quarterCircle = w / 14
-    var rad = quarterCircle*2
-    var geo = new go.Geometry();
-    // Left
-    var fig = new go.PathFigure(rad*2, rad); 
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, rad, rad, rad));
-
-    // CenterLeft
-    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*7, rad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*5, rad, rad, rad));
-
-    // CenterRight
-    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*10, rad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*8, rad, rad, rad));
-
-    // Right
-    fig.add(new go.PathSegment(go.PathSegment.Move, quarterCircle*13, rad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, quarterCircle*11, rad, rad, rad));
-    
-    geo.add(fig);
-    return geo;
-  });
-
-  // Defining structure for 4 element compound eg. CH4
-  go.Shape.defineFigureGenerator("FiveElements", function(shape, w, h) {
-    var param1 = shape ? shape.parameter1 : NaN;
-    if (isNaN(param1) || param1 < 0) param1 = 8;
-  
-    var smallQuarter = w/10
-    var smallRad = smallQuarter*1.5
-    var bigRad = smallQuarter*3
-    var geo = new go.Geometry();
-    // Left
-    var fig = new go.PathFigure(smallRad*2, smallQuarter*5);  
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, smallRad, smallQuarter*5, smallRad, smallRad));
-
-    // Center
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+bigRad, smallQuarter*5));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallQuarter*5, bigRad, bigRad));
-    
-    // Right
-    fig.add(new go.PathSegment(go.PathSegment.Move, w, smallQuarter*5));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-smallRad, smallQuarter*5, smallRad, smallRad));
-    
-    // Top
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, smallRad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallRad, smallRad, smallRad));
-
-    // Bottom
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, w-smallRad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, w-smallRad, smallRad, smallRad));
-    
-    geo.add(fig);
-    return geo;
-  });
-
-  setCompound(compound)
+  // Update result string
+  updateResult('Check answer to see your results.')
 }
 
-// Ends TextEditingTool when clicking out of myDiagram
-document.addEventListener("mousedown", function() {
-  if(myDiagram.currentTool instanceof go.TextEditingTool){
-    myDiagram.currentTool.acceptText(go.TextEditingTool.LostFocus);
-
-    // Checking whether text is accepted
-    // console.log(myDiagram.currentTool.state.va)
+const deleteSelected = () => {
+  selected = myDiagram.selection.first() !== null ? myDiagram.selection.first().tb : null
+  if(selected === null || selected.type !== 'electron'){return}
+  var node = myDiagram.findNodeForKey(selected.key);
+  if (node !== null) {
+    myDiagram.startTransaction();
+    myDiagram.remove(node);
+    myDiagram.commitTransaction("deleted node");
   }
-});
+}
+
+const logSelected = () => {
+  // console.log(selected)
+  console.log(myDiagram.selection.first())
+  console.log(myDiagram.selection.first().tb.__gohashid)
+  // console.log(myDiagram.model.nodeDataArray)
+}
+
+const logData = () => {
+  console.log(myDiagram.model.nodeDataArray)
+  console.log(myDiagram.model.linkDataArray)
+}
+
+// Marking functions
+const getElementNames = (nodeData) => {
+  var elementNames = []
+  for(let i of nodeData){
+    // If item is textblock, add into array
+    if('elementName' in i){
+      elementNames.push(i.elementName)
+    }
+  }
+  stringNames = JSON.stringify(elementNames).replaceAll('"', "'")
+  return stringNames
+}
+
+const checkElectrons = (linkData, stringNames, ans) => {
+  var template = { ...ans[stringNames]['template']}    // A copy of the object
+  var element;
+  var total = 0;
+  for(let i of linkData){
+    // Check for validity of placement; whether the electron and element name are compatible
+    if(i['tid'].indexOf(i['fid']) === -1){
+      return 'invalid electron placement.'
+    }
+
+    // Adds to template for accounting number of electrons later
+    if(i['tid'].length === 2){
+      element = i['tid'][0]
+      template[element]++
+    } else {
+      element = i['tid'].substring(0, 2)
+      template[element]++
+    }
+    total++
+  }
+
+  if(JSON.stringify(template) === JSON.stringify(ans[stringNames]['distribution'])){
+    return 'correct'
+  } else if(total === ans[stringNames]['total']){
+    return 'electron placement wrong'
+  }
+
+  return 'number of electrons wrong'
+}
+
+const check = () => {
+  const nodeData = myDiagram.model.nodeDataArray
+  const linkData = myDiagram.model.linkDataArray
+  const ans = compoundParams[compound]['ans']
+  stringNames = getElementNames(nodeData, )
+
+  // Check element names
+  if(stringNames in ans){
+
+    resultString = checkElectrons(linkData, stringNames, ans)
+    // Check electrons
+    if(resultString === 'correct'){
+      updateResult('Your answer is correct.')
+      return
+    }
+
+    updateResult('Element names correct but ' + resultString)
+    return
+  }
+  updateResult('Element names wrong.')
+}
+
+const updateResult = (result) => {
+  document.getElementById('results').innerText = result
+  if(result === 'Your answer is correct.'){
+    document.getElementById('results').style.color = 'green'
+  } else if(result === 'Check answer to see your results.') {
+    document.getElementById('results').style.color = 'black'
+  } else {
+    document.getElementById('results').style.color = 'red'
+  }
+}
 
 // Define a custom DraggingTool
 function SnappingTool() {
@@ -1181,134 +1313,3 @@ SnappingTool.prototype.gatherConnecteds = function(map, node) {
 };
 
 window.addEventListener('DOMContentLoaded', init);
-
-const setCompound = (x) => {
-  compound = x
-  // Update diagram data
-  myDiagram.startTransaction()
-  myDiagram.model.nodeDataArray = []
-  myDiagram.model.linkDataArray = []
-  myDiagram.model.nodeDataArray = [...compoundParams[compound]['data']]
-  myDiagram.commitTransaction()
-
-  // Update palette data
-  myPalette.startTransaction()
-  myPalette.model.nodeDataArray = []
-  myPalette.model.nodeDataArray = [...compoundParams[compound]['palette']]
-  myPalette.commitTransaction()
-
-  // Update covers
-  covers = document.getElementsByClassName('compoundName')
-  for(let i of covers){
-    i.innerText = x
-  }
-
-  // Update legend
-  const electrons = ['A', 'B', 'C', 'D', 'E']
-  const curr_num = myPalette.model.nodeDataArray.length
-  for(let i = 0; i < electrons.length; i++){
-    document.getElementById(electrons[i]).style.display = i < curr_num ? 'block' : 'none'
-  }
-
-  // Update result string
-  updateResult('Check answer to see your results.')
-}
-
-const deleteSelected = () => {
-  selected = myDiagram.selection.first() !== null ? myDiagram.selection.first().tb : null
-  if(selected === null || selected.type !== 'electron'){return}
-  var node = myDiagram.findNodeForKey(selected.key);
-  if (node !== null) {
-    myDiagram.startTransaction();
-    myDiagram.remove(node);
-    myDiagram.commitTransaction("deleted node");
-  }
-}
-
-const logSelected = () => {
-  // console.log(selected)
-  console.log(myDiagram.selection.first())
-  console.log(myDiagram.selection.first().tb.__gohashid)
-  // console.log(myDiagram.model.nodeDataArray)
-}
-
-const logData = () => {
-  console.log(myDiagram.model.nodeDataArray)
-  console.log(myDiagram.model.linkDataArray)
-}
-
-// Marking functions
-const getElementNames = (nodeData) => {
-  var elementNames = []
-  for(let i of nodeData){
-    // If item is textblock, add into array
-    if('elementName' in i){
-      elementNames.push(i.elementName)
-    }
-  }
-  stringNames = JSON.stringify(elementNames).replaceAll('"', "'")
-  return stringNames
-}
-
-const checkElectrons = (linkData, stringNames, ans) => {
-  var template = { ...ans[stringNames]['template']}    // A copy of the object
-  var element;
-  var total = 0;
-  for(let i of linkData){
-    // Check for validity of placement; whether the electron and element name are compatible
-    if(i['tid'].indexOf(i['fid']) === -1){
-      return 'invalid electron placement.'
-    }
-
-    // Adds to template for accounting number of electrons later
-    if(i['tid'].length === 2){
-      element = i['tid'][0]
-      template[element]++
-    } else {
-      element = i['tid'].substring(0, 2)
-      template[element]++
-    }
-    total++
-  }
-
-  if(JSON.stringify(template) === JSON.stringify(ans[stringNames]['distribution'])){
-    return 'correct'
-  } else if(total === ans[stringNames]['total']){
-    return 'electron placement wrong'
-  }
-
-  return 'number of electrons wrong'
-}
-
-const check = () => {
-  const nodeData = myDiagram.model.nodeDataArray
-  const linkData = myDiagram.model.linkDataArray
-  const ans = compoundParams[compound]['ans']
-  stringNames = getElementNames(nodeData, )
-
-  // Check element names
-  if(stringNames in ans){
-
-    resultString = checkElectrons(linkData, stringNames, ans)
-    // Check electrons
-    if(resultString === 'correct'){
-      updateResult('Your answer is correct.')
-      return
-    }
-
-    updateResult('Element names correct but ' + resultString)
-    return
-  }
-  updateResult('Element names wrong.')
-}
-
-const updateResult = (result) => {
-  document.getElementById('results').innerText = result
-  if(result === 'Your answer is correct.'){
-    document.getElementById('results').style.color = 'green'
-  } else if(result === 'Check answer to see your results.') {
-    document.getElementById('results').style.color = 'black'
-  } else {
-    document.getElementById('results').style.color = 'red'
-  }
-}
