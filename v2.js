@@ -304,6 +304,10 @@ document.addEventListener("mousedown", function() {
   }
 });
 
+
+
+
+// Examples
 const compoundParams = {
   'HCl': {
         palette: [
@@ -978,8 +982,12 @@ const compoundParams = {
     }
   },
 }
-var compound = 'HCl'
+var compound = 'HCl';
 var selected = null;
+
+
+
+
 
 // Helper functions
 const setCompound = (x) => {
@@ -1036,6 +1044,10 @@ const logData = () => {
   console.log(myDiagram.model.nodeDataArray)
   console.log(myDiagram.model.linkDataArray)
 }
+
+
+
+
 
 // Marking functions
 const getElementNames = (nodeData) => {
@@ -1112,6 +1124,10 @@ const updateResult = (result) => {
     document.getElementById('results').style.color = 'red'
   }
 }
+
+
+
+
 
 // Define a custom DraggingTool
 function SnappingTool() {
