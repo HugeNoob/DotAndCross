@@ -129,7 +129,7 @@ const init = () => {
             copiesArrayObjects: true,
             linkFromPortIdProperty: "fid",
             linkToPortIdProperty: "tid",
-            nodeDataArray: compoundParams[compound]['palette']
+            nodeDataArray: compoundShape[compoundParams[compound]['shape']]['palette']
           })  
       });  
 
@@ -231,7 +231,7 @@ const init = () => {
   });
 
   // Defining structure for 4 element line compound eg. H2O2
-  go.Shape.defineFigureGenerator("FourElementsLine", function(shape, w, h) {
+  go.Shape.defineFigureGenerator("FourElementsRow", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
   
@@ -308,350 +308,327 @@ document.addEventListener("mousedown", function() {
 
 
 // Examples
-const compoundParams = {
-  'HCl': {
-        palette: [
-          {
-            type: 'electron',
-            element: 'A',
-            figshape: "Circle",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "A", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
-          {
-            type: 'electron',
-            element: 'B',
-            figshape: "Xline",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "B", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
+const compoundShape = {
+  'TwoElements': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        data :[{
-            height: 120,
-            width: 200,
-            figshape: "TwoElements",
-            ports: [
-              { id: "A1", spot: "0 0.48" },    //left
-              { id: "A2", spot: "0 0.52" },
-              { id: "A3", spot: "0.27 0.02" }, //top
-              { id: "A4", spot: "0.3 0.02" },
-              { id: "A5", spot: "0.27 0.98" }, //bottom
-              { id: "A6", spot: "0.3 0.98" },
-        
-              { id: "B1", spot: "1 0.48" },    //right
-              { id: "B2", spot: "1 0.52" },
-              { id: "B3", spot: "0.7 0.02" },  //top
-              { id: "B4", spot: "0.73 0.02" },
-              { id: "B5", spot: "0.7 0.98" },  //bottom
-              { id: "B6", spot: "0.73 0.98" },
-        
-              { id: "AB1", spot: "0.5 0.25" },
-              { id: "AB2", spot: "0.5 0.35" },
-              { id: "AB3", spot: "0.5 0.45" },
-              { id: "AB4", spot: "0.5 0.55" },
-              { id: "AB5", spot: "0.5 0.65" },
-              { id: "AB6", spot: "0.5 0.75" },
-              ],
-              selectable: false,
-              movable: false
-            },
-            {
-              type: 'elementName',
-              element: 'A',
-              elementName: 'A',
-              position: new go.Point(55, 50),
-              category: 'elementName',
-              shape: 'Circle',
-            },
-            {
-              type: 'elementName',
-              element: 'B',
-              elementName: 'B',
-              position: new go.Point(142, 50),
-              category: 'elementName',
-              shape: 'Xline',
-        }],
-        ans : {
-          "['H','Cl']": {
-            'total': 8,
-            'template': {'A':0, 'B':0, 'AB':0},
-            'distribution':  {'A':0, 'B':6, 'AB':2}
-          },
-          "['Cl','H']": {
-            'total': 8,
-            'template': {'A':0, 'B':0, 'AB':0},
-            'distribution':  {'A':6, 'B':0, 'AB':2}
-          },
-        }
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+    ],
+    data :[{
+      height: 120,
+      width: 200,
+      figshape: "TwoElements",
+      ports: [
+        { id: "A1", spot: "0 0.48" },    //left
+        { id: "A2", spot: "0 0.52" },
+        { id: "A3", spot: "0.27 0.02" }, //top
+        { id: "A4", spot: "0.3 0.02" },
+        { id: "A5", spot: "0.27 0.98" }, //bottom
+        { id: "A6", spot: "0.3 0.98" },
+  
+        { id: "B1", spot: "1 0.48" },    //right
+        { id: "B2", spot: "1 0.52" },
+        { id: "B3", spot: "0.7 0.02" },  //top
+        { id: "B4", spot: "0.73 0.02" },
+        { id: "B5", spot: "0.7 0.98" },  //bottom
+        { id: "B6", spot: "0.73 0.98" },
+  
+        { id: "AB1", spot: "0.5 0.25" },
+        { id: "AB2", spot: "0.5 0.35" },
+        { id: "AB3", spot: "0.5 0.45" },
+        { id: "AB4", spot: "0.5 0.55" },
+        { id: "AB5", spot: "0.5 0.65" },
+        { id: "AB6", spot: "0.5 0.75" },
+        ],
+        selectable: false,
+        movable: false
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(55, 50),
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(142, 50),
+        category: 'elementName',
+        shape: 'Xline',
+    }],
   },
-  'CO2': {
-        palette: [
-          {
-            type: 'electron',
-            element: 'A',
-            figshape: "Circle",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "A", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
-          {
-            type: 'electron',
-            element: 'B',
-            figshape: "Xline",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "B", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
-          {
-            type: 'electron',
-            element: 'C',
-            figshape: "Diamond",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "C", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
+
+  'ThreeElements': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        data: [{
-          height: 120,
-          width: 300,
-          figshape: "ThreeElements",
-          ports: [
-            { id: "A1", spot: "0 0.48" },   //left
-            { id: "A2", spot: "0 0.52" },
-            { id: "A3", spot: "0.19 0" },   //top   
-            { id: "A4", spot: "0.21 0" },
-            { id: "A5", spot: "0.19 1" },   //bottom
-            { id: "A6", spot: "0.21 1" },
-      
-            { id: "B1", spot: "0.49 0" },   //top
-            { id: "B2", spot: "0.51 0" },
-            { id: "B3", spot: "0.49 1" },   //bottom
-            { id: "B4", spot: "0.51 1" },
-      
-            { id: "C1", spot: "1 0.48" },   //right
-            { id: "C2", spot: "1 0.52" },
-            { id: "C3", spot: "0.79 0" },   //top
-            { id: "C4", spot: "0.81 0" },
-            { id: "C5", spot: "0.79 1" },   //bottom
-            { id: "C6", spot: "0.81 1" },
-      
-            { id: "AB1", spot: "0.35 0.25" },
-            { id: "AB2", spot: "0.35 0.35" },
-            { id: "AB3", spot: "0.35 0.45" },
-            { id: "AB4", spot: "0.35 0.55" },
-            { id: "AB5", spot: "0.35 0.65" },
-            { id: "AB6", spot: "0.35 0.75" },
-      
-            { id: "BC1", spot: "0.65 0.25" },
-            { id: "BC2", spot: "0.65 0.35" },
-            { id: "BC3", spot: "0.65 0.45" },
-            { id: "BC4", spot: "0.65 0.55" },
-            { id: "BC5", spot: "0.65 0.65" },
-            { id: "BC6", spot: "0.65 0.75" },
-          ],
-          selectable: false,
-          movable: false
-          },
-          {
-            type: 'elementName',
-            element: 'A',
-            elementName: 'A',
-            position: new go.Point(57, 50),
-            category: 'elementName',
-            shape: 'Circle',
-          },
-          {
-            type: 'elementName',
-            element: 'B',
-            elementName: 'B',
-            position: new go.Point(148, 50),
-            category: 'elementName',
-            shape: 'Xline',
-          },
-          {
-            type: 'elementName',
-            element: 'C',
-            elementName: 'C',
-            position: new go.Point(238, 50),
-            category: 'elementName',
-            shape: 'Diamond',
-        }],
-        ans: {
-          "['O','C','O']": {
-            'total': 16,
-            'template': {'A':0, 'B':0, 'C':0, 'AB':0, 'BC':0},
-            'distribution':  {'A':4, 'B':0, 'C':4,'AB':4, 'BC':4}
-          }
-        }
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+    ],
+    data: [{
+      height: 120,
+      width: 300,
+      figshape: "ThreeElements",
+      ports: [
+        { id: "A1", spot: "0 0.48" },   //left
+        { id: "A2", spot: "0 0.52" },
+        { id: "A3", spot: "0.19 0" },   //top   
+        { id: "A4", spot: "0.21 0" },
+        { id: "A5", spot: "0.19 1" },   //bottom
+        { id: "A6", spot: "0.21 1" },
+  
+        { id: "B1", spot: "0.49 0" },   //top
+        { id: "B2", spot: "0.51 0" },
+        { id: "B3", spot: "0.49 1" },   //bottom
+        { id: "B4", spot: "0.51 1" },
+  
+        { id: "C1", spot: "1 0.48" },   //right
+        { id: "C2", spot: "1 0.52" },
+        { id: "C3", spot: "0.79 0" },   //top
+        { id: "C4", spot: "0.81 0" },
+        { id: "C5", spot: "0.79 1" },   //bottom
+        { id: "C6", spot: "0.81 1" },
+  
+        { id: "AB1", spot: "0.35 0.25" },
+        { id: "AB2", spot: "0.35 0.35" },
+        { id: "AB3", spot: "0.35 0.45" },
+        { id: "AB4", spot: "0.35 0.55" },
+        { id: "AB5", spot: "0.35 0.65" },
+        { id: "AB6", spot: "0.35 0.75" },
+  
+        { id: "BC1", spot: "0.65 0.25" },
+        { id: "BC2", spot: "0.65 0.35" },
+        { id: "BC3", spot: "0.65 0.45" },
+        { id: "BC4", spot: "0.65 0.55" },
+        { id: "BC5", spot: "0.65 0.65" },
+        { id: "BC6", spot: "0.65 0.75" },
+      ],
+      selectable: false,
+      movable: false
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(57, 50),
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(148, 50),
+        category: 'elementName',
+        shape: 'Xline',
+      },
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: new go.Point(238, 50),
+        category: 'elementName',
+        shape: 'Diamond',
+    }],
   },
-  'NH3': {
-        palette: [
-          {
-            type: 'electron',
-            element: 'A',
-            figshape: "Circle",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "A", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
-          {
-            type: 'electron',
-            element: 'B',
-            figshape: "Xline",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "B", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
-          {
-            type: 'electron',
-            element: 'C',
-            figshape: "Diamond",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "C", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
-          {
-            type: 'electron',
-            element: 'D',
-            figshape: "Triangle",
-            height: 5,
-            width: 5,
-            fill: "#000",
-            ports: [
-              { id: "D", spot: "0.5 0.5", fill: null },
-            ],
-            textvisible: false
-          },
+
+  'FourElements': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        data: [{
-          height: 210,
-          width: 300,
-          figshape: "FourElements",
-          ports: [
-            { id: "A1", spot: "0 0.7" },    //left
-            { id: "A2", spot: "0 0.72" },   
-            { id: "A3", spot: "0.19 0.425" },    //top
-            { id: "A4", spot: "0.21 0.425" },
-            { id: "A5", spot: "0.19 1" },    //bottom
-            { id: "A6", spot: "0.21 1" },
-      
-            { id: "B1", spot: "0.49 1" },    //bottom
-            { id: "B2", spot: "0.51 1" },
-      
-            { id: "C1", spot: "1 0.7" },    //right
-            { id: "C2", spot: "1 0.72" },
-            { id: "C3", spot: "0.79 0.425" },    //top
-            { id: "C4", spot: "0.81 0.425" },
-            { id: "C5", spot: "0.79 1" },    //bottom
-            { id: "C6", spot: "0.81 1" },
-
-            { id: "D1", spot: "0.49 0" },   //top
-            { id: "D2", spot: "0.51 0" },
-            { id: "D3", spot: "0.3 0.28" },    //left
-            { id: "D4", spot: "0.3 0.3" },
-            { id: "D5", spot: "0.7 0.28" },    //right
-            { id: "D6", spot: "0.7 0.3" },
-      
-            { id: "AB1", spot: "0.35 0.59" },
-            { id: "AB2", spot: "0.35 0.64" },
-            { id: "AB3", spot: "0.35 0.69" },
-            { id: "AB4", spot: "0.35 0.74" },
-            { id: "AB5", spot: "0.35 0.79" },
-            { id: "AB6", spot: "0.35 0.84" },
-
-            { id: "BD1", spot: "0.4 0.5" },
-            { id: "BD2", spot: "0.44 0.5" },
-            { id: "BD3", spot: "0.48 0.5" },
-            { id: "BD4", spot: "0.52 0.5" },
-            { id: "BD5", spot: "0.56 0.5" },
-            { id: "BD6", spot: "0.6 0.5" },
-
-            { id: "BC1", spot: "0.65 0.59" },
-            { id: "BC2", spot: "0.65 0.64" },
-            { id: "BC3", spot: "0.65 0.69" },
-            { id: "BC4", spot: "0.65 0.74" },
-            { id: "BC5", spot: "0.65 0.79" },
-            { id: "BC6", spot: "0.65 0.84" },
-          ],
-          selectable: false,
-          movable: false,
-          },
-          {
-            type: 'elementName',
-            element: 'A',
-            elementName: 'A',
-            position: new go.Point(58, 140),
-            category: 'elementName',
-            shape: 'Circle',
-          },
-          {
-            type: 'elementName',
-            element: 'B',
-            elementName: 'B',
-            position: new go.Point(148, 140),
-            category: 'elementName',
-            shape: 'Xline',
-          },
-          {
-            type: 'elementName',
-            element: 'C',
-            elementName: 'C',
-            position: new go.Point(238, 140),
-            category: 'elementName',
-            shape: 'Diamond',
-          },
-          {
-            type: 'elementName',
-            element: 'D',
-            elementName: 'D',
-            position: new go.Point(148, 50),
-            category: 'elementName',
-            shape: 'Triangle',
-          }
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
         ],
-        ans: {
-          "['H','N','H','H']": {
-            'total': 8,
-            'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'BD': 0},
-            'distribution':  {'A':0, 'B':2, 'C': 0, 'D': 0, 'AB':2, 'BC': 2, 'BD': 2}
-          }
-        }
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'D',
+        figshape: "Triangle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "D", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+    ],
+    data: [{
+      height: 210,
+      width: 300,
+      figshape: "FourElements",
+      ports: [
+        { id: "A1", spot: "0 0.7" },    //left
+        { id: "A2", spot: "0 0.72" },   
+        { id: "A3", spot: "0.19 0.425" },    //top
+        { id: "A4", spot: "0.21 0.425" },
+        { id: "A5", spot: "0.19 1" },    //bottom
+        { id: "A6", spot: "0.21 1" },
+  
+        { id: "B1", spot: "0.49 1" },    //bottom
+        { id: "B2", spot: "0.51 1" },
+  
+        { id: "C1", spot: "1 0.7" },    //right
+        { id: "C2", spot: "1 0.72" },
+        { id: "C3", spot: "0.79 0.425" },    //top
+        { id: "C4", spot: "0.81 0.425" },
+        { id: "C5", spot: "0.79 1" },    //bottom
+        { id: "C6", spot: "0.81 1" },
+
+        { id: "D1", spot: "0.49 0" },   //top
+        { id: "D2", spot: "0.51 0" },
+        { id: "D3", spot: "0.3 0.28" },    //left
+        { id: "D4", spot: "0.3 0.3" },
+        { id: "D5", spot: "0.7 0.28" },    //right
+        { id: "D6", spot: "0.7 0.3" },
+  
+        { id: "AB1", spot: "0.35 0.59" },
+        { id: "AB2", spot: "0.35 0.64" },
+        { id: "AB3", spot: "0.35 0.69" },
+        { id: "AB4", spot: "0.35 0.74" },
+        { id: "AB5", spot: "0.35 0.79" },
+        { id: "AB6", spot: "0.35 0.84" },
+
+        { id: "BD1", spot: "0.4 0.5" },
+        { id: "BD2", spot: "0.44 0.5" },
+        { id: "BD3", spot: "0.48 0.5" },
+        { id: "BD4", spot: "0.52 0.5" },
+        { id: "BD5", spot: "0.56 0.5" },
+        { id: "BD6", spot: "0.6 0.5" },
+
+        { id: "BC1", spot: "0.65 0.59" },
+        { id: "BC2", spot: "0.65 0.64" },
+        { id: "BC3", spot: "0.65 0.69" },
+        { id: "BC4", spot: "0.65 0.74" },
+        { id: "BC5", spot: "0.65 0.79" },
+        { id: "BC6", spot: "0.65 0.84" },
+      ],
+      selectable: false,
+      movable: false,
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(58, 140),
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(148, 140),
+        category: 'elementName',
+        shape: 'Xline',
+      },
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: new go.Point(238, 140),
+        category: 'elementName',
+        shape: 'Diamond',
+      },
+      {
+        type: 'elementName',
+        element: 'D',
+        elementName: 'D',
+        position: new go.Point(148, 50),
+        category: 'elementName',
+        shape: 'Triangle',
+      }
+    ],
   },
-  'H2O2': {
+
+  'FourElementsRow': {
     palette: [
       {
         type: 'electron',
@@ -705,7 +682,7 @@ const compoundParams = {
     data: [{
       height: 115,
       width: 400,
-      figshape: "FourElementsLine",
+      figshape: "FourElementsRow",
       ports: [
         { id: "A1", spot: "0 0.48" },    //left
         { id: "A2", spot: "0 0.52" },   
@@ -788,15 +765,9 @@ const compoundParams = {
         shape: 'Triangle',
       }
     ],
-    ans: {
-      "['H','O','O','H']": {
-        'total': 14,
-        'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'CD': 0},
-        'distribution':  {'A':0, 'B':4, 'C': 4, 'D': 0, 'AB':2, 'BC': 2, 'CD': 2}
-      }
-    }
   },
-  'CH4': {
+
+  'FiveElements': {
     palette: [
       {
         type: 'electron',
@@ -973,6 +944,61 @@ const compoundParams = {
         shape: 'Square',
       }
     ],
+  }
+}
+
+const compoundParams = {
+  'HCl': {
+    shape: 'TwoElements',
+    ans : {
+      "['H','Cl']": {
+        'total': 8,
+        'template': {'A':0, 'B':0, 'AB':0},
+        'distribution':  {'A':0, 'B':6, 'AB':2}
+      },
+      "['Cl','H']": {
+        'total': 8,
+        'template': {'A':0, 'B':0, 'AB':0},
+        'distribution':  {'A':6, 'B':0, 'AB':2}
+      },
+    }
+  },
+
+  'CO2': {
+    shape: 'ThreeElements',
+    ans: {
+      "['O','C','O']": {
+        'total': 16,
+        'template': {'A':0, 'B':0, 'C':0, 'AB':0, 'BC':0},
+        'distribution':  {'A':4, 'B':0, 'C':4,'AB':4, 'BC':4}
+      }
+    }
+  },
+
+  'NH3': {
+    shape: 'FourElements',
+    ans: {
+      "['H','N','H','H']": {
+        'total': 8,
+        'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'BD': 0},
+        'distribution':  {'A':0, 'B':2, 'C': 0, 'D': 0, 'AB':2, 'BC': 2, 'BD': 2}
+      }
+    }
+  },
+
+  'H2O2': {
+    shape: 'FourElementsRow',
+    ans: {
+      "['H','O','O','H']": {
+        'total': 14,
+        'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'CD': 0},
+        'distribution':  {'A':0, 'B':4, 'C': 4, 'D': 0, 'AB':2, 'BC': 2, 'CD': 2}
+      }
+    }
+  },
+
+  'CH4': {
+    shape: 'FiveElements',
     ans: {
       "['H','C','H','H','H']": {
         'total': 8,
@@ -996,13 +1022,13 @@ const setCompound = (x) => {
   myDiagram.startTransaction()
   myDiagram.model.nodeDataArray = []
   myDiagram.model.linkDataArray = []
-  myDiagram.model.nodeDataArray = [...compoundParams[compound]['data']]
+  myDiagram.model.nodeDataArray = [...compoundShape[compoundParams[compound]['shape']]['data']]
   myDiagram.commitTransaction()
 
   // Update palette data
   myPalette.startTransaction()
   myPalette.model.nodeDataArray = []
-  myPalette.model.nodeDataArray = [...compoundParams[compound]['palette']]
+  myPalette.model.nodeDataArray = [...compoundShape[compoundParams[compound]['shape']]['palette']]
   myPalette.commitTransaction()
 
   // Update covers
