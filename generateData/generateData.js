@@ -381,7 +381,10 @@ const compoundShape = {
         category: 'elementName',
         shape: 'Xline',
     }],
-    template: {'A':0, 'B':0, 'AB':0},
+    hasCentral: false,
+    template: [0, 0],
+    reference: ['A', 'AB', 'B'],
+    distributionTemplate: [0, 0, 0],
   },
 
   'ThreeElements': {
@@ -428,17 +431,17 @@ const compoundShape = {
       width: 300,
       figshape: "ThreeElements",
       ports: [
-        { id: "A1", spot: "0 0.48" },   //left
-        { id: "A2", spot: "0 0.52" },
-        { id: "A3", spot: "0.19 0" },   //top   
-        { id: "A4", spot: "0.21 0" },
-        { id: "A5", spot: "0.19 1" },   //bottom
-        { id: "A6", spot: "0.21 1" },
+        { id: "B1", spot: "0 0.48" },   //left
+        { id: "B2", spot: "0 0.52" },
+        { id: "B3", spot: "0.19 0" },   //top   
+        { id: "B4", spot: "0.21 0" },
+        { id: "B5", spot: "0.19 1" },   //bottom
+        { id: "B6", spot: "0.21 1" },
   
-        { id: "B1", spot: "0.49 0" },   //top
-        { id: "B2", spot: "0.51 0" },
-        { id: "B3", spot: "0.49 1" },   //bottom
-        { id: "B4", spot: "0.51 1" },
+        { id: "A1", spot: "0.49 0" },   //top
+        { id: "A2", spot: "0.51 0" },
+        { id: "A3", spot: "0.49 1" },   //bottom
+        { id: "A4", spot: "0.51 1" },
   
         { id: "C1", spot: "1 0.48" },   //right
         { id: "C2", spot: "1 0.52" },
@@ -454,12 +457,12 @@ const compoundShape = {
         { id: "AB5", spot: "0.35 0.65" },
         { id: "AB6", spot: "0.35 0.75" },
   
-        { id: "BC1", spot: "0.65 0.25" },
-        { id: "BC2", spot: "0.65 0.35" },
-        { id: "BC3", spot: "0.65 0.45" },
-        { id: "BC4", spot: "0.65 0.55" },
-        { id: "BC5", spot: "0.65 0.65" },
-        { id: "BC6", spot: "0.65 0.75" },
+        { id: "AC1", spot: "0.65 0.25" },
+        { id: "AC2", spot: "0.65 0.35" },
+        { id: "AC3", spot: "0.65 0.45" },
+        { id: "AC4", spot: "0.65 0.55" },
+        { id: "AC5", spot: "0.65 0.65" },
+        { id: "AC6", spot: "0.65 0.75" },
       ],
       selectable: false,
       movable: false
@@ -468,7 +471,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(57, 50),
+        position: new go.Point(148, 50),
         category: 'elementName',
         shape: 'Circle',
       },
@@ -476,7 +479,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(148, 50),
+        position: new go.Point(57, 50),
         category: 'elementName',
         shape: 'Xline',
       },
@@ -488,7 +491,10 @@ const compoundShape = {
         category: 'elementName',
         shape: 'Diamond',
     }],
-    template: {'A':0, 'B':0, 'C':0, 'AB':0, 'BC':0},
+    hasCentral: true,
+    template: [0, 0, 0],
+    reference: [['A', ''], ['B', 'AB'], ['C', 'AC']],
+    distributionTemplate: [[0, 0], [0, 0], [0, 0]],
   },
 
   'FourElements': {
@@ -547,15 +553,15 @@ const compoundShape = {
       width: 300,
       figshape: "FourElements",
       ports: [
-        { id: "A1", spot: "0 0.7" },    //left
-        { id: "A2", spot: "0 0.72" },   
-        { id: "A3", spot: "0.19 0.425" },    //top
-        { id: "A4", spot: "0.21 0.425" },
-        { id: "A5", spot: "0.19 1" },    //bottom
-        { id: "A6", spot: "0.21 1" },
+        { id: "B1", spot: "0 0.7" },    //left
+        { id: "B2", spot: "0 0.72" },   
+        { id: "B3", spot: "0.19 0.425" },    //top
+        { id: "B4", spot: "0.21 0.425" },
+        { id: "B5", spot: "0.19 1" },    //bottom
+        { id: "B6", spot: "0.21 1" },
   
-        { id: "B1", spot: "0.49 1" },    //bottom
-        { id: "B2", spot: "0.51 1" },
+        { id: "A1", spot: "0.49 1" },    //bottom
+        { id: "A2", spot: "0.51 1" },
   
         { id: "C1", spot: "1 0.7" },    //right
         { id: "C2", spot: "1 0.72" },
@@ -578,19 +584,19 @@ const compoundShape = {
         { id: "AB5", spot: "0.35 0.79" },
         { id: "AB6", spot: "0.35 0.84" },
 
-        { id: "BD1", spot: "0.4 0.5" },
-        { id: "BD2", spot: "0.44 0.5" },
-        { id: "BD3", spot: "0.48 0.5" },
-        { id: "BD4", spot: "0.52 0.5" },
-        { id: "BD5", spot: "0.56 0.5" },
-        { id: "BD6", spot: "0.6 0.5" },
+        { id: "AD1", spot: "0.4 0.5" },
+        { id: "AD2", spot: "0.44 0.5" },
+        { id: "AD3", spot: "0.48 0.5" },
+        { id: "AD4", spot: "0.52 0.5" },
+        { id: "AD5", spot: "0.56 0.5" },
+        { id: "AD6", spot: "0.6 0.5" },
 
-        { id: "BC1", spot: "0.65 0.59" },
-        { id: "BC2", spot: "0.65 0.64" },
-        { id: "BC3", spot: "0.65 0.69" },
-        { id: "BC4", spot: "0.65 0.74" },
-        { id: "BC5", spot: "0.65 0.79" },
-        { id: "BC6", spot: "0.65 0.84" },
+        { id: "AC1", spot: "0.65 0.59" },
+        { id: "AC2", spot: "0.65 0.64" },
+        { id: "AC3", spot: "0.65 0.69" },
+        { id: "AC4", spot: "0.65 0.74" },
+        { id: "AC5", spot: "0.65 0.79" },
+        { id: "AC6", spot: "0.65 0.84" },
       ],
       selectable: false,
       movable: false,
@@ -599,7 +605,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(58, 140),
+        position: new go.Point(148, 140),
         category: 'elementName',
         shape: 'Circle',
       },
@@ -607,10 +613,11 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(148, 140),
+        position: new go.Point(58, 140),
         category: 'elementName',
         shape: 'Xline',
       },
+
       {
         type: 'elementName',
         element: 'C',
@@ -628,7 +635,10 @@ const compoundShape = {
         shape: 'Triangle',
       }
     ],
-    template: {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'BD': 0},
+    hasCentral: true,
+    template: [0, 0, 0, 0],
+    reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
+    distributionTemplate: [[0, 0], [0, 0], [0, 0], [0, 0]],
   },
 
   'FourElementsRow': {
@@ -768,7 +778,10 @@ const compoundShape = {
         shape: 'Triangle',
       }
     ],
-    template: {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'CD': 0},
+    hasCentral: false,
+    template: [0, 0, 0, 0],
+    reference: ['A', 'AB', 'B', 'BC', 'C', 'CD', 'D'],
+    distributionTemplate: [0, 0, 0, 0, 0, 0, 0],
   },
 
   'FiveElements': {
@@ -839,35 +852,35 @@ const compoundShape = {
       width: 300,
       figshape: "FiveElements",
       ports: [
-        { id: "A1", spot: "0 0.49" },    //left
-        { id: "A2", spot: "0 0.51" },   
-        { id: "A3", spot: "0.14 0.35" },    //top
-        { id: "A4", spot: "0.16 0.35" },
-        { id: "A5", spot: "0.14 0.65" },    //bottom
-        { id: "A6", spot: "0.16 0.65" },
+        { id: "B1", spot: "0 0.49" },    //left
+        { id: "B2", spot: "0 0.51" },   
+        { id: "B3", spot: "0.14 0.35" },    //top
+        { id: "B4", spot: "0.16 0.35" },
+        { id: "B5", spot: "0.14 0.65" },    //bottom
+        { id: "B6", spot: "0.16 0.65" },
 
-        { id: "B1", spot: "0.31 0.27" },    //top left
-        { id: "B2", spot: "0.29 0.29" },   
-        { id: "B3", spot: "0.69 0.27" },    // top right
-        { id: "B4", spot: "0.71 0.29" },
-        { id: "B5", spot: "0.69 0.73" },    //bottom right
-        { id: "B6", spot: "0.71 0.71" },
-        { id: "B7", spot: "0.31 0.73" },    //bottom left
-        { id: "B8", spot: "0.29 0.71" },
+        { id: "A1", spot: "0.31 0.27" },    //top left
+        { id: "A2", spot: "0.29 0.29" },   
+        { id: "A3", spot: "0.69 0.27" },    // top right
+        { id: "A4", spot: "0.71 0.29" },
+        { id: "A5", spot: "0.69 0.73" },    //bottom right
+        { id: "A6", spot: "0.71 0.71" },
+        { id: "A7", spot: "0.31 0.73" },    //bottom left
+        { id: "A8", spot: "0.29 0.71" },
   
-        { id: "C1", spot: "1 0.49" },    //right
-        { id: "C2", spot: "1 0.51" },   
-        { id: "C3", spot: "0.84 0.35" },    //top
-        { id: "C4", spot: "0.86 0.35" },
-        { id: "C5", spot: "0.84 0.65" },    //bottom
-        { id: "C6", spot: "0.86 0.65" },
+        { id: "D1", spot: "1 0.49" },    //right
+        { id: "D2", spot: "1 0.51" },   
+        { id: "D3", spot: "0.84 0.35" },    //top
+        { id: "D4", spot: "0.86 0.35" },
+        { id: "D5", spot: "0.84 0.65" },    //bottom
+        { id: "D6", spot: "0.86 0.65" },
         
-        { id: "D1", spot: "0.35 0.14" },    //left
-        { id: "D2", spot: "0.35 0.16" },   
-        { id: "D3", spot: "0.65 0.14" },    //right
-        { id: "D4", spot: "0.65 0.16" },
-        { id: "D5", spot: "0.49 0" },    //top
-        { id: "D6", spot: "0.51 0" },
+        { id: "C1", spot: "0.35 0.14" },    //left
+        { id: "C2", spot: "0.35 0.16" },   
+        { id: "C3", spot: "0.65 0.14" },    //right
+        { id: "C4", spot: "0.65 0.16" },
+        { id: "C5", spot: "0.49 0" },    //top
+        { id: "C6", spot: "0.51 0" },
 
         { id: "E1", spot: "0.35 0.84" },    //left
         { id: "E2", spot: "0.35 0.86" },   
@@ -883,26 +896,26 @@ const compoundShape = {
         { id: "AB5", spot: "0.24 0.56" },
         { id: "AB6", spot: "0.24 0.6" },
 
-        { id: "BC1", spot: "0.76 0.4" },
-        { id: "BC2", spot: "0.76 0.44" },
-        { id: "BC3", spot: "0.76 0.48" },
-        { id: "BC4", spot: "0.76 0.52" },
-        { id: "BC5", spot: "0.76 0.56" },
-        { id: "BC6", spot: "0.76 0.6" },
+        { id: "AD1", spot: "0.76 0.4" },
+        { id: "AD2", spot: "0.76 0.44" },
+        { id: "AD3", spot: "0.76 0.48" },
+        { id: "AD4", spot: "0.76 0.52" },
+        { id: "AD5", spot: "0.76 0.56" },
+        { id: "AD6", spot: "0.76 0.6" },
 
-        { id: "BD1", spot: "0.4 0.24" },
-        { id: "BD2", spot: "0.44 0.24" },
-        { id: "BD3", spot: "0.48 0.24" },
-        { id: "BD4", spot: "0.52 0.24" },
-        { id: "BD5", spot: "0.56 0.24" },
-        { id: "BD6", spot: "0.6 0.24" },
+        { id: "AC1", spot: "0.4 0.24" },
+        { id: "AC2", spot: "0.44 0.24" },
+        { id: "AC3", spot: "0.48 0.24" },
+        { id: "AC4", spot: "0.52 0.24" },
+        { id: "AC5", spot: "0.56 0.24" },
+        { id: "AC6", spot: "0.6 0.24" },
 
-        { id: "BE1", spot: "0.4 0.76" },
-        { id: "BE2", spot: "0.44 0.76" },
-        { id: "BE3", spot: "0.48 0.76" },
-        { id: "BE4", spot: "0.52 0.76" },
-        { id: "BE5", spot: "0.56 0.76" },
-        { id: "BE6", spot: "0.6 0.76" },
+        { id: "AE1", spot: "0.4 0.76" },
+        { id: "AE2", spot: "0.44 0.76" },
+        { id: "AE3", spot: "0.48 0.76" },
+        { id: "AE4", spot: "0.52 0.76" },
+        { id: "AE5", spot: "0.56 0.76" },
+        { id: "AE6", spot: "0.6 0.76" },
       ],
       selectable: false,
       movable: false,
@@ -911,7 +924,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(40, 140),
+        position: new go.Point(148, 140),
         category: 'elementName',
         shape: 'Circle',
       },
@@ -919,7 +932,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(148, 140),
+        position: new go.Point(40, 140),
         category: 'elementName',
         shape: 'Xline',
       },
@@ -927,7 +940,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(255, 140),
+        position: new go.Point(148, 35),
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -935,7 +948,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(148, 35),
+        position: new go.Point(255, 140),
         category: 'elementName',
         shape: 'Triangle',
       },
@@ -948,10 +961,14 @@ const compoundShape = {
         shape: 'Square',
       }
     ],
-    template: {'A':0, 'B':0, 'C': 0, 'D': 0, 'E': 0, 'AB':0, 'BC': 0, 'BD': 0, 'BE': 0},
+    hasCentral: true,
+    template: [0, 0, 0, 0, 0],
+    reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
+    distributionTemplate: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
   }
 }
 
+const indexing = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4}
 var currShape = 'TwoElements';
 var selected = null;
   
@@ -1026,10 +1043,8 @@ const getElementNames = (nodeData) => {
         elementNames.push(i.elementName)
       }
     }
-    stringNames = JSON.stringify(elementNames).replaceAll('"', "'")
-    return stringNames
+    return elementNames
 }
-  
 
 
   
@@ -1038,29 +1053,60 @@ const getElementNames = (nodeData) => {
   
 // Compound data generation
 const generateAnswer = () => {
-  console.log(currShape)
-  var fullAnswer = {
-    shape: currShape,
-    ans: {}
-  }
-  
-  const nodeData = myDiagram.model.nodeDataArray
-  const linkData = myDiagram.model.linkDataArray
-  const elementNameArray = getElementNames(nodeData)
-  var totalElectrons = 0;
-  var templateCopy = {...compoundShape[currShape].template}
+  var nodeData = myDiagram.model.nodeDataArray
+  var linkData = myDiagram.model.linkDataArray
+  var hasCentral = compoundShape[currShape].hasCentral
+  var reference = compoundShape[currShape].reference
 
+  var elementNames = getElementNames(nodeData)
+
+  var total = 0;
+  var individualTemplate = [...compoundShape[currShape].template]
+  for(let node of nodeData){
+    if(node.type === 'electron'){
+      var index = indexing[node.element]
+      individualTemplate[index]++
+    }
+  }
+
+  var distributionTemplate = JSON.parse(JSON.stringify([...compoundShape[currShape].distributionTemplate]))
   for(let node of linkData){
-    console.log(node)
-    totalElectrons++
-    var connectedTo = node.tid.slice(0, -1)
-    templateCopy[connectedTo]++
+    if(node['tid'].length === 2){
+      var element = node['tid'][0]
+      if(hasCentral){
+        var index = indexing[element]
+        distributionTemplate[index][0]++   
+      } else {
+        var index = reference.indexOf(element)
+        distributionTemplate[index]++
+      }
+    } else {
+      if(hasCentral){
+        var element = node['tid'].substring(1, 2)
+        var index = indexing[element]
+        distributionTemplate[index][0]++   
+      } else {
+        var element = node['tid'].substring(0, 2)
+        var index = reference.indexOf(element)
+        distributionTemplate[index]++
+      }
+    }
+    total++
   }
 
-  fullAnswer.ans[elementNameArray] = {total: totalElectrons, template: {...compoundShape[currShape].template}, distribution: templateCopy}
-  document.getElementById('answer').innerText = JSON.stringify(fullAnswer)
+  var ans = {
+    shape: currShape,
+    hasCentral: hasCentral,
+    answerArray: elementNames,
+    total: total,
+    individual: individualTemplate,
+    distribution: distributionTemplate
+  }
+
+  document.getElementById('answer').innerText = JSON.stringify(ans)
 }
-  
+
+
   
   
   

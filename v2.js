@@ -383,8 +383,10 @@ const compoundShape = {
         category: 'elementName',
         shape: 'Xline',
     }],
+    hasCentral: false,
     template: [0, 0],
     reference: ['A', 'AB', 'B'],
+    distributionTemplate: [0, 0, 0],
   },
 
   'ThreeElements': {
@@ -491,8 +493,10 @@ const compoundShape = {
         category: 'elementName',
         shape: 'Diamond',
     }],
+    hasCentral: true,
     template: [0, 0, 0],
     reference: [['A', ''], ['B', 'AB'], ['C', 'AC']],
+    distributionTemplate: [[0, 0], [0, 0], [0, 0]],
   },
 
   'FourElements': {
@@ -633,8 +637,10 @@ const compoundShape = {
         shape: 'Triangle',
       }
     ],
+    hasCentral: true,
     template: [0, 0, 0, 0],
     reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
+    distributionTemplate: [[0, 0], [0, 0], [0, 0], [0, 0]],
   },
 
   'FourElementsRow': {
@@ -774,8 +780,10 @@ const compoundShape = {
         shape: 'Triangle',
       }
     ],
+    hasCentral: false,
     template: [0, 0, 0, 0],
     reference: ['A', 'AB', 'B', 'BC', 'C', 'CD', 'D'],
+    distributionTemplate: [0, 0, 0, 0, 0, 0, 0],
   },
 
   'FiveElements': {
@@ -955,8 +963,10 @@ const compoundShape = {
         shape: 'Square',
       }
     ],
+    hasCentral: true,
     template: [0, 0, 0, 0, 0],
     reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
+    distributionTemplate: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
   }
 }
 
@@ -968,7 +978,6 @@ const compoundParams = {
     answerArray: ['H', 'Cl'],
     total: 8,
     individual: [1, 7],
-    template: [0, 0, 0],
     distribution: [0, 2, 6]
   },
 
@@ -979,7 +988,6 @@ const compoundParams = {
     answerArray: ['C', 'O', 'O'],
     total: 16,
     individual: [4, 6, 6],
-    template: [[0, 0], [0, 0], [0, 0]],
     distribution: [[0, 0], [4, 4], [4, 4]]
   },
 
@@ -990,7 +998,6 @@ const compoundParams = {
     answerArray: ['N', 'H', 'H', 'H'],
     total: 8,
     individual: [5, 1, 1, 1],
-    template: [[0, 0], [0, 0], [0, 0], [0, 0]],
     distribution: [[2, 0], [0, 2], [0, 2], [0, 2]]
   },
 
@@ -1001,7 +1008,6 @@ const compoundParams = {
     answerArray: ['H', 'O', 'O', 'H'],
     total: 14,
     individual: [1, 6, 6, 1],
-    template: [0, 0, 0, 0, 0, 0, 0],
     distribution: [0, 2, 4, 2, 4, 2, 0]
   },
 
@@ -1012,7 +1018,6 @@ const compoundParams = {
     answerArray: ['C', 'H', 'H', 'H', 'H'],
     total: 8,
     individual: [4, 1, 1, 1, 1],
-    template: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
     distribution: [[0, 0], [0, 2], [0, 2], [0, 2], [0, 2]]
   },
 }
@@ -1124,9 +1129,6 @@ const checkElectronNumbers = (nodeData, ans, reversed) => {
       total++
     }
   }
-  console.log(template)
-  console.log(ansArray)
-  console.log(total)
 
   if(total !== ans.total){
     return 1
@@ -1138,7 +1140,8 @@ const checkElectronNumbers = (nodeData, ans, reversed) => {
 }
 
 const getElectrons = (linkData, ans) => {
-  var electronArray = JSON.parse(JSON.stringify(ans.template))
+  var distributionTemplate = compoundShape[ans.shape].distributionTemplate
+  var electronArray = JSON.parse(JSON.stringify(distributionTemplate))
   const reference = compoundShape[ans.shape].reference
   var element;
   var secondElement;
@@ -1185,8 +1188,6 @@ const checkElectronDistribution = (electrons, ans, reversed) => {
     var ansCentral = [...ans.distribution[0]]
     var inputPeripheral = electrons.slice(1)
     var ansPeripheral = ans.distribution.slice(1)
-    console.log(inputCentral)
-    console.log(ansCentral)
 
     // Check central
     if(JSON.stringify(ansCentral) !== JSON.stringify(inputCentral)){
@@ -1218,7 +1219,6 @@ const check = () => {
 
   var elementNames = getElementNames(nodeData)
   var validNames = checkElementNames(elementNames, ans)
-  // console.log(validNames)
   if(!validNames){
     updateResult('Element names wrong.')
     return
@@ -1237,7 +1237,6 @@ const check = () => {
   var electrons = getElectrons(linkData, ans)
   if(electrons === 0){
     updateResult('Total number of electrons right but invalid electron placement.')
-    console.log('invalid electron placement')
     return
   }
 
