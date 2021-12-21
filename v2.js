@@ -12,6 +12,7 @@ const init = () => {
         // allowVerticalScroll: false, 
         // "panningTool.isEnabled": false,
         'dragSelectingTool.isEnabled': false,
+        "draggingTool.isCopyEnabled": false,
         maxSelectionCount: 1,
         allowClipboard: false,
         "textEditingTool.starting": go.TextEditingTool.SingleClick,
@@ -117,6 +118,7 @@ const init = () => {
         contentAlignment: go.Spot.Bottom,
         nodeTemplate: myDiagram.nodeTemplate,  // shared with the main Diagram
         "contextMenuTool.isEnabled": false,
+        'dragSelectingTool.isEnabled': false,
         maxSelectionCount: 1,
         layout: $(go.GridLayout,
           {
@@ -381,31 +383,33 @@ const compoundShape = {
         category: 'elementName',
         shape: 'Xline',
     }],
+    template: [0, 0],
+    reference: ['A', 'AB', 'B'],
   },
 
   'ThreeElements': {
     palette: [
       {
         type: 'electron',
-        element: 'B',
+        element: 'A',
         figshape: "Circle",
         height: 5,
         width: 5,
         fill: "#000",
         ports: [
-          { id: "B", spot: "0.5 0.5", fill: null },
+          { id: "A", spot: "0.5 0.5", fill: null },
         ],
         textvisible: false
       },
       {
         type: 'electron',
-        element: 'A',
+        element: 'B',
         figshape: "Xline",
         height: 5,
         width: 5,
         fill: "#000",
         ports: [
-          { id: "A", spot: "0.5 0.5", fill: null },
+          { id: "B", spot: "0.5 0.5", fill: null },
         ],
         textvisible: false
       },
@@ -446,12 +450,12 @@ const compoundShape = {
         { id: "C5", spot: "0.79 1" },   //bottom
         { id: "C6", spot: "0.81 1" },
   
-        { id: "BA1", spot: "0.35 0.25" },
-        { id: "BA2", spot: "0.35 0.35" },
-        { id: "BA3", spot: "0.35 0.45" },
-        { id: "BA4", spot: "0.35 0.55" },
-        { id: "BA5", spot: "0.35 0.65" },
-        { id: "BA6", spot: "0.35 0.75" },
+        { id: "AB1", spot: "0.35 0.25" },
+        { id: "AB2", spot: "0.35 0.35" },
+        { id: "AB3", spot: "0.35 0.45" },
+        { id: "AB4", spot: "0.35 0.55" },
+        { id: "AB5", spot: "0.35 0.65" },
+        { id: "AB6", spot: "0.35 0.75" },
   
         { id: "AC1", spot: "0.65 0.25" },
         { id: "AC2", spot: "0.65 0.35" },
@@ -465,19 +469,19 @@ const compoundShape = {
       },
       {
         type: 'elementName',
-        element: 'B',
-        elementName: 'B',
-        position: new go.Point(57, 50),
-        category: 'elementName',
-        shape: 'Xline',
-      },
-      {
-        type: 'elementName',
         element: 'A',
         elementName: 'A',
         position: new go.Point(148, 50),
         category: 'elementName',
         shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(57, 50),
+        category: 'elementName',
+        shape: 'Xline',
       },
       {
         type: 'elementName',
@@ -487,31 +491,33 @@ const compoundShape = {
         category: 'elementName',
         shape: 'Diamond',
     }],
+    template: [0, 0, 0],
+    reference: [['A', ''], ['B', 'AB'], ['C', 'AC']],
   },
 
   'FourElements': {
     palette: [
       {
         type: 'electron',
-        element: 'B',
+        element: 'A',
         figshape: "Circle",
         height: 5,
         width: 5,
         fill: "#000",
         ports: [
-          { id: "B", spot: "0.5 0.5", fill: null },
+          { id: "A", spot: "0.5 0.5", fill: null },
         ],
         textvisible: false
       },
       {
         type: 'electron',
-        element: 'A',
+        element: 'B',
         figshape: "Xline",
         height: 5,
         width: 5,
         fill: "#000",
         ports: [
-          { id: "A", spot: "0.5 0.5", fill: null },
+          { id: "B", spot: "0.5 0.5", fill: null },
         ],
         textvisible: false
       },
@@ -569,12 +575,12 @@ const compoundShape = {
         { id: "D5", spot: "0.7 0.28" },    //right
         { id: "D6", spot: "0.7 0.3" },
   
-        { id: "BA1", spot: "0.35 0.59" },
-        { id: "BA2", spot: "0.35 0.64" },
-        { id: "BA3", spot: "0.35 0.69" },
-        { id: "BA4", spot: "0.35 0.74" },
-        { id: "BA5", spot: "0.35 0.79" },
-        { id: "BA6", spot: "0.35 0.84" },
+        { id: "AB1", spot: "0.35 0.59" },
+        { id: "AB2", spot: "0.35 0.64" },
+        { id: "AB3", spot: "0.35 0.69" },
+        { id: "AB4", spot: "0.35 0.74" },
+        { id: "AB5", spot: "0.35 0.79" },
+        { id: "AB6", spot: "0.35 0.84" },
 
         { id: "AD1", spot: "0.4 0.5" },
         { id: "AD2", spot: "0.44 0.5" },
@@ -595,20 +601,21 @@ const compoundShape = {
       },
       {
         type: 'elementName',
-        element: 'B',
-        elementName: 'B',
-        position: new go.Point(58, 140),
-        category: 'elementName',
-        shape: 'Xline',
-      },
-      {
-        type: 'elementName',
         element: 'A',
         elementName: 'A',
         position: new go.Point(148, 140),
         category: 'elementName',
         shape: 'Circle',
       },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(58, 140),
+        category: 'elementName',
+        shape: 'Xline',
+      },
+
       {
         type: 'elementName',
         element: 'C',
@@ -626,6 +633,8 @@ const compoundShape = {
         shape: 'Triangle',
       }
     ],
+    template: [0, 0, 0, 0],
+    reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
   },
 
   'FourElementsRow': {
@@ -765,26 +774,16 @@ const compoundShape = {
         shape: 'Triangle',
       }
     ],
+    template: [0, 0, 0, 0],
+    reference: ['A', 'AB', 'B', 'BC', 'C', 'CD', 'D'],
   },
 
   'FiveElements': {
     palette: [
       {
         type: 'electron',
-        element: 'B',
-        figshape: "Circle",
-        height: 5,
-        width: 5,
-        fill: "#000",
-        ports: [
-          { id: "B", spot: "0.5 0.5", fill: null },
-        ],
-        textvisible: false
-      },
-      {
-        type: 'electron',
         element: 'A',
-        figshape: "Xline",
+        figshape: "Circle",
         height: 5,
         width: 5,
         fill: "#000",
@@ -795,25 +794,37 @@ const compoundShape = {
       },
       {
         type: 'electron',
-        element: 'D',
-        figshape: "Diamond",
+        element: 'B',
+        figshape: "Xline",
         height: 5,
         width: 5,
         fill: "#000",
         ports: [
-          { id: "D", spot: "0.5 0.5", fill: null },
+          { id: "B", spot: "0.5 0.5", fill: null },
         ],
         textvisible: false
       },
       {
         type: 'electron',
         element: 'C',
-        figshape: "Triangle",
+        figshape: "Diamond",
         height: 5,
         width: 5,
         fill: "#000",
         ports: [
           { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+        textvisible: false
+      },
+      {
+        type: 'electron',
+        element: 'D',
+        figshape: "Triangle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "D", spot: "0.5 0.5", fill: null },
         ],
         textvisible: false
       },
@@ -872,12 +883,12 @@ const compoundShape = {
         { id: "E5", spot: "0.49 1" },    //top
         { id: "E6", spot: "0.51 1" },
   
-        { id: "BA1", spot: "0.24 0.4" },
-        { id: "BA2", spot: "0.24 0.44" },
-        { id: "BA3", spot: "0.24 0.48" },
-        { id: "BA4", spot: "0.24 0.52" },
-        { id: "BA5", spot: "0.24 0.56" },
-        { id: "BA6", spot: "0.24 0.6" },
+        { id: "AB1", spot: "0.24 0.4" },
+        { id: "AB2", spot: "0.24 0.44" },
+        { id: "AB3", spot: "0.24 0.48" },
+        { id: "AB4", spot: "0.24 0.52" },
+        { id: "AB5", spot: "0.24 0.56" },
+        { id: "AB6", spot: "0.24 0.6" },
 
         { id: "AD1", spot: "0.76 0.4" },
         { id: "AD2", spot: "0.76 0.44" },
@@ -905,19 +916,19 @@ const compoundShape = {
       },
       {
         type: 'elementName',
-        element: 'B',
-        elementName: 'B',
-        position: new go.Point(40, 140),
-        category: 'elementName',
-        shape: 'Xline',
-      },
-      {
-        type: 'elementName',
         element: 'A',
         elementName: 'A',
         position: new go.Point(148, 140),
         category: 'elementName',
         shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(40, 140),
+        category: 'elementName',
+        shape: 'Xline',
       },
       {
         type: 'elementName',
@@ -944,6 +955,8 @@ const compoundShape = {
         shape: 'Square',
       }
     ],
+    template: [0, 0, 0, 0, 0],
+    reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
   }
 }
 
@@ -951,68 +964,59 @@ const compoundParams = {
   'HCl': {
     styledName: 'HCl',
     shape: 'TwoElements',
-    ans : {
-      "['H','Cl']": {
-        'total': 8,
-        'template': {'A':0, 'B':0, 'AB':0},
-        'distribution':  {'A':0, 'B':6, 'AB':2}
-      },
-      "['Cl','H']": {
-        'total': 8,
-        'template': {'A':0, 'B':0, 'AB':0},
-        'distribution':  {'A':6, 'B':0, 'AB':2}
-      },
-    }
+    hasCentral: false,
+    answerArray: ['H', 'Cl'],
+    total: 8,
+    individual: [1, 7],
+    template: [0, 0, 0],
+    distribution: [0, 2, 6]
   },
 
   'CO2': {
     styledName: 'CO<sub>2</sub>',
     shape: 'ThreeElements',
-    ans: {
-      "['O','C','O']": {
-        'total': 16,
-        'template': {'B':0, 'A': 0, 'C':0, 'BA':0, 'AC':0},
-        'distribution':  {'B':4, 'A':0, 'C':4, 'BA':4, 'AC':4}
-      }
-    }
+    hasCentral: true,
+    answerArray: ['C', 'O', 'O'],
+    total: 16,
+    individual: [4, 6, 6],
+    template: [[0, 0], [0, 0], [0, 0]],
+    distribution: [[0, 0], [4, 4], [4, 4]]
   },
 
   'NH3': {
     styledName: 'NH<sub>3</sub>',
     shape: 'FourElements',
-    ans: {
-      "['H','N','H','H']": {
-        'total': 8,
-        'template': {'B':0, 'A':0, 'C': 0, 'D': 0, 'BA':0, 'AC': 0, 'AD': 0},
-        'distribution':  {'B':0, 'A':2, 'C': 0, 'D': 0, 'BA':2, 'AC': 2, 'AD': 2}
-      }
-    }
+    hasCentral: true,
+    answerArray: ['N', 'H', 'H', 'H'],
+    total: 8,
+    individual: [5, 1, 1, 1],
+    template: [[0, 0], [0, 0], [0, 0], [0, 0]],
+    distribution: [[2, 0], [0, 2], [0, 2], [0, 2]]
   },
 
   'H2O2': {
     styledName: 'H<sub>2</sub>O<sub>2</sub>',
     shape: 'FourElementsRow',
-    ans: {
-      "['H','O','O','H']": {
-        'total': 14,
-        'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'AB':0, 'BC': 0, 'CD': 0},
-        'distribution':  {'A':0, 'B':4, 'C': 4, 'D': 0, 'AB':2, 'BC': 2, 'CD': 2}
-      }
-    }
+    hasCentral: false,
+    answerArray: ['H', 'O', 'O', 'H'],
+    total: 14,
+    individual: [1, 6, 6, 1],
+    template: [0, 0, 0, 0, 0, 0, 0],
+    distribution: [0, 2, 4, 2, 4, 2, 0]
   },
 
   'CH4': {
     styledName: 'CH<sub>4</sub>',
     shape: 'FiveElements',
-    ans: {
-      "['H','C','H','H','H']": {
-        'total': 8,
-        'template': {'A':0, 'B':0, 'C': 0, 'D': 0, 'E': 0, 'BA':0, 'AC': 0, 'AD': 0, 'AE': 0},
-        'distribution':  {'A':0, 'B':0, 'C': 0, 'D': 0, 'E': 0, 'BA':2, 'AC': 2, 'AD': 2, 'AE': 2}
-      }
-    }
+    hasCentral: true,
+    answerArray: ['C', 'H', 'H', 'H', 'H'],
+    total: 8,
+    individual: [4, 1, 1, 1, 1],
+    template: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+    distribution: [[0, 0], [0, 2], [0, 2], [0, 2], [0, 2]]
   },
 }
+const indexing = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4}
 var compound = 'HCl';
 var selected = null;
 
@@ -1089,60 +1093,161 @@ const getElementNames = (nodeData) => {
       elementNames.push(i.elementName)
     }
   }
-  stringNames = JSON.stringify(elementNames).replaceAll('"', "'")
-  return stringNames
+  return elementNames
 }
 
-const checkElectrons = (linkData, stringNames, ans) => {
-  var template = { ...ans[stringNames]['template']}    // A copy of the object
-  var element;
+const checkElementNames = (elementName, ans) => {
+
+  if(ans.hasCentral === false){
+    if(JSON.stringify(elementName) === JSON.stringify(ans.answerArray)){
+      return 1
+    } else if (JSON.stringify(elementName) === JSON.stringify([...ans.answerArray].reverse())) {
+      return 2
+    }
+  } else {
+    if(JSON.stringify(elementName) === JSON.stringify(ans.answerArray)){
+      return 1
+    }
+  }
+
+  return false
+}
+
+const checkElectronNumbers = (nodeData, ans, reversed) => {
+  var template = [...compoundShape[ans.shape].template]
+  var ansArray = reversed === false ? JSON.stringify(ans.individual) : JSON.stringify([...ans.individual].reverse())
   var total = 0;
+
+  for(let node of nodeData){
+    if(node.type === 'electron'){
+      template[indexing[node.element]]++
+      total++
+    }
+  }
+  console.log(template)
+  console.log(ansArray)
+  console.log(total)
+
+  if(total !== ans.total){
+    return 1
+  } else if (JSON.stringify(template) !== ansArray) {
+    return 2
+  } else {
+    return 0
+  }
+}
+
+const getElectrons = (linkData, ans) => {
+  var electronArray = JSON.parse(JSON.stringify(ans.template))
+  const reference = compoundShape[ans.shape].reference
+  var element;
+  var secondElement;
+  var index;
   for(let i of linkData){
+
     // Check for validity of placement; whether the electron and element name are compatible
     if(i['tid'].indexOf(i['fid']) === -1){
-      return 'invalid electron placement.'
+      return 0
     }
 
     // Adds to template for accounting number of electrons later
-    if(i['tid'].length === 2){
-      element = i['tid'][0]
-      template[element]++
+    if(ans.hasCentral === false){
+      if(i['tid'].length === 2){
+        element = i['tid'][0]
+        index = reference.indexOf(element)
+        electronArray[index]++
+      } else {
+        element = i['tid'].substring(0, 2)
+        index = reference.indexOf(element)
+        electronArray[index]++
+      }
     } else {
-      element = i['tid'].substring(0, 2)
-      template[element]++
+      if(i['tid'].length === 2){
+        element = i['tid'][0]
+        index = indexing[element]
+        electronArray[index][0]++
+      } else {
+        secondElement = i['tid'].substring(1, 2)
+        element = i['tid'].substring(0, 2)
+        index = indexing[secondElement]
+        electronArray[index][1]++
+      }
     }
-    total++
   }
 
-  if(JSON.stringify(template) === JSON.stringify(ans[stringNames]['distribution'])){
-    return 'correct'
-  } else if(total === ans[stringNames]['total']){
-    return 'electron placement wrong'
-  }
+  return electronArray
+}
 
-  return 'number of electrons wrong'
+const checkElectronDistribution = (electrons, ans, reversed) => {
+
+  if(ans.hasCentral){
+    var inputCentral = [...electrons[0]]
+    var ansCentral = [...ans.distribution[0]]
+    var inputPeripheral = electrons.slice(1)
+    var ansPeripheral = ans.distribution.slice(1)
+    console.log(inputCentral)
+    console.log(ansCentral)
+
+    // Check central
+    if(JSON.stringify(ansCentral) !== JSON.stringify(inputCentral)){
+      return false
+    }
+
+    for(let i of inputPeripheral){
+      for(let a of ansPeripheral){
+        if(JSON.stringify(i) === JSON.stringify(a)){
+          var index = ansPeripheral.indexOf(a)
+          ansPeripheral.splice(index, 1)
+          break
+        }
+      }
+    }
+    return ansPeripheral.length === 0 ? true : false
+  } else {
+    var input = JSON.stringify([...electrons])
+    var ans = reversed === false ? JSON.stringify([...ans.distribution]) : JSON.stringify([...ans.distribution].reverse())
+
+    return input == ans ? true : false
+  }
 }
 
 const check = () => {
   const nodeData = myDiagram.model.nodeDataArray
   const linkData = myDiagram.model.linkDataArray
-  const ans = compoundParams[compound]['ans']
-  stringNames = getElementNames(nodeData, )
+  const ans = compoundParams[compound]
 
-  // Check element names
-  if(stringNames in ans){
-
-    resultString = checkElectrons(linkData, stringNames, ans)
-    // Check electrons
-    if(resultString === 'correct'){
-      updateResult('Your answer is correct.')
-      return
-    }
-
-    updateResult('Element names correct but ' + resultString)
+  var elementNames = getElementNames(nodeData)
+  var validNames = checkElementNames(elementNames, ans)
+  // console.log(validNames)
+  if(!validNames){
+    updateResult('Element names wrong.')
     return
   }
-  updateResult('Element names wrong.')
+  var reversed = validNames === 2 ? true : false
+
+  var checkNumbers = checkElectronNumbers(nodeData, ans, reversed)
+  if(checkNumbers === 1){
+    updateResult('Total number of electrons wrong.')
+    return
+  } else if (checkNumbers === 2) {
+    updateResult('You may have used the wrong electrons for some elements. Make sure to follow the electron legend.')
+    return
+  }
+
+  var electrons = getElectrons(linkData, ans)
+  if(electrons === 0){
+    updateResult('Total number of electrons right but invalid electron placement.')
+    console.log('invalid electron placement')
+    return
+  }
+
+  if(checkElectronDistribution(electrons, ans, reversed)){
+    updateResult('Your answer is correct.')
+    return
+  } else {
+    updateResult('Your electron placement is wrong.')
+    return
+  }
 }
 
 const updateResult = (result) => {
