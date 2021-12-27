@@ -16,10 +16,14 @@
         <div class='compoundRow'>
             <p style='font-family: Arial, Helvetica, sans-serif;'>Choose a compound type:</p>
             <button class="compoundButton" onclick='setShape("TwoElements")'>Two elements</button>
+            <button class="compoundButton" onclick='setShape("TwoElementsIon")'>Two elements ion</button>
             <button class="compoundButton" onclick='setShape("ThreeElements")'>Three elements</button>
+            <button class="compoundButton" onclick='setShape("ThreeElementsIon")'>Three elements ion</button>
             <button class="compoundButton" onclick='setShape("FourElements")'>Four elements</button>
+            <button class="compoundButton" onclick='setShape("FourElementsIon")'>Four elements ion</button>
             <button class="compoundButton" onclick='setShape("FourElementsRow")'>Four elements row</button>
             <button class="compoundButton" onclick='setShape("FiveElements")'>Five elements</button>
+            <button class="compoundButton" onclick='setShape("FiveElementsIon")'>Five elements ion</button>
         </div>
 
         <!-- Two diagrams -->
@@ -57,6 +61,12 @@
                             E: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-square-fill" viewBox="0 0 16 16" style="position:relative; top: 2px">
                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
                             </svg>
+                        </p>
+
+                        <p class='legendText' id='X'>
+                            Foreign electron: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16" style="position:relative; top: 2px">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              </svg>
                         </p>
 
                     </div>

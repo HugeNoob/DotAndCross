@@ -94,7 +94,6 @@ const init = () => {
         new go.Binding("figure", "figshape"),
         // selection causes the stroke to be blue instead of black
         new go.Binding("stroke", "isSelected", function(s) { return s ? "dodgerblue" : "black"; }).ofObject()),
-
     );
 
   // no visual representation of any link data
@@ -161,6 +160,20 @@ const init = () => {
     )
   myDiagram.nodeTemplateMap.add("elementName", elementName)
 
+  // Defining ion charge template, editing not allowed for student version
+  var ionCharge = 
+  $(go.Node, 'Vertical',
+    {movable: false, deletable: false, selectable: false},
+    new go.Binding('position', 'position'),
+    $(go.TextBlock,
+      {
+        isMultiline: false,
+      },
+      new go.Binding('text', 'ionCharge').makeTwoWay()
+    )
+  )
+  myDiagram.nodeTemplateMap.add("ionCharge", ionCharge)
+
   // Defining structure for 2 element compound eg. HCl
   go.Shape.defineFigureGenerator("TwoElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
@@ -176,6 +189,39 @@ const init = () => {
     // Right
     fig.add(new go.PathSegment(go.PathSegment.Move, w, h/2));
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, h/2, rad, rad));
+    geo.add(fig);
+    return geo;
+  });
+
+  // Defining structure for 2 element ion eg. OH=
+  go.Shape.defineFigureGenerator("TwoElementsIon", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = w / 8
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+
+    // Left bracket
+    var fig = new go.PathFigure(20, 0);
+    fig.add(new go.PathSegment(go.PathSegment.Line, 0, 0))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 0, 120))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 20, 120))
+    
+    // Left circle
+    fig.add(new go.PathSegment(go.PathSegment.Move, (rad*2)+20, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad+20, h/2, rad, rad));
+
+    // Right circle
+    fig.add(new go.PathSegment(go.PathSegment.Move, w-20, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad-20, h/2, rad, rad));
+
+    // Right bracket
+    fig.add(new go.PathSegment(go.PathSegment.Move, w-20, 0));
+    fig.add(new go.PathSegment(go.PathSegment.Line, w, 0))
+    fig.add(new go.PathSegment(go.PathSegment.Line, w, h))
+    fig.add(new go.PathSegment(go.PathSegment.Line, w-20, h))
+
     geo.add(fig);
     return geo;
   });
@@ -203,7 +249,44 @@ const init = () => {
     geo.add(fig);
     return geo;
   });
+
+  // Defining structure for 3 element ion eg. NO2-
+  go.Shape.defineFigureGenerator("ThreeElementsIon", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
   
+    var quarterCircle = w / 11
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+
+    // Left bracket
+    var fig = new go.PathFigure(20, 0);
+    fig.add(new go.PathSegment(go.PathSegment.Line, 0, 0))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 0, 120))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 20, 120))
+
+    // Left circle
+    fig.add(new go.PathSegment(go.PathSegment.Move, rad*2+15, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad+15, h/2, rad, rad));
+
+    // Center circle
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, h/2, rad, rad));
+
+    // Right circle
+    fig.add(new go.PathSegment(go.PathSegment.Move, w-15, h/2));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad-15, h/2, rad, rad));
+
+    // Right bracket
+    fig.add(new go.PathSegment(go.PathSegment.Move, w-20, 0));
+    fig.add(new go.PathSegment(go.PathSegment.Line, w, 0))
+    fig.add(new go.PathSegment(go.PathSegment.Line, w, h))
+    fig.add(new go.PathSegment(go.PathSegment.Line, w-20, h))
+    
+    geo.add(fig);
+    return geo;
+  });
+    
   // Defining structure for 4 element compound eg. NH3
   go.Shape.defineFigureGenerator("FourElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
@@ -213,16 +296,16 @@ const init = () => {
     var rad = quarterCircle*2
     var geo = new go.Geometry();
     // Left
-    var fig = new go.PathFigure(rad*2, quarterCircle*5);  
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, quarterCircle*5, rad, rad));
+    var fig = new go.PathFigure(rad*2, quarterCircle*6);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, quarterCircle*6, rad, rad));
 
     // Center
     fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, quarterCircle*5));
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, quarterCircle*5, rad, rad));
 
     // Right
-    fig.add(new go.PathSegment(go.PathSegment.Move, w, quarterCircle*5));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, quarterCircle*5, rad, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Move, w, quarterCircle*6));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad, quarterCircle*6, rad, rad));
 
     // Top
     fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, rad));
@@ -232,7 +315,47 @@ const init = () => {
     return geo;
   });
 
-  // Defining structure for 4 element line compound eg. H2O2
+  // Defining structure for 4 element ion eg. CO32-
+  go.Shape.defineFigureGenerator("FourElementsIon", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var quarterCircle = 31
+    var rad = quarterCircle*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(rad*2+20, quarterCircle*6);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad+20, quarterCircle*6, rad, rad));
+
+    // Center
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, quarterCircle*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, quarterCircle*5, rad, rad));
+
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w-20, quarterCircle*6));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-rad-20, quarterCircle*6, rad, rad));
+
+    // Top
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2 + rad, rad));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, rad, rad, rad));
+
+    // Left bracket
+    fig.add(new go.PathSegment(go.PathSegment.Move, 20, 0));
+    fig.add(new go.PathSegment(go.PathSegment.Line, 0, 0))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 0, 250))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 20, 250))
+
+    // Right bracket
+    fig.add(new go.PathSegment(go.PathSegment.Move, 320, 0));
+    fig.add(new go.PathSegment(go.PathSegment.Line, 340, 0))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 340, 250))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 320, 250))
+    
+    geo.add(fig);
+    return geo;
+  });
+
+  // Defining structure for 4 element row compound eg. H2O2
   go.Shape.defineFigureGenerator("FourElementsRow", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
     if (isNaN(param1) || param1 < 0) param1 = 8;
@@ -267,28 +390,73 @@ const init = () => {
   
     var smallQuarter = w/10
     var smallRad = smallQuarter*1.5
-    var bigRad = smallQuarter*3
+    var bigRad = smallQuarter*2
     var geo = new go.Geometry();
     // Left
-    var fig = new go.PathFigure(smallRad*2, smallQuarter*5);  
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, smallRad, smallQuarter*5, smallRad, smallRad));
+    var fig = new go.PathFigure(smallRad*2+smallQuarter, smallQuarter*5);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, smallRad+smallQuarter, smallQuarter*5, smallRad, smallRad));
 
     // Center
     fig.add(new go.PathSegment(go.PathSegment.Move, w/2+bigRad, smallQuarter*5));
     fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallQuarter*5, bigRad, bigRad));
     
     // Right
-    fig.add(new go.PathSegment(go.PathSegment.Move, w, smallQuarter*5));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-smallRad, smallQuarter*5, smallRad, smallRad));
+    fig.add(new go.PathSegment(go.PathSegment.Move, w-smallQuarter, smallQuarter*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-smallRad-smallQuarter, smallQuarter*5, smallRad, smallRad));
     
     // Top
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, smallRad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallRad, smallRad, smallRad));
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, smallRad+smallQuarter));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallRad+smallQuarter, smallRad, smallRad));
 
     // Bottom
-    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, w-smallRad));
-    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, w-smallRad, smallRad, smallRad));
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, w-smallRad-smallQuarter));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, w-smallRad-smallQuarter, smallRad, smallRad));
     
+    geo.add(fig);
+    return geo;
+  });
+
+  // Defining structure for 4 element ion eg. NH4+
+  go.Shape.defineFigureGenerator("FiveElementsIon", function(shape, w, h) {
+    var param1 = shape ? shape.parameter1 : NaN;
+    if (isNaN(param1) || param1 < 0) param1 = 8;
+  
+    var smallQuarter = w/10
+    var smallRad = smallQuarter*1.5
+    var bigRad = smallQuarter*2
+    var geo = new go.Geometry();
+    // Left
+    var fig = new go.PathFigure(smallRad*2+smallQuarter, smallQuarter*5);  
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, smallRad+smallQuarter, smallQuarter*5, smallRad, smallRad));
+
+    // Center
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+bigRad, smallQuarter*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallQuarter*5, bigRad, bigRad));
+    
+    // Right
+    fig.add(new go.PathSegment(go.PathSegment.Move, w-smallQuarter, smallQuarter*5));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w-smallRad-smallQuarter, smallQuarter*5, smallRad, smallRad));
+    
+    // Top
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, smallRad+smallQuarter));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, smallRad+smallQuarter, smallRad, smallRad));
+
+    // Bottom
+    fig.add(new go.PathSegment(go.PathSegment.Move, w/2+smallRad, w-smallRad-smallQuarter));
+    fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, w/2, w-smallRad-smallQuarter, smallRad, smallRad));
+    
+    // Left bracket
+    fig.add(new go.PathSegment(go.PathSegment.Move, 40, 30));
+    fig.add(new go.PathSegment(go.PathSegment.Line, 10, 30))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 10, 300))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 40, 300))
+
+    // Right bracket
+    fig.add(new go.PathSegment(go.PathSegment.Move, 310, 30));
+    fig.add(new go.PathSegment(go.PathSegment.Line, 330, 30))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 330, 300))
+    fig.add(new go.PathSegment(go.PathSegment.Line, 310, 300))
+
     geo.add(fig);
     return geo;
   });
@@ -323,7 +491,6 @@ const compoundShape = {
         ports: [
           { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -335,8 +502,7 @@ const compoundShape = {
         ports: [
           { id: "B", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
-      },
+      }
     ],
     data :[{
       height: 120,
@@ -382,11 +548,93 @@ const compoundShape = {
         position: new go.Point(142, 50),
         category: 'elementName',
         shape: 'Xline',
-    }],
+      },
+    ],
     hasCentral: false,
-    template: [0, 0],
     reference: ['A', 'AB', 'B'],
-    distributionTemplate: [0, 0, 0],
+    distributionTemplate: {'A': [0, 0], 'AB': [0, 0], 'B': [0, 0]},
+  },
+
+  'TwoElementsIon': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+      },
+    ],
+    data :[{
+      height: 120,
+      width: 240,
+      figshape: "TwoElementsIon",
+      ports: [
+        { id: "A1", spot: "0.084 0.48" },    //left
+        { id: "A2", spot: "0.084 0.52" },
+        { id: "A3", spot: "0.32 0" }, //top
+        { id: "A4", spot: "0.34 0" },
+        { id: "A5", spot: "0.32 1" }, //bottom
+        { id: "A6", spot: "0.34 1" },
+  
+        { id: "B1", spot: "0.916 0.48" },    //right
+        { id: "B2", spot: "0.916 0.52" },
+        { id: "B3", spot: "0.66 0" },  //top
+        { id: "B4", spot: "0.68 0" },
+        { id: "B5", spot: "0.66 1" },  //bottom
+        { id: "B6", spot: "0.68 1" },
+  
+        { id: "AB1", spot: "0.5 0.25" },
+        { id: "AB2", spot: "0.5 0.35" },
+        { id: "AB3", spot: "0.5 0.45" },
+        { id: "AB4", spot: "0.5 0.55" },
+        { id: "AB5", spot: "0.5 0.65" },
+        { id: "AB6", spot: "0.5 0.75" },
+        ],
+        selectable: false,
+        movable: false
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(75, 50),
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(160, 50),
+        category: 'elementName',
+        shape: 'Xline',
+      },
+      {
+        type: 'ionCharge',
+        ionCharge: '-',
+        position: new go.Point(245, -10),
+        category: 'ionCharge',
+      }
+    ],
+    hasCentral: false,
+    reference: ['A', 'AB', 'B'],
+    distributionTemplate: {'A': [0, 0, 0], 'AB': [0, 0, 0], 'B': [0, 0, 0]},
   },
 
   'ThreeElements': {
@@ -401,7 +649,6 @@ const compoundShape = {
         ports: [
           { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -413,7 +660,6 @@ const compoundShape = {
         ports: [
           { id: "B", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -425,7 +671,6 @@ const compoundShape = {
         ports: [
           { id: "C", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
     ],
     data: [{
@@ -494,9 +739,123 @@ const compoundShape = {
         shape: 'Diamond',
     }],
     hasCentral: true,
-    template: [0, 0, 0],
-    reference: [['A', ''], ['B', 'AB'], ['C', 'AC']],
-    distributionTemplate: [[0, 0], [0, 0], [0, 0]],
+    forPermutation: ['A', 'B', 'C'],
+    reference: [['A'], ['B', 'AB'], ['C', 'AC']],
+    distributionTemplate: {'A': [0, 0, 0], 'B': [0, 0, 0], 'AB': [0, 0, 0], 'C': [0, 0, 0], 'AC': [0, 0, 0]},
+  },
+
+  'ThreeElementsIon': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+      },
+    ],
+    data: [{
+      height: 120,
+      width: 300,
+      figshape: "ThreeElementsIon",
+      ports: [
+        { id: "B1", spot: "0.05 0.48" },   //left
+        { id: "B2", spot: "0.05 0.52" },
+        { id: "B3", spot: "0.22 0.04" },   //top   
+        { id: "B4", spot: "0.24 0.04" },
+        { id: "B5", spot: "0.22 0.96" },   //bottom
+        { id: "B6", spot: "0.24 0.96" },
+  
+        { id: "A1", spot: "0.49 0.04" },   //top
+        { id: "A2", spot: "0.51 0.04" },
+        { id: "A3", spot: "0.49 0.96" },   //bottom
+        { id: "A4", spot: "0.51 0.96" },
+  
+        { id: "C1", spot: "0.95 0.48" },   //right
+        { id: "C2", spot: "0.95 0.52" },
+        { id: "C3", spot: "0.76 0.04" },   //top
+        { id: "C4", spot: "0.78 0.04" },
+        { id: "C5", spot: "0.76 0.96" },   //bottom
+        { id: "C6", spot: "0.78 0.96" },
+  
+        { id: "AB1", spot: "0.365 0.25" },
+        { id: "AB2", spot: "0.365 0.35" },
+        { id: "AB3", spot: "0.365 0.45" },
+        { id: "AB4", spot: "0.365 0.55" },
+        { id: "AB5", spot: "0.365 0.65" },
+        { id: "AB6", spot: "0.365 0.75" },
+  
+        { id: "AC1", spot: "0.635 0.25" },
+        { id: "AC2", spot: "0.635 0.35" },
+        { id: "AC3", spot: "0.635 0.45" },
+        { id: "AC4", spot: "0.635 0.55" },
+        { id: "AC5", spot: "0.635 0.65" },
+        { id: "AC6", spot: "0.635 0.75" },
+      ],
+      selectable: false,
+      movable: false
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(148, 50),
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(65, 50),
+        category: 'elementName',
+        shape: 'Xline',
+      },
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: new go.Point(227, 50),
+        category: 'elementName',
+        shape: 'Diamond',
+      },
+      {
+        type: 'ionCharge',
+        ionCharge: '-',
+        position: new go.Point(305, -10),
+        category: 'ionCharge',
+      },
+    ],
+    hasCentral: true,
+    forPermutation: ['A', 'B', 'C', 'X'],
+    reference: [['A'], ['B', 'AB'], ['C', 'AC']],
+    distributionTemplate: {'A': [0, 0, 0, 0], 'B': [0, 0, 0, 0], 'AB': [0, 0, 0, 0], 'C': [0, 0, 0, 0], 'AC': [0, 0, 0, 0]},
   },
 
   'FourElements': {
@@ -511,7 +870,6 @@ const compoundShape = {
         ports: [
           { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -523,7 +881,6 @@ const compoundShape = {
         ports: [
           { id: "B", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -535,7 +892,6 @@ const compoundShape = {
         ports: [
           { id: "C", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -547,58 +903,57 @@ const compoundShape = {
         ports: [
           { id: "D", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
     ],
     data: [{
-      height: 210,
+      height: 250,
       width: 300,
       figshape: "FourElements",
       ports: [
         { id: "B1", spot: "0 0.7" },    //left
         { id: "B2", spot: "0 0.72" },   
-        { id: "B3", spot: "0.19 0.425" },    //top
-        { id: "B4", spot: "0.21 0.425" },
-        { id: "B5", spot: "0.19 1" },    //bottom
-        { id: "B6", spot: "0.21 1" },
+        { id: "B3", spot: "0.19 0.475" },    //top
+        { id: "B4", spot: "0.21 0.475" },
+        { id: "B5", spot: "0.19 0.962" },    //bottom
+        { id: "B6", spot: "0.21 0.962" },
   
-        { id: "A1", spot: "0.49 1" },    //bottom
-        { id: "A2", spot: "0.51 1" },
+        { id: "A1", spot: "0.49 0.84" },    //bottom
+        { id: "A2", spot: "0.51 0.84" },
   
         { id: "C1", spot: "1 0.7" },    //right
         { id: "C2", spot: "1 0.72" },
-        { id: "C3", spot: "0.79 0.425" },    //top
-        { id: "C4", spot: "0.81 0.425" },
-        { id: "C5", spot: "0.79 1" },    //bottom
-        { id: "C6", spot: "0.81 1" },
+        { id: "C3", spot: "0.79 0.475" },    //top
+        { id: "C4", spot: "0.81 0.475" },
+        { id: "C5", spot: "0.79 0.96" },    //bottom
+        { id: "C6", spot: "0.81 0.96" },
 
         { id: "D1", spot: "0.49 0" },   //top
         { id: "D2", spot: "0.51 0" },
-        { id: "D3", spot: "0.3 0.28" },    //left
-        { id: "D4", spot: "0.3 0.3" },
-        { id: "D5", spot: "0.7 0.28" },    //right
-        { id: "D6", spot: "0.7 0.3" },
+        { id: "D3", spot: "0.298 0.23" },    //left
+        { id: "D4", spot: "0.298 0.25" },
+        { id: "D5", spot: "0.702 0.23" },    //right
+        { id: "D6", spot: "0.702 0.25" },
   
-        { id: "AB1", spot: "0.35 0.59" },
-        { id: "AB2", spot: "0.35 0.64" },
-        { id: "AB3", spot: "0.35 0.69" },
-        { id: "AB4", spot: "0.35 0.74" },
-        { id: "AB5", spot: "0.35 0.79" },
-        { id: "AB6", spot: "0.35 0.84" },
+        { id: "AB1", spot: "0.323 0.56" },
+        { id: "AB2", spot: "0.333 0.6" },
+        { id: "AB3", spot: "0.345 0.64" },
+        { id: "AB4", spot: "0.357 0.68" },
+        { id: "AB5", spot: "0.368 0.72" },
+        { id: "AB6", spot: "0.378 0.76" },
 
-        { id: "AD1", spot: "0.4 0.5" },
-        { id: "AD2", spot: "0.44 0.5" },
-        { id: "AD3", spot: "0.48 0.5" },
-        { id: "AD4", spot: "0.52 0.5" },
-        { id: "AD5", spot: "0.56 0.5" },
-        { id: "AD6", spot: "0.6 0.5" },
+        { id: "AD1", spot: "0.4 0.42" },
+        { id: "AD2", spot: "0.44 0.42" },
+        { id: "AD3", spot: "0.48 0.42" },
+        { id: "AD4", spot: "0.52 0.42" },
+        { id: "AD5", spot: "0.56 0.42" },
+        { id: "AD6", spot: "0.6 0.42" },
 
-        { id: "AC1", spot: "0.65 0.59" },
-        { id: "AC2", spot: "0.65 0.64" },
-        { id: "AC3", spot: "0.65 0.69" },
-        { id: "AC4", spot: "0.65 0.74" },
-        { id: "AC5", spot: "0.65 0.79" },
-        { id: "AC6", spot: "0.65 0.84" },
+        { id: "AC1", spot: "0.677 0.56" },
+        { id: "AC2", spot: "0.667 0.6" },
+        { id: "AC3", spot: "0.655 0.64" },
+        { id: "AC4", spot: "0.643 0.68" },
+        { id: "AC5", spot: "0.632 0.72" },
+        { id: "AC6", spot: "0.622 0.76" },
       ],
       selectable: false,
       movable: false,
@@ -615,7 +970,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(58, 140),
+        position: new go.Point(58, 170),
         category: 'elementName',
         shape: 'Xline',
       },
@@ -624,7 +979,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(238, 140),
+        position: new go.Point(238, 170),
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -638,9 +993,156 @@ const compoundShape = {
       }
     ],
     hasCentral: true,
-    template: [0, 0, 0, 0],
-    reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
-    distributionTemplate: [[0, 0], [0, 0], [0, 0], [0, 0]],
+    forPermutation: ['A', 'B', 'C', 'D'],
+    reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
+    distributionTemplate: {'A': [0, 0, 0, 0], 'B': [0, 0, 0, 0], 'AB': [0, 0, 0, 0], 'C': [0, 0, 0, 0], 'AC': [0, 0, 0, 0], 'D': [0, 0, 0, 0], 'AD': [0, 0, 0, 0]},
+  },
+
+  'FourElementsIon': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'D',
+        figshape: "Triangle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "D", spot: "0.5 0.5", fill: null },
+        ],
+      },
+    ],
+    data: [{
+      height: 250,
+      width: 340,
+      figshape: "FourElementsIon",
+      ports: [
+        { id: "B1", spot: "0.057 0.74" },    //left
+        { id: "B2", spot: "0.057 0.76" },   
+        { id: "B3", spot: "0.23 0.493" },    //top
+        { id: "B4", spot: "0.25 0.493" },
+        { id: "B5", spot: "0.23 0.993" },    //bottom
+        { id: "B6", spot: "0.25 0.993" },
+  
+        { id: "A1", spot: "0.49 0.87" },    //bottom
+        { id: "A2", spot: "0.51 0.87" },
+  
+        { id: "C1", spot: "0.943 0.74" },    //right
+        { id: "C2", spot: "0.943 0.76" },
+        { id: "C3", spot: "0.75 0.493" },    //top
+        { id: "C4", spot: "0.77 0.493" },
+        { id: "C5", spot: "0.75 0.993" },    //bottom
+        { id: "C6", spot: "0.77 0.993" },
+
+        { id: "D1", spot: "0.49 0" },   //top
+        { id: "D2", spot: "0.51 0" },
+        { id: "D3", spot: "0.316 0.23" },    //left
+        { id: "D4", spot: "0.316 0.25" },
+        { id: "D5", spot: "0.684 0.23" },    //right
+        { id: "D6", spot: "0.684 0.25" },
+  
+        { id: "AB1", spot: "0.34 0.57" },
+        { id: "AB2", spot: "0.352 0.614" },
+        { id: "AB3", spot: "0.364 0.658" },
+        { id: "AB4", spot: "0.376 0.702" },
+        { id: "AB5", spot: "0.388 0.746" },
+        { id: "AB6", spot: "0.4 0.79" },
+
+        { id: "AD1", spot: "0.41 0.43" },
+        { id: "AD2", spot: "0.446 0.43" },
+        { id: "AD3", spot: "0.482 0.43" },
+        { id: "AD4", spot: "0.518 0.43" },
+        { id: "AD5", spot: "0.554 0.43" },
+        { id: "AD6", spot: "0.59 0.43" },
+
+        { id: "AC1", spot: "0.66 0.57" },
+        { id: "AC2", spot: "0.648 0.614" },
+        { id: "AC3", spot: "0.634 0.658" },
+        { id: "AC4", spot: "0.624 0.702" },
+        { id: "AC5", spot: "0.612 0.746" },
+        { id: "AC6", spot: "0.6 0.79" },
+      ],
+      selectable: false,
+      movable: false,
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(165, 145),
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(80, 175),
+        category: 'elementName',
+        shape: 'Xline',
+      },
+
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: new go.Point(255, 175),
+        category: 'elementName',
+        shape: 'Diamond',
+      },
+      {
+        type: 'elementName',
+        element: 'D',
+        elementName: 'D',
+        position: new go.Point(165, 55),
+        category: 'elementName',
+        shape: 'Triangle',
+      },
+      {
+        type: 'ionCharge',
+        ionCharge: '-',
+        position: new go.Point(350, -5),
+        category: 'ionCharge',
+        shape: 'Triangle',
+      }
+    ],
+    hasCentral: true,
+    forPermutation: ['A', 'B', 'C', 'D', 'X'],
+    reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
+    distributionTemplate: {'A': [0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0], 'AC': [0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0], 'AD': [0, 0, 0, 0, 0]},
   },
 
   'FourElementsRow': {
@@ -655,7 +1157,6 @@ const compoundShape = {
         ports: [
           { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -667,7 +1168,6 @@ const compoundShape = {
         ports: [
           { id: "B", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -679,7 +1179,6 @@ const compoundShape = {
         ports: [
           { id: "C", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -691,7 +1190,6 @@ const compoundShape = {
         ports: [
           { id: "D", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
     ],
     data: [{
@@ -781,9 +1279,9 @@ const compoundShape = {
       }
     ],
     hasCentral: false,
-    template: [0, 0, 0, 0],
+    forPermutation: ['A', 'B', 'C', 'D'],
     reference: ['A', 'AB', 'B', 'BC', 'C', 'CD', 'D'],
-    distributionTemplate: [0, 0, 0, 0, 0, 0, 0],
+    distributionTemplate: {'A': [0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0], 'BC': [0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0], 'CD': [0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0]},
   },
 
   'FiveElements': {
@@ -798,7 +1296,6 @@ const compoundShape = {
         ports: [
           { id: "A", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -810,7 +1307,6 @@ const compoundShape = {
         ports: [
           { id: "B", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -822,7 +1318,6 @@ const compoundShape = {
         ports: [
           { id: "C", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -834,7 +1329,6 @@ const compoundShape = {
         ports: [
           { id: "D", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
       {
         type: 'electron',
@@ -846,7 +1340,6 @@ const compoundShape = {
         ports: [
           { id: "E", spot: "0.5 0.5", fill: null },
         ],
-        textvisible: false
       },
     ],
     data: [{
@@ -854,70 +1347,70 @@ const compoundShape = {
       width: 300,
       figshape: "FiveElements",
       ports: [
-        { id: "B1", spot: "0 0.49" },    //left
-        { id: "B2", spot: "0 0.51" },   
-        { id: "B3", spot: "0.14 0.35" },    //top
-        { id: "B4", spot: "0.16 0.35" },
-        { id: "B5", spot: "0.14 0.65" },    //bottom
-        { id: "B6", spot: "0.16 0.65" },
+        { id: "B1", spot: "0.1 0.49" },    //left
+        { id: "B2", spot: "0.1 0.51" },   
+        { id: "B3", spot: "0.24 0.35" },    //top
+        { id: "B4", spot: "0.26 0.35" },
+        { id: "B5", spot: "0.24 0.65" },    //bottom
+        { id: "B6", spot: "0.26 0.65" },
 
-        { id: "A1", spot: "0.31 0.27" },    //top left
-        { id: "A2", spot: "0.29 0.29" },   
-        { id: "A3", spot: "0.69 0.27" },    // top right
-        { id: "A4", spot: "0.71 0.29" },
-        { id: "A5", spot: "0.69 0.73" },    //bottom right
-        { id: "A6", spot: "0.71 0.71" },
-        { id: "A7", spot: "0.31 0.73" },    //bottom left
-        { id: "A8", spot: "0.29 0.71" },
+        { id: "A1", spot: "0.35 0.365" },    //top left
+        { id: "A2", spot: "0.365 0.35" },   
+        { id: "A3", spot: "0.65 0.365" },    // top right
+        { id: "A4", spot: "0.635 0.35" },
+        { id: "A5", spot: "0.65 0.635" },    //bottom right
+        { id: "A6", spot: "0.635 0.65" },
+        { id: "A7", spot: "0.35 0.635" },    //bottom left
+        { id: "A8", spot: "0.365 0.65" },
   
-        { id: "D1", spot: "1 0.49" },    //right
-        { id: "D2", spot: "1 0.51" },   
-        { id: "D3", spot: "0.84 0.35" },    //top
-        { id: "D4", spot: "0.86 0.35" },
-        { id: "D5", spot: "0.84 0.65" },    //bottom
-        { id: "D6", spot: "0.86 0.65" },
+        { id: "D1", spot: "0.9 0.49" },    //right
+        { id: "D2", spot: "0.9 0.51" },   
+        { id: "D3", spot: "0.74 0.35" },    //top
+        { id: "D4", spot: "0.76 0.35" },
+        { id: "D5", spot: "0.74 0.65" },    //bottom
+        { id: "D6", spot: "0.76 0.65" },
         
-        { id: "C1", spot: "0.35 0.14" },    //left
-        { id: "C2", spot: "0.35 0.16" },   
-        { id: "C3", spot: "0.65 0.14" },    //right
-        { id: "C4", spot: "0.65 0.16" },
-        { id: "C5", spot: "0.49 0" },    //top
-        { id: "C6", spot: "0.51 0" },
+        { id: "C1", spot: "0.35 0.24" },    //left
+        { id: "C2", spot: "0.35 0.26" },   
+        { id: "C3", spot: "0.65 0.24" },    //right
+        { id: "C4", spot: "0.65 0.26" },
+        { id: "C5", spot: "0.49 0.1" },    //top
+        { id: "C6", spot: "0.51 0.1" },
 
-        { id: "E1", spot: "0.35 0.84" },    //left
-        { id: "E2", spot: "0.35 0.86" },   
-        { id: "E3", spot: "0.65 0.84" },    //right
-        { id: "E4", spot: "0.65 0.86" },
-        { id: "E5", spot: "0.49 1" },    //top
-        { id: "E6", spot: "0.51 1" },
+        { id: "E1", spot: "0.35 0.74" },    //left
+        { id: "E2", spot: "0.35 0.76" },   
+        { id: "E3", spot: "0.65 0.74" },    //right
+        { id: "E4", spot: "0.65 0.76" },
+        { id: "E5", spot: "0.49 0.9" },    //bottom
+        { id: "E6", spot: "0.51 0.9" },
   
-        { id: "AB1", spot: "0.24 0.4" },
-        { id: "AB2", spot: "0.24 0.44" },
-        { id: "AB3", spot: "0.24 0.48" },
-        { id: "AB4", spot: "0.24 0.52" },
-        { id: "AB5", spot: "0.24 0.56" },
-        { id: "AB6", spot: "0.24 0.6" },
+        { id: "AB1", spot: "0.34 0.4" },
+        { id: "AB2", spot: "0.34 0.44" },
+        { id: "AB3", spot: "0.34 0.48" },
+        { id: "AB4", spot: "0.34 0.52" },
+        { id: "AB5", spot: "0.34 0.56" },
+        { id: "AB6", spot: "0.34 0.6" },
 
-        { id: "AD1", spot: "0.76 0.4" },
-        { id: "AD2", spot: "0.76 0.44" },
-        { id: "AD3", spot: "0.76 0.48" },
-        { id: "AD4", spot: "0.76 0.52" },
-        { id: "AD5", spot: "0.76 0.56" },
-        { id: "AD6", spot: "0.76 0.6" },
+        { id: "AD1", spot: "0.66 0.4" },
+        { id: "AD2", spot: "0.66 0.44" },
+        { id: "AD3", spot: "0.66 0.48" },
+        { id: "AD4", spot: "0.66 0.52" },
+        { id: "AD5", spot: "0.66 0.56" },
+        { id: "AD6", spot: "0.66 0.6" },
 
-        { id: "AC1", spot: "0.4 0.24" },
-        { id: "AC2", spot: "0.44 0.24" },
-        { id: "AC3", spot: "0.48 0.24" },
-        { id: "AC4", spot: "0.52 0.24" },
-        { id: "AC5", spot: "0.56 0.24" },
-        { id: "AC6", spot: "0.6 0.24" },
+        { id: "AC1", spot: "0.4 0.34" },
+        { id: "AC2", spot: "0.44 0.34" },
+        { id: "AC3", spot: "0.48 0.34" },
+        { id: "AC4", spot: "0.52 0.34" },
+        { id: "AC5", spot: "0.56 0.34" },
+        { id: "AC6", spot: "0.6 0.34" },
 
-        { id: "AE1", spot: "0.4 0.76" },
-        { id: "AE2", spot: "0.44 0.76" },
-        { id: "AE3", spot: "0.48 0.76" },
-        { id: "AE4", spot: "0.52 0.76" },
-        { id: "AE5", spot: "0.56 0.76" },
-        { id: "AE6", spot: "0.6 0.76" },
+        { id: "AE1", spot: "0.4 0.66" },
+        { id: "AE2", spot: "0.44 0.66" },
+        { id: "AE3", spot: "0.48 0.66" },
+        { id: "AE4", spot: "0.52 0.66" },
+        { id: "AE5", spot: "0.56 0.66" },
+        { id: "AE6", spot: "0.6 0.66" },
       ],
       selectable: false,
       movable: false,
@@ -934,7 +1427,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(40, 140),
+        position: new go.Point(70, 140),
         category: 'elementName',
         shape: 'Xline',
       },
@@ -942,7 +1435,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(148, 35),
+        position: new go.Point(145, 65),
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -950,7 +1443,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(255, 140),
+        position: new go.Point(225, 140),
         category: 'elementName',
         shape: 'Triangle',
       },
@@ -958,15 +1451,199 @@ const compoundShape = {
         type: 'elementName',
         element: 'E',
         elementName: 'E',
-        position: new go.Point(148, 250),
+        position: new go.Point(145, 220),
         category: 'elementName',
         shape: 'Square',
       }
     ],
     hasCentral: true,
-    template: [0, 0, 0, 0, 0],
-    reference: [['A', ''], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
-    distributionTemplate: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+    forPermutation: ['A', 'B', 'C', 'D', 'E'],
+    reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
+    distributionTemplate: {'A': [0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0], 'AC': [0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0], 'AD': [0, 0, 0, 0, 0], 'E': [0, 0, 0, 0, 0], 'AE': [0, 0, 0, 0, 0]},
+  },
+
+  'FiveElementsIon': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'D',
+        figshape: "Triangle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "D", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'E',
+        figshape: "Square",
+        height: 4,
+        width: 4,
+        fill: "#000",
+        ports: [
+          { id: "E", spot: "0.5 0.5", fill: null },
+        ],
+      },
+    ],
+    data: [{
+      height: 330,
+      width: 330,
+      figshape: "FiveElementsIon",
+      ports: [
+        { id: "B1", spot: "0.1 0.49" },    //left
+        { id: "B2", spot: "0.1 0.51" },   
+        { id: "B3", spot: "0.24 0.35" },    //top
+        { id: "B4", spot: "0.26 0.35" },
+        { id: "B5", spot: "0.24 0.65" },    //bottom
+        { id: "B6", spot: "0.26 0.65" },
+
+        { id: "A1", spot: "0.35 0.365" },    //top left
+        { id: "A2", spot: "0.365 0.35" },   
+        { id: "A3", spot: "0.65 0.365" },    // top right
+        { id: "A4", spot: "0.635 0.35" },
+        { id: "A5", spot: "0.65 0.635" },    //bottom right
+        { id: "A6", spot: "0.635 0.65" },
+        { id: "A7", spot: "0.35 0.635" },    //bottom left
+        { id: "A8", spot: "0.365 0.65" },
+  
+        { id: "D1", spot: "0.9 0.49" },    //right
+        { id: "D2", spot: "0.9 0.51" },   
+        { id: "D3", spot: "0.74 0.35" },    //top
+        { id: "D4", spot: "0.76 0.35" },
+        { id: "D5", spot: "0.74 0.65" },    //bottom
+        { id: "D6", spot: "0.76 0.65" },
+        
+        { id: "C1", spot: "0.35 0.24" },    //left
+        { id: "C2", spot: "0.35 0.26" },   
+        { id: "C3", spot: "0.65 0.24" },    //right
+        { id: "C4", spot: "0.65 0.26" },
+        { id: "C5", spot: "0.49 0.1" },    //top
+        { id: "C6", spot: "0.51 0.1" },
+
+        { id: "E1", spot: "0.35 0.74" },    //left
+        { id: "E2", spot: "0.35 0.76" },   
+        { id: "E3", spot: "0.65 0.74" },    //right
+        { id: "E4", spot: "0.65 0.76" },
+        { id: "E5", spot: "0.49 0.9" },    //bottom
+        { id: "E6", spot: "0.51 0.9" },
+  
+        { id: "AB1", spot: "0.34 0.4" },
+        { id: "AB2", spot: "0.34 0.44" },
+        { id: "AB3", spot: "0.34 0.48" },
+        { id: "AB4", spot: "0.34 0.52" },
+        { id: "AB5", spot: "0.34 0.56" },
+        { id: "AB6", spot: "0.34 0.6" },
+
+        { id: "AD1", spot: "0.66 0.4" },
+        { id: "AD2", spot: "0.66 0.44" },
+        { id: "AD3", spot: "0.66 0.48" },
+        { id: "AD4", spot: "0.66 0.52" },
+        { id: "AD5", spot: "0.66 0.56" },
+        { id: "AD6", spot: "0.66 0.6" },
+
+        { id: "AC1", spot: "0.4 0.34" },
+        { id: "AC2", spot: "0.44 0.34" },
+        { id: "AC3", spot: "0.48 0.34" },
+        { id: "AC4", spot: "0.52 0.34" },
+        { id: "AC5", spot: "0.56 0.34" },
+        { id: "AC6", spot: "0.6 0.34" },
+
+        { id: "AE1", spot: "0.4 0.66" },
+        { id: "AE2", spot: "0.44 0.66" },
+        { id: "AE3", spot: "0.48 0.66" },
+        { id: "AE4", spot: "0.52 0.66" },
+        { id: "AE5", spot: "0.56 0.66" },
+        { id: "AE6", spot: "0.6 0.66" },
+      ],
+      selectable: false,
+      movable: false,
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: new go.Point(160, 155),
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: new go.Point(75, 155),
+        category: 'elementName',
+        shape: 'Xline',
+      },
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: new go.Point(160, 70),
+        category: 'elementName',
+        shape: 'Diamond',
+      },
+      {
+        type: 'elementName',
+        element: 'D',
+        elementName: 'D',
+        position: new go.Point(245, 155),
+        category: 'elementName',
+        shape: 'Triangle',
+      },
+      {
+        type: 'elementName',
+        element: 'E',
+        elementName: 'E',
+        position: new go.Point(160, 240),
+        category: 'elementName',
+        shape: 'Square',
+      },
+      {
+        type: 'ionCharge',
+        ionCharge: '+',
+        position: new go.Point(340, 20),
+        category: 'ionCharge',
+      }
+    ],
+    hasCentral: true,
+    forPermutation: ['A', 'B', 'C', 'D', 'E', 'X'],
+    reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
+    distributionTemplate: {'A': [0, 0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0, 0], 'AC': [0, 0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0, 0], 'AD': [0, 0, 0, 0, 0, 0], 'E': [0, 0, 0, 0, 0, 0], 'AE': [0, 0, 0, 0, 0, 0]},
   }
 }
 
@@ -974,54 +1651,78 @@ const compoundParams = {
   'HCl': {
     styledName: 'HCl',
     shape: 'TwoElements',
+    charge: '',
     hasCentral: false,
     answerArray: ['H', 'Cl'],
     total: 8,
-    individual: [1, 7],
-    distribution: [0, 2, 6]
+    distribution: [
+      [0, 0], 
+      [1, 1], 
+      [0, 6]
+    ],
   },
 
+  'OH-': {
+    styledName: 'OH<sup>-</sup>',
+    shape: 'TwoElementsIon',
+    charge: '-',
+    hasCentral: false,
+    answerArray: ['O', 'H'],
+    total: 8,
+    individual: [6, 1, 1],
+    distribution: [
+      [5, 0, 1], 
+      [1, 1, 0], 
+      [0, 0, 0]
+    ]
+  },
+  
   'CO2': {
     styledName: 'CO<sub>2</sub>',
     shape: 'ThreeElements',
+    charge: '',
     hasCentral: true,
     answerArray: ['C', 'O', 'O'],
     total: 16,
     individual: [4, 6, 6],
-    distribution: [[0, 0], [4, 4], [4, 4]]
+    distribution: [ 
+      [[0,0,0]], 
+      [[0,4,0], [2,2,0]],
+      [[0,0,4], [2,0,2]], 
+    ]
+  },
+
+  'NO2-': {
+    styledName: 'NO<sub>2</sub><sup>-</sup>',
+    "shape":"ThreeElementsIon","charge":"-","hasCentral":true,"answerArray":["N","O","O"],"total":18,"distribution":[[[2,0,0,0]],[[0,5,0,1],[1,1,0,0]],[[0,0,4,0],[2,0,2,0]]]
   },
 
   'NH3': {
     styledName: 'NH<sub>3</sub>',
-    shape: 'FourElements',
-    hasCentral: true,
-    answerArray: ['N', 'H', 'H', 'H'],
-    total: 8,
-    individual: [5, 1, 1, 1],
-    distribution: [[2, 0], [0, 2], [0, 2], [0, 2]]
+    "shape":"FourElements","charge":"","hasCentral":true,"answerArray":["N","H","H","H"],"total":8,"distribution":[[[2,0,0,0]],[[0,0,0,0],[1,1,0,0]],[[0,0,0,0],[1,0,1,0]],[[0,0,0,0],[1,0,0,1]]]
+  },
+
+  'CO32-': {
+    styledName: 'CO<sub>3</sub><sup>2-</sup>',
+    "shape":"FourElementsIon","charge":"2-","hasCentral":true,"answerArray":["C","O","O","O"],"total":24,"distribution":[[[0,0,0,0,0]],[[0,5,0,0,1],[1,1,0,0,0]],[[0,0,5,0,1],[1,0,1,0,0]],[[0,0,0,4,0],[2,0,0,2,0]]]  
   },
 
   'H2O2': {
     styledName: 'H<sub>2</sub>O<sub>2</sub>',
-    shape: 'FourElementsRow',
-    hasCentral: false,
-    answerArray: ['H', 'O', 'O', 'H'],
-    total: 14,
-    individual: [1, 6, 6, 1],
-    distribution: [0, 2, 4, 2, 4, 2, 0]
+    "shape":"FourElementsRow","charge":"","hasCentral":false,"answerArray":["H","O","O","H"],"total":14,"distribution":[[0,0,0,0,0],[1,1,0,0,0],[0,4,0,0,0],[0,1,1,0,0],[0,0,4,0,0],[0,0,1,1,0],[0,0,0,0,0]]
   },
 
   'CH4': {
     styledName: 'CH<sub>4</sub>',
-    shape: 'FiveElements',
-    hasCentral: true,
-    answerArray: ['C', 'H', 'H', 'H', 'H'],
-    total: 8,
-    individual: [4, 1, 1, 1, 1],
-    distribution: [[0, 0], [0, 2], [0, 2], [0, 2], [0, 2]]
+    "shape":"FiveElements","charge":"","hasCentral":true,"answerArray":["C","H","H","H","H"],"total":8,"distribution":[[[0,0,0,0,0]],[[0,0,0,0,0],[1,1,0,0,0]],[[0,0,0,0,0],[1,0,1,0,0]],[[0,0,0,0,0],[1,0,0,1,0]],[[0,0,0,0,0],[1,0,0,0,1]]]
+  },
+
+  'NH4+': {
+    styledName: 'NH<sub>4</sub><sup>+</sup>',
+    "shape":"FiveElementsIon","charge":"+","hasCentral":true,"answerArray":["N","H","H","H","H"],"total":8,"distribution":[[[0,0,0,0,0,0]],[[0,0,0,0,0,0],[1,1,0,0,0,0]],[[0,0,0,0,0,0],[1,0,1,0,0,0]],[[0,0,0,0,0,0],[2,0,0,0,0,0]],[[0,0,0,0,0,0],[1,0,0,0,1,0]]]
   },
 }
-const indexing = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4}
+const indexing = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'X': -1}
 var compound = 'HCl';
 var selected = null;
 
@@ -1032,17 +1733,39 @@ var selected = null;
 // Helper functions
 const setCompound = (x) => {
   compound = x
+  var currCompoundData = compoundParams[compound]
   // Update diagram data
   myDiagram.startTransaction()
   myDiagram.model.nodeDataArray = []
   myDiagram.model.linkDataArray = []
-  myDiagram.model.nodeDataArray = [...compoundShape[compoundParams[compound]['shape']]['data']]
+  myDiagram.model.nodeDataArray = [...compoundShape[currCompoundData['shape']]['data']]
+  for(let node of myDiagram.model.nodeDataArray){
+    if(node.type === 'ionCharge'){
+      myDiagram.model.set(node, 'ionCharge', currCompoundData.charge)
+    }
+  }
   myDiagram.commitTransaction()
 
   // Update palette data
   myPalette.startTransaction()
   myPalette.model.nodeDataArray = []
-  myPalette.model.nodeDataArray = [...compoundShape[compoundParams[compound]['shape']]['palette']]
+  var electronPalette = [...compoundShape[compoundParams[compound]['shape']]['palette']]
+  if(currCompoundData.charge.indexOf('-') != -1){
+    var foreignE = {
+      type: 'electron',
+      element: 'X',
+      figshape: "Circle",
+      height: 5,
+      width: 5,
+      fill: "#fff",
+      ports: [
+        { id: "X", spot: "0.5 0.5", fill: null },
+      ],
+    }
+
+    electronPalette.push(foreignE)
+  }
+  myPalette.model.nodeDataArray = electronPalette
   myPalette.commitTransaction()
 
   // Update covers
@@ -1052,10 +1775,18 @@ const setCompound = (x) => {
   }
 
   // Update legend
-  const electrons = ['A', 'B', 'C', 'D', 'E']
-  const curr_num = myPalette.model.nodeDataArray.length
-  for(let i = 0; i < electrons.length; i++){
-    document.getElementById(electrons[i]).style.display = i < curr_num ? 'block' : 'none'
+  const currElectrons = []
+  for(let e of myPalette.model.nodeDataArray){
+    currElectrons.push(e.element)
+  }
+
+  const electrons = document.getElementsByClassName('legendText')
+  for(let i of electrons){
+    if(currElectrons.indexOf(i.id) != -1){
+      document.getElementById(i.id).style.display = 'block'
+    } else if (i.id != '') {
+      document.getElementById(i.id).style.display = 'none'
+    }
   }
 
   // Update result string
@@ -1105,12 +1836,15 @@ const checkElementNames = (elementName, ans) => {
 
   if(ans.hasCentral === false){
     if(JSON.stringify(elementName) === JSON.stringify(ans.answerArray)){
+      // no central and NOT reversed
       return 1
     } else if (JSON.stringify(elementName) === JSON.stringify([...ans.answerArray].reverse())) {
+      // no central and REVERSED
       return 2
     }
   } else {
     if(JSON.stringify(elementName) === JSON.stringify(ans.answerArray)){
+      // HAS CENTRAL
       return 1
     }
   }
@@ -1118,97 +1852,186 @@ const checkElementNames = (elementName, ans) => {
   return false
 }
 
-const checkElectronNumbers = (nodeData, ans, reversed) => {
-  var template = [...compoundShape[ans.shape].template]
-  var ansArray = reversed === false ? JSON.stringify(ans.individual) : JSON.stringify([...ans.individual].reverse())
-  var total = 0;
+// Basic permutation function
+const permutator = (inputArr) => {
+  let result = [];
 
-  for(let node of nodeData){
-    if(node.type === 'electron'){
-      template[indexing[node.element]]++
-      total++
+  const permute = (arr, m = []) => {
+    if (arr.length === 0) {
+      result.push(m)
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        let curr = arr.slice();
+        let next = curr.splice(i, 1);
+        permute(curr.slice(), m.concat(next))
+     }
+   }
+ }
+
+ permute(inputArr)
+
+ return result;
+}
+
+// Returns permutations of templates that have their MIDDLE elements shuffled
+const permutateTemplates = (input) => {
+  var firstElement = input[0]
+  if(input.indexOf('X') != -1){
+    var foreignElectron = input[input.length - 1]
+    var middleElements = input.slice(1, input.length - 1)
+  } else {
+    var middleElements = input.slice(1)
+  }
+
+  var permutations = permutator(middleElements)
+  for(let perm of permutations){
+    perm.unshift(firstElement)
+    if(foreignElectron != undefined){
+      perm.push(foreignElectron)
     }
   }
 
-  if(total !== ans.total){
-    return 1
-  } else if (JSON.stringify(template) !== ansArray) {
-    return 2
-  } else {
-    return 0
-  }
+  return permutations
 }
 
 const getElectrons = (linkData, ans) => {
-  var distributionTemplate = compoundShape[ans.shape].distributionTemplate
-  var electronArray = JSON.parse(JSON.stringify(distributionTemplate))
-  const reference = compoundShape[ans.shape].reference
-  var element;
-  var secondElement;
+  var distributionTemplate = JSON.parse(JSON.stringify(compoundShape[ans.shape].distributionTemplate))    // object with keys of possible areas
+  var area;
   var index;
-  for(let i of linkData){
 
-    // Check for validity of placement; whether the electron and element name are compatible
-    if(i['tid'].indexOf(i['fid']) === -1){
-      return 0
+  // If has central, permutate middle ions and create multiple templates (in case of compounds like NO2 with distinct sides)
+  if(ans.hasCentral){
+    var initialTemplate = [...compoundShape[ans.shape].forPermutation]
+    var positionTemplates = permutateTemplates(initialTemplate)
+    var allTemplates = []
+
+    for(let perm of positionTemplates){
+      var total = 0;
+      var distributionTempl = JSON.parse(JSON.stringify(distributionTemplate))
+      for(let i of linkData){
+
+        // Check for validity of placement; whether the electron and name of area placed in are compatible
+        if(i['tid'].indexOf(i['fid']) === -1 && i['fid'] !== 'X'){
+          return 0
+        }
+    
+        // Gets variables for adding later
+        area = i['tid'].slice(0, -1)
+        index = perm.indexOf(i['fid'])
+    
+        // Increments value at the position given by the variables
+        distributionTempl[area][index]++
+        total++
+      }
+      allTemplates.push(distributionTempl)
     }
 
-    // Adds to template for accounting number of electrons later
-    if(ans.hasCentral === false){
-      if(i['tid'].length === 2){
-        element = i['tid'][0]
-        index = reference.indexOf(element)
-        electronArray[index]++
-      } else {
-        element = i['tid'].substring(0, 2)
-        index = reference.indexOf(element)
-        electronArray[index]++
+    return [allTemplates, total]
+  } else {
+    var total = 0;
+    for(let i of linkData){
+
+      // Check for validity of placement; whether the electron and name of area placed in are compatible
+      if(i['tid'].indexOf(i['fid']) === -1 && i['fid'] !== 'X'){
+        return 0
       }
-    } else {
-      if(i['tid'].length === 2){
-        element = i['tid'][0]
-        index = indexing[element]
-        electronArray[index][0]++
+  
+      // Gets variables for adding later
+      area = i['tid'].slice(0, -1)
+      index = indexing[i['fid']]
+  
+      // Increments value at the position given by the variables, handling edge case of -1 (foreign electron)
+      if(index === -1){
+        var currArr = distributionTemplate[area]
+        distributionTemplate[area][currArr.length - 1]++
       } else {
-        secondElement = i['tid'].substring(1, 2)
-        element = i['tid'].substring(0, 2)
-        index = indexing[secondElement]
-        electronArray[index][1]++
+        distributionTemplate[area][index]++
       }
+      total++
     }
+  
+    return [distributionTemplate, total]
   }
 
-  return electronArray
+
 }
 
 const checkElectronDistribution = (electrons, ans, reversed) => {
 
   if(ans.hasCentral){
-    var inputCentral = [...electrons[0]]
-    var ansCentral = [...ans.distribution[0]]
-    var inputPeripheral = electrons.slice(1)
-    var ansPeripheral = ans.distribution.slice(1)
+    var ansFound = false
+    var reference = [...compoundShape[ans.shape].reference]
 
-    // Check central
-    if(JSON.stringify(ansCentral) !== JSON.stringify(inputCentral)){
-      return false
-    }
+    // Using each template, create an input and mark against answer
+    for(let template of electrons){
+      if(ansFound === true){
+        break
+      }
 
-    for(let i of inputPeripheral){
-      for(let a of ansPeripheral){
-        if(JSON.stringify(i) === JSON.stringify(a)){
-          var index = ansPeripheral.indexOf(a)
-          ansPeripheral.splice(index, 1)
-          break
+      var input = []
+
+      // Gathering input
+      for(let area of reference){
+        var sub = []
+        for(let subArea of area){
+          sub.push(template[subArea])
+        }
+        input.push(sub)
+      }
+
+      // Marking process
+      // Checking central element
+      if(JSON.stringify(input[0]) !== JSON.stringify(ans.distribution[0])){
+        return false
+      }
+
+      // Canceling matching things out
+      var remainingInput = input.slice(1)
+      var remainingAns = ans.distribution.slice(1)
+      for(let i of [...remainingInput]){
+        for(let j of [...remainingAns]){
+          if(JSON.stringify(i) === JSON.stringify(j)){
+            remainingInput.splice(remainingInput.indexOf(i), 1)
+            remainingAns.splice(remainingAns.indexOf(j), 1)
+            break
+          }
         }
       }
-    }
-    return ansPeripheral.length === 0 ? true : false
-  } else {
-    var input = JSON.stringify([...electrons])
-    var ans = reversed === false ? JSON.stringify([...ans.distribution]) : JSON.stringify([...ans.distribution].reverse())
 
-    return input == ans ? true : false
+      // If nothing left, ans correct
+      if(remainingInput.length == 0 && remainingAns.length == 0){
+        ansFound = true
+      }
+
+    }
+
+    return ansFound
+  } else {
+    var input = []
+    var reference = reversed === false ? [...compoundShape[ans.shape].reference] : [...compoundShape[ans.shape].reference].reverse()
+    for(let area of reference){
+
+      // if reversed AND has NEGATIVE charge — foreign electron present — then pop and reverse, then push back
+      if(reversed){
+        if(ans.charge.indexOf('-') != -1){
+          var foreignE = electrons[area].pop()
+          var toBeAdded = electrons[area].reverse()
+          toBeAdded.push(foreignE)
+          input.push(toBeAdded)
+        } 
+        // else just reverse if no negative charge
+        else {
+          input.push(electrons[area].reverse())
+        }
+      } 
+      // else just add if NOT reversed
+      else {
+        input.push(electrons[area])
+      }
+    }
+
+    var result = JSON.stringify([...ans.distribution]) === JSON.stringify(input)
+    return result
   }
 }
 
@@ -1224,29 +2047,27 @@ const check = () => {
     return
   }
   var reversed = validNames === 2 ? true : false
-
-  var checkNumbers = checkElectronNumbers(nodeData, ans, reversed)
-  if(checkNumbers === 1){
-    updateResult('Total number of electrons wrong.')
+  
+  var processedData = getElectrons(linkData, ans)
+  if(processedData === 0){
+    updateResult('Invalid electron placement.')
     return
-  } else if (checkNumbers === 2) {
-    updateResult('You may have used the wrong electrons for some elements. Make sure to follow the electron legend.')
-    return
+  } else {
+    var [electrons, total] = processedData
   }
 
-  var electrons = getElectrons(linkData, ans)
-  if(electrons === 0){
-    updateResult('Total number of electrons right but invalid electron placement.')
+  if(total !== ans.total){
+    updateResult('Incorrect total number of electrons placed.')
     return
   }
 
   if(checkElectronDistribution(electrons, ans, reversed)){
     updateResult('Your answer is correct.')
     return
-  } else {
-    updateResult('Your electron placement is wrong.')
-    return
   }
+
+  updateResult('Incorrect electron placement or incorrect electrons used.')
+  return
 }
 
 const updateResult = (result) => {
