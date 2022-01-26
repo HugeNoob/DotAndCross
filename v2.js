@@ -1794,7 +1794,7 @@ const setCompound = (x) => {
 }
 
 const deleteSelected = () => {
-  selected = myDiagram.selection.first() !== null ? myDiagram.selection.first().tb : null
+  selected = myDiagram.selection.first() !== null ? myDiagram.selection.first().data : null
   if(selected === null || selected.type !== 'electron'){return}
   var node = myDiagram.findNodeForKey(selected.key);
   if (node !== null) {
@@ -1807,7 +1807,7 @@ const deleteSelected = () => {
 const logSelected = () => {
   // console.log(selected)
   console.log(myDiagram.selection.first())
-  console.log(myDiagram.selection.first().tb.__gohashid)
+  console.log(myDiagram.selection.first().data.__gohashid)
   // console.log(myDiagram.model.nodeDataArray)
 }
 
