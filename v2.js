@@ -174,6 +174,12 @@ const init = () => {
   )
   myDiagram.nodeTemplateMap.add("ionCharge", ionCharge)
 
+
+
+
+
+  // --------------------------------------- SHAPE DEFINITIONS ----------------------------------------------------------
+
   // Defining structure for 2 element compound eg. HCl
   go.Shape.defineFigureGenerator("TwoElements", function(shape, w, h) {
     var param1 = shape ? shape.parameter1 : NaN;
@@ -2102,6 +2108,12 @@ SnappingTool.prototype.compatiblePorts = function(p1, p2) {
   var id2 = p2.portId;
   if (id2 === null || id2 === "") return false;
   if (part2.findLinksConnected(id2).filter(function(l) { return l.category === ""; }).count > 0) return false;
+
+  // Reject connections between electrons
+  if('type' in p1.part.data && 'type' in p2.part.data) { 
+    if (p1.part.data.type === 'electron' && p2.part.data.type === 'electron') { return false }
+  }
+
   return true
 };
 
