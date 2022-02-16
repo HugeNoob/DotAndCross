@@ -1762,11 +1762,21 @@ const logData = () => {
     console.log(myDiagram.model.nodeDataArray)
     console.log(myDiagram.model.linkDataArray)
 }
+
+// Converts current model data into JSON
+const getModel = () => {
+  console.log(JSON.stringify(myDiagram.model.toJson()))
+}
+
+// Uses JSON info to replicate in diagram, including both nodes and links
+const replicate = () => {
+  var x =  "{ \"class\": \"GraphLinksModel\",\n  \"copiesArrays\": true,\n  \"copiesArrayObjects\": true,\n  \"linkFromPortIdProperty\": \"fid\",\n  \"linkToPortIdProperty\": \"tid\",\n  \"nodeDataArray\": [\n{\"height\":120,\"width\":200,\"figshape\":\"TwoElements\",\"ports\":[{\"id\":\"A1\",\"spot\":\"0 0.48\"},{\"id\":\"A2\",\"spot\":\"0 0.52\"},{\"id\":\"A3\",\"spot\":\"0.27 0.02\"},{\"id\":\"A4\",\"spot\":\"0.3 0.02\"},{\"id\":\"A5\",\"spot\":\"0.27 0.98\"},{\"id\":\"A6\",\"spot\":\"0.3 0.98\"},{\"id\":\"B1\",\"spot\":\"1 0.48\"},{\"id\":\"B2\",\"spot\":\"1 0.52\"},{\"id\":\"B3\",\"spot\":\"0.7 0.02\"},{\"id\":\"B4\",\"spot\":\"0.73 0.02\"},{\"id\":\"B5\",\"spot\":\"0.7 0.98\"},{\"id\":\"B6\",\"spot\":\"0.73 0.98\"},{\"id\":\"AB1\",\"spot\":\"0.5 0.25\"},{\"id\":\"AB2\",\"spot\":\"0.5 0.35\"},{\"id\":\"AB3\",\"spot\":\"0.5 0.45\"},{\"id\":\"AB4\",\"spot\":\"0.5 0.55\"},{\"id\":\"AB5\",\"spot\":\"0.5 0.65\"},{\"id\":\"AB6\",\"spot\":\"0.5 0.75\"}],\"selectable\":false,\"movable\":false,\"key\":-1,\"loc\":\"102 60.5\"},\n{\"type\":\"elementName\",\"element\":\"A\",\"elementName\":\"SI\",\"position\":{\"class\":\"go.Point\",\"x\":55,\"y\":50},\"category\":\"elementName\",\"shape\":\"Circle\",\"key\":-2},\n{\"type\":\"elementName\",\"element\":\"B\",\"elementName\":\"UU\",\"position\":{\"class\":\"go.Point\",\"x\":142,\"y\":50},\"category\":\"elementName\",\"shape\":\"Xline\",\"key\":-3},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-4,\"loc\":\"55.77 2.42\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-5,\"loc\":\"102 42.349999999999994\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-6,\"loc\":\"102 54.45\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-7,\"loc\":\"142.2 2.42\"}\n],\n  \"linkDataArray\": [\n{\"from\":-4,\"to\":-1,\"fid\":\"A\",\"tid\":\"A3\"},\n{\"from\":-5,\"to\":-1,\"fid\":\"A\",\"tid\":\"AB2\"},\n{\"from\":-6,\"to\":-1,\"fid\":\"B\",\"tid\":\"AB3\"},\n{\"from\":-7,\"to\":-1,\"fid\":\"A\",\"tid\":\"B3\"}\n]}"
+  myDiagram.model = go.Model.fromJson(x)
+}
   
   
-  
-  
-  
+
+
 // Marking functions
 const getElementNames = (nodeData) => {
     var elementNames = []
@@ -1780,7 +1790,6 @@ const getElementNames = (nodeData) => {
 }
 
 
-  
   
   
   
