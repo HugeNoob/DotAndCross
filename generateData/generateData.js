@@ -144,7 +144,7 @@ const init = () => {
     var elementName = 
       $(go.Node, 'Vertical',
         {movable: false, deletable: false},
-        new go.Binding('position', 'position'),
+        new go.Binding('position', 'position', go.Point.parse).makeTwoWay(go.Point.stringify),
         $(go.Shape,
           {width: 3, height: 3, margin: new go.Margin(0, 0, 3, 0)},
           new go.Binding('figure', 'shape')
@@ -164,7 +164,7 @@ const init = () => {
     var ionCharge = 
     $(go.Node, 'Vertical',
       {movable: false, deletable: false},
-      new go.Binding('position', 'position'),
+      new go.Binding('position', 'position', go.Point.parse).makeTwoWay(go.Point.stringify),
       $(go.TextBlock,
         {
           editable: true,
@@ -538,7 +538,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(55, 50),
+        position: "55 50",
         category: 'elementName',
         shape: 'Circle',
       },
@@ -546,7 +546,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(142, 50),
+        position: "142 50",
         category: 'elementName',
         shape: 'Xline',
       },
@@ -626,7 +626,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(75, 50),
+        position: "75 50",
         category: 'elementName',
         shape: 'Circle',
       },
@@ -634,14 +634,14 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(160, 50),
+        position: "160 50",
         category: 'elementName',
         shape: 'Xline',
       },
       {
         type: 'ionCharge',
         ionCharge: '-',
-        position: new go.Point(245, -10),
+        position: "245 -10",
         category: 'ionCharge',
       }
     ],
@@ -732,7 +732,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(148, 50),
+        position: "148 50",
         category: 'elementName',
         shape: 'Circle',
       },
@@ -740,7 +740,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(57, 50),
+        position: "57 50",
         category: 'elementName',
         shape: 'Xline',
       },
@@ -748,7 +748,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(238, 50),
+        position: "238 50",
         category: 'elementName',
         shape: 'Diamond',
     }],
@@ -850,7 +850,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(148, 50),
+        position: "148 50",
         category: 'elementName',
         shape: 'Circle',
       },
@@ -858,7 +858,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(65, 50),
+        position: "65 50",
         category: 'elementName',
         shape: 'Xline',
       },
@@ -866,14 +866,14 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(227, 50),
+        position: "227 50",
         category: 'elementName',
         shape: 'Diamond',
       },
       {
         type: 'ionCharge',
         ionCharge: '-',
-        position: new go.Point(305, -10),
+        position: "305 -10",
         category: 'ionCharge',
       },
     ],
@@ -987,7 +987,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(148, 140),
+        position: "148 140",
         category: 'elementName',
         shape: 'Circle',
       },
@@ -995,7 +995,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(58, 170),
+        position: "58 170",
         category: 'elementName',
         shape: 'Xline',
       },
@@ -1004,7 +1004,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(238, 170),
+        position: "238 170",
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -1012,7 +1012,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(148, 50),
+        position: "148 50",
         category: 'elementName',
         shape: 'Triangle',
       }
@@ -1138,7 +1138,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(165, 145),
+        position: "165 145",
         category: 'elementName',
         shape: 'Circle',
       },
@@ -1146,7 +1146,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(80, 175),
+        position: "80 175",
         category: 'elementName',
         shape: 'Xline',
       },
@@ -1155,7 +1155,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(255, 175),
+        position: "255 175",
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -1163,14 +1163,14 @@ const compoundShape = {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(165, 55),
+        position: "165 55",
         category: 'elementName',
         shape: 'Triangle',
       },
       {
         type: 'ionCharge',
         ionCharge: '-',
-        position: new go.Point(350, -5),
+        position: "350 -5",
         category: 'ionCharge',
         shape: 'Triangle',
       }
@@ -1285,7 +1285,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(55, 50),
+        position: "55 50",
         category: 'elementName',
         shape: 'Circle',
       },
@@ -1293,7 +1293,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(141, 50),
+        position: "141 50",
         category: 'elementName',
         shape: 'Xline',
       },
@@ -1301,7 +1301,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(226, 50),
+        position: "226 50",
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -1309,7 +1309,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(312, 50),
+        position: '312 50',
         category: 'elementName',
         shape: 'Triangle',
       }
@@ -1455,7 +1455,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(148, 140),
+        position: '148 140',
         category: 'elementName',
         shape: 'Circle',
       },
@@ -1463,7 +1463,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(70, 140),
+        position: '70 140',
         category: 'elementName',
         shape: 'Xline',
       },
@@ -1471,7 +1471,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(145, 65),
+        position: '145 65',
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -1479,7 +1479,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(225, 140),
+        position: '225 140',
         category: 'elementName',
         shape: 'Triangle',
       },
@@ -1487,7 +1487,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'E',
         elementName: 'E',
-        position: new go.Point(145, 220),
+        position: '145 220',
         category: 'elementName',
         shape: 'Square',
       }
@@ -1644,7 +1644,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'A',
         elementName: 'A',
-        position: new go.Point(160, 155),
+        position: '160 155',
         category: 'elementName',
         shape: 'Circle',
       },
@@ -1652,7 +1652,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'B',
         elementName: 'B',
-        position: new go.Point(75, 155),
+        position: '75 155',
         category: 'elementName',
         shape: 'Xline',
       },
@@ -1660,7 +1660,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'C',
         elementName: 'C',
-        position: new go.Point(160, 70),
+        position: '160 70',
         category: 'elementName',
         shape: 'Diamond',
       },
@@ -1668,7 +1668,7 @@ const compoundShape = {
         type: 'elementName',
         element: 'D',
         elementName: 'D',
-        position: new go.Point(245, 155),
+        position: '245 155',
         category: 'elementName',
         shape: 'Triangle',
       },
@@ -1676,14 +1676,14 @@ const compoundShape = {
         type: 'elementName',
         element: 'E',
         elementName: 'E',
-        position: new go.Point(160, 240),
+        position: '160 240',
         category: 'elementName',
         shape: 'Square',
       },
       {
         type: 'ionCharge',
         ionCharge: '+',
-        position: new go.Point(340, 20),
+        position: '340 20',
         category: 'ionCharge',
       }
     ],
@@ -1766,22 +1766,15 @@ const logData = () => {
 // Converts current model data into JSON
 const getModel = () => {
   var snapshot = myDiagram.model.toJson()
-  console.log(snapshot)
+  // console.log(snapshot)
   return snapshot
 }
 
 // Uses JSON info to replicate in diagram, including both nodes and links
 const replicate = () => {
-  var siu =  "{ \"class\": \"GraphLinksModel\",\n  \"copiesArrays\": true,\n  \"copiesArrayObjects\": true,\n  \"linkFromPortIdProperty\": \"fid\",\n  \"linkToPortIdProperty\": \"tid\",\n  \"nodeDataArray\": [\n{\"height\":120,\"width\":200,\"figshape\":\"TwoElements\",\"ports\":[{\"id\":\"A1\",\"spot\":\"0 0.48\"},{\"id\":\"A2\",\"spot\":\"0 0.52\"},{\"id\":\"A3\",\"spot\":\"0.27 0.02\"},{\"id\":\"A4\",\"spot\":\"0.3 0.02\"},{\"id\":\"A5\",\"spot\":\"0.27 0.98\"},{\"id\":\"A6\",\"spot\":\"0.3 0.98\"},{\"id\":\"B1\",\"spot\":\"1 0.48\"},{\"id\":\"B2\",\"spot\":\"1 0.52\"},{\"id\":\"B3\",\"spot\":\"0.7 0.02\"},{\"id\":\"B4\",\"spot\":\"0.73 0.02\"},{\"id\":\"B5\",\"spot\":\"0.7 0.98\"},{\"id\":\"B6\",\"spot\":\"0.73 0.98\"},{\"id\":\"AB1\",\"spot\":\"0.5 0.25\"},{\"id\":\"AB2\",\"spot\":\"0.5 0.35\"},{\"id\":\"AB3\",\"spot\":\"0.5 0.45\"},{\"id\":\"AB4\",\"spot\":\"0.5 0.55\"},{\"id\":\"AB5\",\"spot\":\"0.5 0.65\"},{\"id\":\"AB6\",\"spot\":\"0.5 0.75\"}],\"selectable\":false,\"movable\":false,\"key\":-1,\"loc\":\"102 60.5\"},\n{\"type\":\"elementName\",\"element\":\"A\",\"elementName\":\"SI\",\"position\":{\"class\":\"go.Point\",\"x\":55,\"y\":50},\"category\":\"elementName\",\"shape\":\"Circle\",\"key\":-2},\n{\"type\":\"elementName\",\"element\":\"B\",\"elementName\":\"UU\",\"position\":{\"class\":\"go.Point\",\"x\":142,\"y\":50},\"category\":\"elementName\",\"shape\":\"Xline\",\"key\":-3},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-4,\"loc\":\"55.77 2.42\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-5,\"loc\":\"102 42.349999999999994\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-6,\"loc\":\"102 54.45\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-7,\"loc\":\"142.2 2.42\"}\n],\n  \"linkDataArray\": [\n{\"from\":-4,\"to\":-1,\"fid\":\"A\",\"tid\":\"A3\"},\n{\"from\":-5,\"to\":-1,\"fid\":\"A\",\"tid\":\"AB2\"},\n{\"from\":-6,\"to\":-1,\"fid\":\"B\",\"tid\":\"AB3\"},\n{\"from\":-7,\"to\":-1,\"fid\":\"A\",\"tid\":\"B3\"}\n]}"
-  
-  var oh =  "{ \"class\": \"GraphLinksModel\",\n \"copiesArrays\": true,\n \"copiesArrayObjects\": true,\n \"linkFromPortIdProperty\": \"fid\",\n \"linkToPortIdProperty\": \"tid\",\n \"nodeDataArray\": [\n{\"height\":120,\"width\":240,\"figshape\":\"TwoElementsIon\",\"ports\":[{\"id\":\"A1\",\"spot\":\"0.084 0.48\"},{\"id\":\"A2\",\"spot\":\"0.084 0.52\"},{\"id\":\"A3\",\"spot\":\"0.32 0\"},{\"id\":\"A4\",\"spot\":\"0.34 0\"},{\"id\":\"A5\",\"spot\":\"0.32 1\"},{\"id\":\"A6\",\"spot\":\"0.34 1\"},{\"id\":\"B1\",\"spot\":\"0.916 0.48\"},{\"id\":\"B2\",\"spot\":\"0.916 0.52\"},{\"id\":\"B3\",\"spot\":\"0.66 0\"},{\"id\":\"B4\",\"spot\":\"0.68 0\"},{\"id\":\"B5\",\"spot\":\"0.66 1\"},{\"id\":\"B6\",\"spot\":\"0.68 1\"},{\"id\":\"AB1\",\"spot\":\"0.5 0.25\"},{\"id\":\"AB2\",\"spot\":\"0.5 0.35\"},{\"id\":\"AB3\",\"spot\":\"0.5 0.45\"},{\"id\":\"AB4\",\"spot\":\"0.5 0.55\"},{\"id\":\"AB5\",\"spot\":\"0.5 0.65\"},{\"id\":\"AB6\",\"spot\":\"0.5 0.75\"}],\"selectable\":false,\"movable\":false,\"key\":-1,\"loc\":\"120.5 62\"},\n{\"type\":\"elementName\",\"element\":\"A\",\"elementName\":\"O\",\"position\":{\"class\":\"go.Point\",\"x\":75,\"y\":50},\"category\":\"elementName\",\"shape\":\"Circle\",\"key\":-2},\n{\"type\":\"elementName\",\"element\":\"B\",\"elementName\":\"H\",\"position\":{\"class\":\"go.Point\",\"x\":160,\"y\":50},\"category\":\"elementName\",\"shape\":\"Xline\",\"key\":-3},\n{\"type\":\"ionCharge\",\"ionCharge\":\"-\",\"position\":{\"class\":\"go.Point\",\"x\":245,\"y\":-10},\"category\":\"ionCharge\",\"key\":-4},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-5,\"loc\":\"81.94000000000001 1.5\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-6,\"loc\":\"77.12 1.5\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-7,\"loc\":\"20.244 59.58\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-8,\"loc\":\"81.94000000000001 122.5\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-9,\"loc\":\"120.5 55.95\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-10,\"loc\":\"77.12 122.5\"},\n{\"type\":\"electron\",\"element\":\"X\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#fff\",\"ports\":[{\"id\":\"X\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-11,\"loc\":\"20.244 64.42\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-12,\"loc\":\"120.5 68.05000000000001\"}\n],\n \"linkDataArray\": [\n{\"from\":-5,\"to\":-1,\"fid\":\"A\",\"tid\":\"A4\"},\n{\"from\":-6,\"to\":-1,\"fid\":\"A\",\"tid\":\"A3\"},\n{\"from\":-7,\"to\":-1,\"fid\":\"A\",\"tid\":\"A1\"},\n{\"from\":-9,\"to\":-1,\"fid\":\"A\",\"tid\":\"AB3\"},\n{\"from\":-10,\"to\":-1,\"fid\":\"A\",\"tid\":\"A5\"},\n{\"from\":-8,\"to\":-1,\"fid\":\"A\",\"tid\":\"A6\"},\n{\"from\":-11,\"to\":-1,\"fid\":\"X\",\"tid\":\"A2\"},\n{\"from\":-12,\"to\":-1,\"fid\":\"B\",\"tid\":\"AB4\"}\n]}"
-  
-  var hcl =  "{ \"class\": \"GraphLinksModel\",\n \"copiesArrays\": true,\n \"copiesArrayObjects\": true,\n \"linkFromPortIdProperty\": \"fid\",\n \"linkToPortIdProperty\": \"tid\",\n \"nodeDataArray\": [\n{\"height\":120,\"width\":200,\"figshape\":\"TwoElements\",\"ports\":[{\"id\":\"A1\",\"spot\":\"0 0.48\"},{\"id\":\"A2\",\"spot\":\"0 0.52\"},{\"id\":\"A3\",\"spot\":\"0.27 0.02\"},{\"id\":\"A4\",\"spot\":\"0.3 0.02\"},{\"id\":\"A5\",\"spot\":\"0.27 0.98\"},{\"id\":\"A6\",\"spot\":\"0.3 0.98\"},{\"id\":\"B1\",\"spot\":\"1 0.48\"},{\"id\":\"B2\",\"spot\":\"1 0.52\"},{\"id\":\"B3\",\"spot\":\"0.7 0.02\"},{\"id\":\"B4\",\"spot\":\"0.73 0.02\"},{\"id\":\"B5\",\"spot\":\"0.7 0.98\"},{\"id\":\"B6\",\"spot\":\"0.73 0.98\"},{\"id\":\"AB1\",\"spot\":\"0.5 0.25\"},{\"id\":\"AB2\",\"spot\":\"0.5 0.35\"},{\"id\":\"AB3\",\"spot\":\"0.5 0.45\"},{\"id\":\"AB4\",\"spot\":\"0.5 0.55\"},{\"id\":\"AB5\",\"spot\":\"0.5 0.65\"},{\"id\":\"AB6\",\"spot\":\"0.5 0.75\"}],\"selectable\":false,\"movable\":false,\"key\":-1,\"loc\":\"102 60.5\"},\n{\"type\":\"elementName\",\"element\":\"A\",\"elementName\":\"H\",\"position\":{\"class\":\"go.Point\",\"x\":55,\"y\":50},\"category\":\"elementName\",\"shape\":\"Circle\",\"key\":-2},\n{\"type\":\"elementName\",\"element\":\"B\",\"elementName\":\"Cl\",\"position\":{\"class\":\"go.Point\",\"x\":142,\"y\":50},\"category\":\"elementName\",\"shape\":\"Xline\",\"key\":-3},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-4,\"loc\":\"102 54.45\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-5,\"loc\":\"102 66.55000000000001\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-6,\"loc\":\"142.2 2.42\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-7,\"loc\":\"148.23 2.42\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-8,\"loc\":\"202.5 62.92\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-9,\"loc\":\"202.5 58.08\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-10,\"loc\":\"142.2 118.58\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-11,\"loc\":\"148.23 118.58\"}\n],\n \"linkDataArray\": [\n{\"from\":-4,\"to\":-1,\"fid\":\"A\",\"tid\":\"AB3\"},\n{\"from\":-5,\"to\":-1,\"fid\":\"B\",\"tid\":\"AB4\"},\n{\"from\":-6,\"to\":-1,\"fid\":\"B\",\"tid\":\"B3\"},\n{\"from\":-7,\"to\":-1,\"fid\":\"B\",\"tid\":\"B4\"},\n{\"from\":-8,\"to\":-1,\"fid\":\"B\",\"tid\":\"B2\"},\n{\"from\":-9,\"to\":-1,\"fid\":\"B\",\"tid\":\"B1\"},\n{\"from\":-10,\"to\":-1,\"fid\":\"B\",\"tid\":\"B5\"},\n{\"from\":-11,\"to\":-1,\"fid\":\"B\",\"tid\":\"B6\"}\n]}"
-  
-  var x =  "{ \"class\": \"GraphLinksModel\",\n  \"copiesArrays\": true,\n  \"copiesArrayObjects\": true,\n  \"linkFromPortIdProperty\": \"fid\",\n  \"linkToPortIdProperty\": \"tid\",\n  \"nodeDataArray\": [\n{\"height\":120,\"width\":200,\"figshape\":\"TwoElements\",\"ports\":[{\"id\":\"A1\",\"spot\":\"0 0.48\"},{\"id\":\"A2\",\"spot\":\"0 0.52\"},{\"id\":\"A3\",\"spot\":\"0.27 0.02\"},{\"id\":\"A4\",\"spot\":\"0.3 0.02\"},{\"id\":\"A5\",\"spot\":\"0.27 0.98\"},{\"id\":\"A6\",\"spot\":\"0.3 0.98\"},{\"id\":\"B1\",\"spot\":\"1 0.48\"},{\"id\":\"B2\",\"spot\":\"1 0.52\"},{\"id\":\"B3\",\"spot\":\"0.7 0.02\"},{\"id\":\"B4\",\"spot\":\"0.73 0.02\"},{\"id\":\"B5\",\"spot\":\"0.7 0.98\"},{\"id\":\"B6\",\"spot\":\"0.73 0.98\"},{\"id\":\"AB1\",\"spot\":\"0.5 0.25\"},{\"id\":\"AB2\",\"spot\":\"0.5 0.35\"},{\"id\":\"AB3\",\"spot\":\"0.5 0.45\"},{\"id\":\"AB4\",\"spot\":\"0.5 0.55\"},{\"id\":\"AB5\",\"spot\":\"0.5 0.65\"},{\"id\":\"AB6\",\"spot\":\"0.5 0.75\"}],\"selectable\":false,\"movable\":false,\"key\":-1,\"loc\":\"102 60.5\"},\n{\"type\":\"elementName\",\"element\":\"A\",\"elementName\":\"H\",\"position\":{\"class\":\"go.Point\",\"x\":55,\"y\":50},\"category\":\"elementName\",\"shape\":\"Circle\",\"key\":-2},\n{\"type\":\"elementName\",\"element\":\"B\",\"elementName\":\"Cl\",\"position\":{\"class\":\"go.Point\",\"x\":142,\"y\":50},\"category\":\"elementName\",\"shape\":\"Xline\",\"key\":-3},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-4,\"loc\":\"102 54.45\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-5,\"loc\":\"102 66.55000000000001\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-6,\"loc\":\"142.2 2.42\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-7,\"loc\":\"148.23 2.42\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-8,\"loc\":\"202.5 58.08\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-9,\"loc\":\"202.5 62.92\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-10,\"loc\":\"148.23 118.58\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-11,\"loc\":\"142.2 118.58\"}\n],\n  \"linkDataArray\": [\n{\"from\":-4,\"to\":-1,\"fid\":\"A\",\"tid\":\"AB3\"},\n{\"from\":-5,\"to\":-1,\"fid\":\"B\",\"tid\":\"AB4\"},\n{\"from\":-6,\"to\":-1,\"fid\":\"B\",\"tid\":\"B3\"},\n{\"from\":-7,\"to\":-1,\"fid\":\"B\",\"tid\":\"B4\"},\n{\"from\":-8,\"to\":-1,\"fid\":\"B\",\"tid\":\"B1\"},\n{\"from\":-9,\"to\":-1,\"fid\":\"B\",\"tid\":\"B2\"},\n{\"from\":-10,\"to\":-1,\"fid\":\"B\",\"tid\":\"B6\"},\n{\"from\":-11,\"to\":-1,\"fid\":\"B\",\"tid\":\"B5\"}\n]}"
-
   // console.log(hcl)
-  myDiagram.model = go.Model.fromJson(hcl)
+  
+  // myDiagram.model = go.Model.fromJson(hcl)
 }
   
   
@@ -1808,7 +1801,7 @@ const generateAnswer = () => {
   var nodeData = myDiagram.model.nodeDataArray
   var linkData = myDiagram.model.linkDataArray
   var hasCentral = compoundShape[currShape].hasCentral
-  var reference = [...compoundShape[currShape].reference]
+  var reference = JSON.parse(JSON.stringify(compoundShape[currShape].reference))
 
   // Element names
   var elementNames = getElementNames(nodeData)
@@ -1824,7 +1817,7 @@ const generateAnswer = () => {
   // Parsing for electron total and distribution
   var total = 0;
   var template = JSON.parse(JSON.stringify(compoundShape[currShape].template))
-  var distributionTemplate = JSON.parse(JSON.stringify(compoundShape[currShape].distributionTemplate))
+  var distributionTemplate = JSON.parse(JSON.stringify(compoundShape[currShape]["distributionTemplate"]))
   for(let e of linkData){
     // Gets variables for adding later
     element = e['tid'].slice(0, -1)
