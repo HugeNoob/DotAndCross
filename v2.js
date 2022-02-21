@@ -144,7 +144,7 @@ const init = () => {
   var elementName = 
     $(go.Node, 'Vertical',
       {movable: false, deletable: false},
-      new go.Binding('position', 'position'),
+      new go.Binding('position', 'position', go.Point.parse).makeTwoWay(),
       $(go.Shape,
         {width: 3, height: 3, margin: new go.Margin(0, 0, 3, 0)},
         new go.Binding('figure', 'shape')
@@ -164,7 +164,7 @@ const init = () => {
   var ionCharge = 
   $(go.Node, 'Vertical',
     {movable: false, deletable: false, selectable: false},
-    new go.Binding('position', 'position'),
+    new go.Binding('position', 'position', go.Point.parse).makeTwoWay(),
     $(go.TextBlock,
       {
         isMultiline: false,
