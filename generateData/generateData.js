@@ -462,6 +462,43 @@ const init = () => {
       return geo;
     });
   
+    // Defining structure for 4 element compound eg. N2H4
+    go.Shape.defineFigureGenerator("SixElements", function(shape, w, h) {
+      var param1 = shape ? shape.parameter1 : NaN;
+      if (isNaN(param1) || param1 < 0) param1 = 8;
+
+      var quarter = 20
+      var rad = quarter*2
+      var geo = new go.Geometry();
+
+      // Left trio left
+      var fig = new go.PathFigure(rad*2, rad*1.5);  
+      fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, rad*1.5, rad, rad));
+
+      // Left trio center
+      fig.add(new go.PathSegment(go.PathSegment.Move, rad*4.5, rad*1.5));
+      fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad*3, rad*1.5, rad*1.5, rad*1.5));
+      
+      // left trio bottom
+      fig.add(new go.PathSegment(go.PathSegment.Move, rad*4, rad*3.5));
+      fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad*3, rad*3.5, rad, rad));
+      
+      // Right trio center
+      fig.add(new go.PathSegment(go.PathSegment.Move, rad*7, rad*1.5));
+      fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad*5.5, rad*1.5, rad*1.5, rad*1.5));
+      
+      // Right trio bottom
+      fig.add(new go.PathSegment(go.PathSegment.Move, rad*6.5, rad*3.5));
+      fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad*5.5, rad*3.5, rad, rad));
+
+      // Right trio right
+      fig.add(new go.PathSegment(go.PathSegment.Move, rad*8.5, rad*1.5));
+      fig.add(new go.PathSegment(go.PathSegment.Arc, 0, 360, rad*7.5, rad*1.5, rad, rad));
+
+      geo.add(fig);
+      return geo;
+    });
+
     setShape(currShape)
 }
   
@@ -1647,14 +1684,215 @@ const compoundShape = {
     reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
     forPermutation: ['A', 'B', 'C', 'D', 'E', 'X'],
     distributionTemplate: {'A': [0, 0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0, 0], 'AC': [0, 0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0, 0], 'AD': [0, 0, 0, 0, 0, 0], 'E': [0, 0, 0, 0, 0, 0], 'AE': [0, 0, 0, 0, 0, 0]},
+  },
+
+  'SixElements': {
+    palette: [
+      {
+        type: 'electron',
+        element: 'A',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "A", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'B',
+        figshape: "Xline",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "B", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'C',
+        figshape: "Diamond",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "C", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'D',
+        figshape: "Triangle",
+        height: 5,
+        width: 5,
+        fill: "#000",
+        ports: [
+          { id: "D", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'E',
+        figshape: "Square",
+        height: 4,
+        width: 4,
+        fill: "#000",
+        ports: [
+          { id: "E", spot: "0.5 0.5", fill: null },
+        ],
+      },
+      {
+        type: 'electron',
+        element: 'F',
+        figshape: "TriangleDown",
+        height: 4,
+        width: 4,
+        fill: "#000",
+        ports: [
+          { id: "F", spot: "0.5 0.5", fill: null },
+        ],
+      },
+    ],
+    data: [{
+      height: 180,
+      width: 400,
+      figshape: "SixElements",
+      ports: [
+        { id: "A1", spot: "0 0.32" },    //left
+        { id: "A2", spot: "0 0.35" },   
+        { id: "A3", spot: "0.09 0.11" },    //top
+        { id: "A4", spot: "0.11 0.11" },
+        { id: "A5", spot: "0.09 0.555" },    //bottom
+        { id: "A6", spot: "0.11 0.555" },
+
+        { id: "B1", spot: "0.29 0" },    //top 
+        { id: "B2", spot: "0.31 0" },   
+
+        { id: "C1", spot: "0.4 0.76" },    //left
+        { id: "C2", spot: "0.4 0.8" },   
+        { id: "C3", spot: "0.2 0.76" },    //right
+        { id: "C4", spot: "0.2 0.8" },
+        { id: "C5", spot: "0.29 1" },    //bottom
+        { id: "C6", spot: "0.31 1" },
+  
+        { id: "D1", spot: "0.45 0.76" },    //left
+        { id: "D2", spot: "0.45 0.8" },   
+        { id: "D3", spot: "0.65 0.76" },    //right
+        { id: "D4", spot: "0.65 0.8" },
+        { id: "D5", spot: "0.54 1" },    //bottom
+        { id: "D6", spot: "0.56 1" },
+        
+        { id: "E1", spot: "0.54 0" },    //top
+        { id: "E2", spot: "0.56 0" },   
+
+        { id: "F1", spot: "0.85 0.32" },    //right
+        { id: "F2", spot: "0.85 0.35" },   
+        { id: "F3", spot: "0.74 0.11" },    //top
+        { id: "F4", spot: "0.76 0.11" },
+        { id: "F5", spot: "0.74 0.555" },    //bottom
+        { id: "F6", spot: "0.76 0.555" },
+  
+        { id: "AB1", spot: "0.172 0.21" },
+        { id: "AB2", spot: "0.172 0.26" },
+        { id: "AB3", spot: "0.172 0.31" },
+        { id: "AB4", spot: "0.172 0.36" },
+        { id: "AB5", spot: "0.172 0.41" },
+        { id: "AB6", spot: "0.172 0.46" },
+
+        { id: "BC1", spot: "0.25 0.62" },
+        { id: "BC2", spot: "0.27 0.62" },
+        { id: "BC3", spot: "0.29 0.62" },
+        { id: "BC4", spot: "0.31 0.62" },
+        { id: "BC5", spot: "0.33 0.62" },
+        { id: "BC6", spot: "0.35 0.62" },
+
+        { id: "BE1", spot: "0.425 0.21" },
+        { id: "BE2", spot: "0.425 0.26" },
+        { id: "BE3", spot: "0.425 0.31" },
+        { id: "BE4", spot: "0.425 0.36" },
+        { id: "BE5", spot: "0.425 0.41" },
+        { id: "BE6", spot: "0.425 0.46" },
+
+        { id: "DE1", spot: "0.5 0.62" },
+        { id: "DE2", spot: "0.52 0.62" },
+        { id: "DE3", spot: "0.54 0.62" },
+        { id: "DE4", spot: "0.56 0.62" },
+        { id: "DE5", spot: "0.58 0.62" },
+        { id: "DE6", spot: "0.6 0.62" },
+
+        { id: "EF1", spot: "0.678 0.21" },
+        { id: "EF2", spot: "0.678 0.26" },
+        { id: "EF3", spot: "0.678 0.31" },
+        { id: "EF4", spot: "0.678 0.36" },
+        { id: "EF5", spot: "0.678 0.41" },
+        { id: "EF6", spot: "0.678 0.46" },
+
+
+      ],
+      selectable: false,
+      movable: false,
+      },
+      {
+        type: 'elementName',
+        element: 'A',
+        elementName: 'A',
+        position: '35 50',
+        category: 'elementName',
+        shape: 'Circle',
+      },
+      {
+        type: 'elementName',
+        element: 'B',
+        elementName: 'B',
+        position: '117 50',
+        category: 'elementName',
+        shape: 'Xline',
+      },
+      {
+        type: 'elementName',
+        element: 'C',
+        elementName: 'C',
+        position: '117 130',
+        category: 'elementName',
+        shape: 'Diamond',
+      },
+      {
+        type: 'elementName',
+        element: 'D',
+        elementName: 'D',
+        position: '217 130',
+        category: 'elementName',
+        shape: 'Triangle',
+      },
+      {
+        type: 'elementName',
+        element: 'E',
+        elementName: 'E',
+        position: '217 50',
+        category: 'elementName',
+        shape: 'Square',
+      },
+      {
+        type: 'elementName',
+        element: 'F',
+        elementName: 'F',
+        position: '297 50',
+        category: 'elementName',
+        shape: 'TriangleDown',
+      }
+    ],
+    hasCentral: false,
+    reference: ['A', 'AB', 'B', 'BC', 'C', 'BE', 'E', 'EF', 'DE', 'D', 'F'],
+    forPermutation: ['A', 'B', 'C', 'D', 'E', 'F'],
+    distributionTemplate: {'A': [0,0,0,0,0,0], 'AB': [0,0,0,0,0,0], 'B': [0,0,0,0,0,0], 'BC': [0,0,0,0,0,0], 'C': [0,0,0,0,0,0], 'BE': [0,0,0,0,0,0], 'E': [0,0,0,0,0,0], 'EF': [0,0,0,0,0,0], 'DE': [0,0,0,0,0,0], 'D': [0,0,0,0,0,0], 'F': [0,0,0,0,0,0]},
   }
 }
 
-const indexing = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'X': -1}
+const indexing = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F': 5, 'X': -1}
 var currShape = 'TwoElements';
 var selected = null;
-  
-  
   
   
   
