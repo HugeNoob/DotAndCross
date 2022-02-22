@@ -553,7 +553,7 @@ const compoundShape = {
     ],
     hasCentral: false,
     reference: ['A', 'AB', 'B'],
-    template: [0, 0],
+    forPermutation: ['A', 'B'],
     distributionTemplate: {'A': [0, 0], 'AB': [0, 0], 'B': [0, 0]},
   },
 
@@ -581,17 +581,6 @@ const compoundShape = {
           { id: "B", spot: "0.5 0.5", fill: null },
         ],
       },
-      {
-        type: 'electron',
-        element: 'X',
-        figshape: "Circle",
-        height: 5,
-        width: 5,
-        fill: "#fff",
-        ports: [
-          { id: "X", spot: "0.5 0.5", fill: null },
-        ],
-      }
     ],
     data :[{
       height: 120,
@@ -647,7 +636,7 @@ const compoundShape = {
     ],
     hasCentral: false,
     reference: ['A', 'AB', 'B'],
-    template: [0, 0, 0],
+    forPermutation: ['A', 'B', 'X'],
     distributionTemplate: {'A': [0, 0, 0], 'AB': [0, 0, 0], 'B': [0, 0, 0]},
   },
 
@@ -754,7 +743,7 @@ const compoundShape = {
     }],
     hasCentral: true,
     reference: [['A'], ['B', 'AB'], ['C', 'AC']],
-    template: [0, 0, 0],
+    forPermutation: ['A', 'B', 'C'],
     distributionTemplate: {'A': [0, 0, 0], 'B': [0, 0, 0], 'AB': [0, 0, 0], 'C': [0, 0, 0], 'AC': [0, 0, 0]},
   },
 
@@ -793,17 +782,6 @@ const compoundShape = {
           { id: "C", spot: "0.5 0.5", fill: null },
         ],
       },
-      {
-        type: 'electron',
-        element: 'X',
-        figshape: "Circle",
-        height: 5,
-        width: 5,
-        fill: "#fff",
-        ports: [
-          { id: "X", spot: "0.5 0.5", fill: null },
-        ],
-      }
     ],
     data: [{
       height: 120,
@@ -879,7 +857,7 @@ const compoundShape = {
     ],
     hasCentral: true,
     reference: [['A'], ['B', 'AB'], ['C', 'AC']],
-    template: [0, 0, 0, 0],
+    forPermutation: ['A', 'B', 'C', 'X'],
     distributionTemplate: {'A': [0, 0, 0, 0], 'B': [0, 0, 0, 0], 'AB': [0, 0, 0, 0], 'C': [0, 0, 0, 0], 'AC': [0, 0, 0, 0]},
   },
 
@@ -1019,7 +997,7 @@ const compoundShape = {
     ],
     hasCentral: true,
     reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
-    template: [0, 0, 0, 0],
+    forPermutation: ['A', 'B', 'C', 'D'],
     distributionTemplate: {'A': [0, 0, 0, 0], 'B': [0, 0, 0, 0], 'AB': [0, 0, 0, 0], 'C': [0, 0, 0, 0], 'AC': [0, 0, 0, 0], 'D': [0, 0, 0, 0], 'AD': [0, 0, 0, 0]},
   },
 
@@ -1069,17 +1047,6 @@ const compoundShape = {
           { id: "D", spot: "0.5 0.5", fill: null },
         ],
       },
-      {
-        type: 'electron',
-        element: 'X',
-        figshape: "Circle",
-        height: 5,
-        width: 5,
-        fill: "#fff",
-        ports: [
-          { id: "X", spot: "0.5 0.5", fill: null },
-        ],
-      }
     ],
     data: [{
       height: 250,
@@ -1177,7 +1144,7 @@ const compoundShape = {
     ],
     hasCentral: true,
     reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD']],
-    template: [0, 0, 0, 0, 0],
+    forPermutation: ['A', 'B', 'C', 'D', 'X'],
     distributionTemplate: {'A': [0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0], 'AC': [0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0], 'AD': [0, 0, 0, 0, 0]},
   },
 
@@ -1316,7 +1283,7 @@ const compoundShape = {
     ],
     hasCentral: false,
     reference: ['A', 'AB', 'B', 'BC', 'C', 'CD', 'D'],
-    template: [0, 0, 0, 0],
+    forPermutation: ['A', 'B', 'C', 'D'],
     distributionTemplate: {'A': [0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0], 'BC': [0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0], 'CD': [0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0]},
   },
 
@@ -1494,7 +1461,7 @@ const compoundShape = {
     ],
     hasCentral: true,
     reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
-    template: [0, 0, 0, 0, 0],
+    forPermutation: ['A', 'B', 'C', 'D', 'E'],
     distributionTemplate: {'A': [0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0], 'AC': [0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0], 'AD': [0, 0, 0, 0, 0], 'E': [0, 0, 0, 0, 0], 'AE': [0, 0, 0, 0, 0]},
   },
 
@@ -1555,17 +1522,6 @@ const compoundShape = {
           { id: "E", spot: "0.5 0.5", fill: null },
         ],
       },
-      {
-        type: 'electron',
-        element: 'X',
-        figshape: "Circle",
-        height: 5,
-        width: 5,
-        fill: "#fff",
-        ports: [
-          { id: "X", spot: "0.5 0.5", fill: null },
-        ],
-      }
     ],
     data: [{
       height: 330,
@@ -1689,7 +1645,7 @@ const compoundShape = {
     ],
     hasCentral: true,
     reference: [['A'], ['B', 'AB'], ['C', 'AC'], ['D', 'AD'], ['E', 'AE']],
-    template: [0, 0, 0, 0, 0, 0],
+    forPermutation: ['A', 'B', 'C', 'D', 'E', 'X'],
     distributionTemplate: {'A': [0, 0, 0, 0, 0, 0], 'B': [0, 0, 0, 0, 0, 0], 'AB': [0, 0, 0, 0, 0, 0], 'C': [0, 0, 0, 0, 0, 0], 'AC': [0, 0, 0, 0, 0, 0], 'D': [0, 0, 0, 0, 0, 0], 'AD': [0, 0, 0, 0, 0, 0], 'E': [0, 0, 0, 0, 0, 0], 'AE': [0, 0, 0, 0, 0, 0]},
   }
 }
@@ -1715,7 +1671,23 @@ const setShape = (x) => {
     // Update palette data
     myPalette.startTransaction()
     myPalette.model.nodeDataArray = []
-    myPalette.model.nodeDataArray = [...compoundShape[currShape]['palette']]
+    var electronPalette = [...compoundShape[currShape]['palette']]
+    if(currShape.indexOf('Ion') != -1){
+      var foreignE = {
+        type: 'electron',
+        element: 'X',
+        figshape: "Circle",
+        height: 5,
+        width: 5,
+        fill: "#fff",
+        ports: [
+          { id: "X", spot: "0.5 0.5", fill: null },
+        ],
+      }
+
+      electronPalette.push(foreignE)
+    }
+    myPalette.model.nodeDataArray = electronPalette
     myPalette.commitTransaction()
   
     // Update covers
@@ -1773,8 +1745,8 @@ const getModel = () => {
 // Uses JSON info to replicate in diagram, including both nodes and links
 const replicate = () => {
   // console.log(hcl)
-  
-  // myDiagram.model = go.Model.fromJson(hcl)
+  var x = "{ \"class\": \"GraphLinksModel\",\n \"copiesArrays\": true,\n \"copiesArrayObjects\": true,\n \"linkFromPortIdProperty\": \"fid\",\n \"linkToPortIdProperty\": \"tid\",\n \"nodeDataArray\": [\n{\"height\":120,\"width\":300,\"figshape\":\"ThreeElementsIon\",\"ports\":[{\"id\":\"B1\",\"spot\":\"0.05 0.48\"},{\"id\":\"B2\",\"spot\":\"0.05 0.52\"},{\"id\":\"B3\",\"spot\":\"0.22 0.04\"},{\"id\":\"B4\",\"spot\":\"0.24 0.04\"},{\"id\":\"B5\",\"spot\":\"0.22 0.96\"},{\"id\":\"B6\",\"spot\":\"0.24 0.96\"},{\"id\":\"A1\",\"spot\":\"0.49 0.04\"},{\"id\":\"A2\",\"spot\":\"0.51 0.04\"},{\"id\":\"A3\",\"spot\":\"0.49 0.96\"},{\"id\":\"A4\",\"spot\":\"0.51 0.96\"},{\"id\":\"C1\",\"spot\":\"0.95 0.48\"},{\"id\":\"C2\",\"spot\":\"0.95 0.52\"},{\"id\":\"C3\",\"spot\":\"0.76 0.04\"},{\"id\":\"C4\",\"spot\":\"0.78 0.04\"},{\"id\":\"C5\",\"spot\":\"0.76 0.96\"},{\"id\":\"C6\",\"spot\":\"0.78 0.96\"},{\"id\":\"AB1\",\"spot\":\"0.365 0.25\"},{\"id\":\"AB2\",\"spot\":\"0.365 0.35\"},{\"id\":\"AB3\",\"spot\":\"0.365 0.45\"},{\"id\":\"AB4\",\"spot\":\"0.365 0.55\"},{\"id\":\"AB5\",\"spot\":\"0.365 0.65\"},{\"id\":\"AB6\",\"spot\":\"0.365 0.75\"},{\"id\":\"AC1\",\"spot\":\"0.635 0.25\"},{\"id\":\"AC2\",\"spot\":\"0.635 0.35\"},{\"id\":\"AC3\",\"spot\":\"0.635 0.45\"},{\"id\":\"AC4\",\"spot\":\"0.635 0.55\"},{\"id\":\"AC5\",\"spot\":\"0.635 0.65\"},{\"id\":\"AC6\",\"spot\":\"0.635 0.75\"}],\"selectable\":false,\"movable\":false,\"key\":-1,\"loc\":\"150.5 60.5\"},\n{\"type\":\"elementName\",\"element\":\"A\",\"elementName\":\"N\",\"position\":\"148 50\",\"category\":\"elementName\",\"shape\":\"Circle\",\"key\":-2},\n{\"type\":\"elementName\",\"element\":\"B\",\"elementName\":\"O\",\"position\":\"65 50\",\"category\":\"elementName\",\"shape\":\"Xline\",\"key\":-3},\n{\"type\":\"elementName\",\"element\":\"C\",\"elementName\":\"O\",\"position\":\"227 50\",\"category\":\"elementName\",\"shape\":\"Diamond\",\"key\":-4},\n{\"type\":\"ionCharge\",\"ionCharge\":\"-\",\"position\":\"305 -10\",\"category\":\"ionCharge\",\"key\":-5},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-6,\"loc\":\"191.135 54.45\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-7,\"loc\":\"191.135 66.55000000000001\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-8,\"loc\":\"153.51 4.84\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-9,\"loc\":\"147.49 4.84\"},\n{\"type\":\"electron\",\"element\":\"A\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"A\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-10,\"loc\":\"109.865 54.45\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-11,\"loc\":\"109.865 66.55000000000001\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-12,\"loc\":\"72.24 4.84\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-13,\"loc\":\"66.22 4.84\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-14,\"loc\":\"66.22 116.16\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-15,\"loc\":\"72.24 116.16\"},\n{\"type\":\"electron\",\"element\":\"B\",\"figshape\":\"Xline\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"B\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-16,\"loc\":\"15.05 58.08\"},\n{\"type\":\"electron\",\"element\":\"X\",\"figshape\":\"Circle\",\"height\":5,\"width\":5,\"fill\":\"#fff\",\"ports\":[{\"id\":\"X\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-17,\"loc\":\"15.05 62.92\"},\n{\"type\":\"electron\",\"element\":\"C\",\"figshape\":\"Diamond\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"C\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-18,\"loc\":\"228.76 4.84\"},\n{\"type\":\"electron\",\"element\":\"C\",\"figshape\":\"Diamond\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"C\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-19,\"loc\":\"234.78 4.84\"},\n{\"type\":\"electron\",\"element\":\"C\",\"figshape\":\"Diamond\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"C\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-20,\"loc\":\"285.95 58.08\"},\n{\"type\":\"electron\",\"element\":\"C\",\"figshape\":\"Diamond\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"C\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-21,\"loc\":\"285.95 62.92\"},\n{\"type\":\"electron\",\"element\":\"C\",\"figshape\":\"Diamond\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"C\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-22,\"loc\":\"234.78 116.16\"},\n{\"type\":\"electron\",\"element\":\"C\",\"figshape\":\"Diamond\",\"height\":5,\"width\":5,\"fill\":\"#000\",\"ports\":[{\"id\":\"C\",\"spot\":\"0.5 0.5\",\"fill\":null}],\"key\":-23,\"loc\":\"228.76 116.16\"}\n],\n \"linkDataArray\": [\n{\"from\":-6,\"to\":-1,\"fid\":\"A\",\"tid\":\"AC3\"},\n{\"from\":-7,\"to\":-1,\"fid\":\"A\",\"tid\":\"AC4\"},\n{\"from\":-8,\"to\":-1,\"fid\":\"A\",\"tid\":\"A2\"},\n{\"from\":-9,\"to\":-1,\"fid\":\"A\",\"tid\":\"A1\"},\n{\"from\":-10,\"to\":-1,\"fid\":\"A\",\"tid\":\"AB3\"},\n{\"from\":-11,\"to\":-1,\"fid\":\"B\",\"tid\":\"AB4\"},\n{\"from\":-12,\"to\":-1,\"fid\":\"B\",\"tid\":\"B4\"},\n{\"from\":-13,\"to\":-1,\"fid\":\"B\",\"tid\":\"B3\"},\n{\"from\":-14,\"to\":-1,\"fid\":\"B\",\"tid\":\"B5\"},\n{\"from\":-15,\"to\":-1,\"fid\":\"B\",\"tid\":\"B6\"},\n{\"from\":-16,\"to\":-1,\"fid\":\"B\",\"tid\":\"B1\"},\n{\"from\":-17,\"to\":-1,\"fid\":\"X\",\"tid\":\"B2\"},\n{\"from\":-18,\"to\":-1,\"fid\":\"C\",\"tid\":\"C3\"},\n{\"from\":-19,\"to\":-1,\"fid\":\"C\",\"tid\":\"C4\"},\n{\"from\":-20,\"to\":-1,\"fid\":\"C\",\"tid\":\"C1\"},\n{\"from\":-21,\"to\":-1,\"fid\":\"C\",\"tid\":\"C2\"},\n{\"from\":-22,\"to\":-1,\"fid\":\"C\",\"tid\":\"C6\"},\n{\"from\":-23,\"to\":-1,\"fid\":\"C\",\"tid\":\"C5\"}\n]}"
+  myDiagram.model = go.Model.fromJson(x)
 }
   
   
@@ -1816,7 +1788,6 @@ const generateAnswer = () => {
   
   // Parsing for electron total and distribution
   var total = 0;
-  var template = JSON.parse(JSON.stringify(compoundShape[currShape].template))
   var distributionTemplate = JSON.parse(JSON.stringify(compoundShape[currShape]["distributionTemplate"]))
   for(let e of linkData){
     // Gets variables for adding later
