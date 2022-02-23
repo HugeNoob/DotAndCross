@@ -1,10 +1,10 @@
 # DotAndCross
 
 
-Interactive dot and cross diagrams made with the GoJS library. Very basic page design but the focal point is the interactive diagram and the marking algorithms behind it.  
+Interactive dot and cross diagrams made with the GoJS library. Focal point of this project was the data storage methods and marking algorithms involved.  
 
 
-Try it at: https://hugenoob.github.io/DotAndCross/  
+Try it at: https://hugenoob.github.io/DotAndCross/ (Purely a demo page with basic web design)  
 
 
 GoJS: https://gojs.net/latest/index.html
